@@ -26,6 +26,9 @@ function deriveDisplayUrl(state: NavigationState): string {
       return 'www.google.com';
 
     case 'youtube':
+      if (page === 'live') {
+        return 'www.youtube.com/live';
+      }
       if (page === 'video' && videoId) {
         return `www.youtube.com/watch?v=${videoId}`;
       }

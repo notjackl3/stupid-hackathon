@@ -6,6 +6,7 @@ import { GoogleResults } from './components/google/GoogleResults';
 import { YouTubeHome } from './components/youtube/YouTubeHome';
 import { YouTubeResults } from './components/youtube/YouTubeResults';
 import { YouTubeVideo } from './components/youtube/YouTubeVideo';
+import { YouTubeLive } from './components/youtube/YouTubeLive';
 import { TwitterFeed } from './components/twitter/TwitterFeed';
 import { VineHome } from './components/vine/VineHome';
 import { VineExplore } from './components/vine/VineExplore';
@@ -459,6 +460,14 @@ function App() {
         return <GoogleHome onSearch={(q) => handleSearch(q, 'google')} />;
 
       case 'youtube':
+        if (page === 'live') {
+          return (
+            <YouTubeLive
+              onSearch={handleYouTubeSearch}
+              onHome={() => actions.navigate('youtube', 'home')}
+            />
+          );
+        }
         if (page === 'video' && videoId) {
           return (
             <YouTubeVideo
@@ -480,7 +489,11 @@ function App() {
           );
         }
         return (
-          <YouTubeHome onSearch={handleYouTubeSearch} onVideoClick={handleYouTubeVideoClick} />
+          <YouTubeHome
+            onSearch={handleYouTubeSearch}
+            onVideoClick={handleYouTubeVideoClick}
+            onLive={() => actions.navigate('youtube', 'live')}
+          />
         );
 
       case 'twitter':
