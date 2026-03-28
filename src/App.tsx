@@ -458,7 +458,7 @@ function App() {
       )}
 
       {showChatGPTSike && (
-        <ChatGPTSike onDismiss={() => setShowChatGPTSike(false)} />
+        <ChatGPTSike onDismiss={() => { setShowChatGPTSike(false); actions.navigate('google', 'home'); }} />
       )}
 
       {/* Harambe confirmation dialog */}
