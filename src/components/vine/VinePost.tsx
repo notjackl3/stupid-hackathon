@@ -64,24 +64,24 @@ export function VinePost({ vine }: VinePostProps) {
 
   useEffect(() => {
     const node = articleRef.current;
-    if (!node || !playing) {
+    if (!node || !vine.videoId) {
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.65) {
+          setPlaying(true);
+        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
           setPlaying(false);
         }
       },
-      {
-        threshold: [0, 0.45, 0.7],
-      }
+      { threshold: [0, 0.45, 0.65, 0.7] }
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [playing]);
+  }, [vine.videoId]);
 
   return (
     <article ref={articleRef} className="border-b border-[#e7e7e7] bg-white">

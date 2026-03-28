@@ -17,7 +17,7 @@ const SEARCH_FILTERS = ['Top', 'Latest', 'Posts', 'Blogs', 'Tags'];
 
 function DeleteConfirmation({ onHome }: { onHome: () => void }) {
   return (
-    <div className="rounded-[4px] bg-white text-[#36465d] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+    <div className="rounded-[3px] bg-white text-[#444444] shadow-[0_1px_5px_rgba(0,0,0,0.09)]">
       <div className="border-b border-[#e8ebef] px-6 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#7c8593]">
         Delete Blog
       </div>
@@ -67,7 +67,7 @@ function SearchMetaRail({
   );
 
   return (
-    <div className="mb-4 rounded-[4px] bg-white px-5 py-4 text-[#36465d] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+    <div className="mb-5 rounded-[3px] bg-white px-5 py-4 text-[#444444] shadow-[0_1px_5px_rgba(0,0,0,0.09)]">
       <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#7c8593]">
         {mode === 'tagged' ? 'Tag page' : 'Search results'}
       </div>
@@ -195,13 +195,13 @@ export function TumblrSearch({ query, mode, onSearch, onTagClick, onHome }: Tumb
         ) : null}
 
         {loading ? (
-          <div className="rounded-[4px] bg-white px-6 py-10 text-center text-sm text-[#7c8593] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+          <div className="rounded-[3px] bg-white px-6 py-10 text-center text-sm text-[#7c8593] shadow-[0_1px_5px_rgba(0,0,0,0.09)]">
             loading the discourse...
           </div>
         ) : isDeleteEgg ? (
           <DeleteConfirmation onHome={onHome} />
         ) : results.length === 0 ? (
-          <div className="rounded-[4px] bg-white px-6 py-10 text-center shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+          <div className="rounded-[3px] bg-white px-6 py-10 text-center shadow-[0_1px_5px_rgba(0,0,0,0.09)]">
             <div className="text-lg font-bold text-[#243140]">No posts found.</div>
             <p className="mt-2 text-sm text-[#7c8593]">
               2016 Tumblr has absolutely no idea what this tag means yet.
