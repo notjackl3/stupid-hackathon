@@ -81,9 +81,9 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
         </button>
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center px-4 pb-[140px]">
+      <div className="flex flex-1 flex-col items-center justify-center px-4 pb-[120px]">
         <div
-          className="mb-11 select-none text-[92px] font-normal leading-none tracking-[-4px]"
+          className="mb-7 select-none text-[92px] font-normal leading-none tracking-[-4px]"
           style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}
         >
           <span className="text-[#4285F4]">G</span>
@@ -94,8 +94,8 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
           <span className="text-[#EA4335]">e</span>
         </div>
 
-        <div className="relative mb-6 w-full max-w-[526px]">
-          <div className={`flex items-center border border-[#d2d2d2] px-3 py-2 bg-white shadow-sm hover:shadow transition-shadow ${showSuggestions && suggestions.length > 0 ? 'rounded-t border-b-0' : 'rounded'}`}>
+        <div className="relative w-full max-w-[584px]">
+          <div className={`flex h-[44px] items-center border border-[#d9d9d9] bg-white px-4 shadow-[0_1px_1px_rgba(0,0,0,0.1)] hover:shadow-[0_1px_6px_rgba(32,33,36,0.28)] transition-shadow ${showSuggestions && suggestions.length > 0 ? 'rounded-t-[2px] border-b-0' : 'rounded-[2px]'}`}>
             <input
               ref={inputRef}
               type="text"
@@ -108,28 +108,26 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
               onFocus={() => setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               onKeyDown={handleKeyDown}
-              className="flex-1 outline-none text-base text-gray-700 px-1"
+              className="flex-1 text-[16px] leading-[34px] text-[#222] outline-none"
               autoFocus
             />
-            {/* Mic icon */}
-            <svg className="w-5 h-5 text-[#4285F4] ml-2 cursor-pointer shrink-0" viewBox="0 0 24 24" fill="currentColor">
+            <svg className="ml-3 h-[22px] w-[22px] shrink-0 cursor-pointer text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
             </svg>
           </div>
-          {/* Suggestions dropdown */}
           {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute left-0 right-0 top-full bg-white border border-[#d2d2d2] border-t-0 rounded-b shadow-lg z-50">
-              <div className="border-t border-[#e8e8e8] mx-3" />
+            <div className="absolute left-0 right-0 top-full rounded-b-[2px] border border-t-0 border-[#d9d9d9] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.2)] z-50">
+              <div className="mx-[14px] border-t border-[#e8e8e8]" />
               {suggestions.map((s, i) => (
                 <div
                   key={s}
                   onMouseDown={() => handleSuggestionClick(s)}
                   onMouseEnter={() => setSelectedIndex(i)}
-                  className={`flex items-center gap-3 px-4 py-1.5 cursor-pointer text-sm ${
-                    i === selectedIndex ? 'bg-[#f2f2f2]' : 'hover:bg-[#f8f8f8]'
+                  className={`flex h-[34px] items-center gap-[10px] px-[14px] cursor-pointer text-[16px] ${
+                    i === selectedIndex ? 'bg-[#eee]' : 'hover:bg-[#f8f8f8]'
                   }`}
                 >
-                  <svg className="w-3.5 h-3.5 text-[#9aa0a6] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="h-4 w-4 shrink-0 text-[#bdc1c6]" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                   </svg>
                   <span className="text-[#222]">{s}</span>
@@ -139,16 +137,16 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
           )}
         </div>
 
-        <div className="mt-8 flex items-center gap-6">
+        <div className="mt-[18px] flex items-center gap-[11px]">
           <button
             onClick={submitSearch}
-            className="min-w-[127px] cursor-pointer border border-[#dcdcdc] bg-[#f5f5f5] px-4 py-[9px] text-[13px] font-bold text-[#444] hover:border-[#c6c6c6]"
+            className="h-[36px] min-w-[54px] cursor-pointer rounded-[2px] border border-[#f2f2f2] bg-[#f2f2f2] px-4 text-[13px] font-bold text-[#757575] hover:border-[#c6c6c6] hover:text-[#222] hover:shadow-[0_1px_1px_rgba(0,0,0,0.1)]"
           >
             Google Search
           </button>
           <button
             onClick={() => onSearch('harambe')}
-            className="min-w-[145px] cursor-pointer border border-[#dcdcdc] bg-[#f5f5f5] px-4 py-[9px] text-[13px] font-bold text-[#444] hover:border-[#c6c6c6]"
+            className="h-[36px] min-w-[54px] cursor-pointer rounded-[2px] border border-[#f2f2f2] bg-[#f2f2f2] px-4 text-[13px] font-bold text-[#757575] hover:border-[#c6c6c6] hover:text-[#222] hover:shadow-[0_1px_1px_rgba(0,0,0,0.1)]"
           >
             I&apos;m Feeling Lucky
           </button>

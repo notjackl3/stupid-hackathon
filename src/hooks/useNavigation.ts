@@ -91,6 +91,15 @@ function deriveDisplayUrl(state: NavigationState): string {
       }
       return 'open.spotify.com';
 
+    case 'coolmath':
+      if (page === 'video' && videoId) {
+        return `www.coolmathgames.com/0-${videoId}`;
+      }
+      if (page === 'search' && query) {
+        return `www.coolmathgames.com/search?q=${encodeURIComponent(query).replace(/%20/g, '+')}`;
+      }
+      return 'www.coolmathgames.com';
+
     default:
       return 'www.google.com';
   }
@@ -196,6 +205,20 @@ function parseUrl(raw: string): NavigationState {
     }
 
     return { site: 'spotify', page: 'home', query: '', videoId: '', resourceType: '', resourceId: '' };
+  }
+
+  if (url.startsWith('coolmathgames.com') || url.startsWith('coolmath')) {
+    if (url.includes('/0-')) {
+      const slug = url.split('/0-')[1]?.split('?')[0]?.split('/')[0] ?? '';
+      if (slug) {
+        return { site: 'coolmath', page: 'video', query: '', videoId: slug, ...EMPTY_RESOURCE };
+      }
+    }
+    if (url.includes('search') && url.includes('q=')) {
+      const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
+      return { site: 'coolmath', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
+    }
+    return { site: 'coolmath', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
   }
 
   if (url.startsWith('google.com') || url.startsWith('google')) {

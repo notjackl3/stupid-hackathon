@@ -15,6 +15,8 @@ import { MusicallyDiscover } from './components/musically/MusicallyDiscover';
 import { TumblrDashboard } from './components/tumblr/TumblrDashboard';
 import { TumblrSearch } from './components/tumblr/TumblrSearch';
 import { MyInstantsHome } from './components/myinstants/MyInstantsHome';
+import { CoolmathHome } from './components/coolmath/CoolmathHome';
+import { CoolmathGame } from './components/coolmath/CoolmathGame';
 import { SpotifyShell } from './components/spotify/SpotifyShell';
 import { SpotifyHome } from './components/spotify/SpotifyHome';
 import { SpotifySearch } from './components/spotify/SpotifySearch';
@@ -74,6 +76,12 @@ function deriveTabLabel(state: NavigationState): string {
       return resource?.title ?? 'Spotify';
     }
     return state.page === 'search' && state.query ? `${state.query} - Spotify` : 'Spotify';
+  }
+  if (state.site === 'coolmath') {
+    if (state.page === 'video' && state.videoId) {
+      return `${state.videoId} - Coolmath Games`;
+    }
+    return state.page === 'search' && state.query ? `${state.query} - Coolmath Games` : 'Coolmath Games';
   }
   return 'New Tab';
 }
@@ -349,6 +357,17 @@ function App() {
       setShowHarambe(true);
     }
     actions.navigate('myinstants', 'search', { query });
+  }, [actions]);
+
+  const handleCoolmathSearch = useCallback((query: string) => {
+    if (query.toLowerCase().includes('harambe')) {
+      setShowHarambe(true);
+    }
+    actions.navigate('coolmath', 'search', { query });
+  }, [actions]);
+
+  const handleCoolmathGameClick = useCallback((slug: string) => {
+    actions.navigate('coolmath', 'video', { videoId: slug });
   }, [actions]);
 
   const handleMusicallySearch = useCallback((query: string) => {
@@ -633,6 +652,27 @@ function App() {
           </SpotifyShell>
         );
       }
+
+      case 'coolmath':
+        if (page === 'video' && videoId) {
+          return (
+            <CoolmathGame
+              key={`coolmath-game-${videoId}`}
+              slug={videoId}
+              onBack={() => actions.navigate('coolmath', 'home')}
+              onGameClick={handleCoolmathGameClick}
+              onSearch={handleCoolmathSearch}
+            />
+          );
+        }
+        return (
+          <CoolmathHome
+            key={`coolmath-${query || 'home'}`}
+            query={query}
+            onSearch={handleCoolmathSearch}
+            onGameClick={handleCoolmathGameClick}
+          />
+        );
 
       default:
         return <GoogleHome onSearch={(q) => handleSearch(q, 'google')} />;
