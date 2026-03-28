@@ -259,21 +259,23 @@ function AddressBar({
 interface BookmarksBarProps {
   activeSite: SiteName;
   onNavigate: (site: SiteName) => void;
+  onClashRoyale?: () => void;
   isTumblr: boolean;
 }
 
-function BookmarksBar({ activeSite, onNavigate, isTumblr }: BookmarksBarProps) {
-  const bookmarks = [
-    { label: 'Apps', site: 'google' as const },
-    { label: 'Google', site: 'google' as const },
-    { label: 'YouTube', site: 'youtube' as const },
-    { label: 'Twitter', site: 'twitter' as const },
-    { label: 'Vine', site: 'vine' as const },
-    { label: 'Spotify', site: 'spotify' as const },
-    { label: 'musical.ly', site: 'musically' as const },
-    { label: 'Tumblr', site: 'tumblr' as const },
-    { label: 'MyInstants', site: 'myinstants' as const },
-    { label: 'Cool Math', site: 'coolmath' as const },
+function BookmarksBar({ activeSite, onNavigate, onClashRoyale, isTumblr }: BookmarksBarProps) {
+  const bookmarks: { label: string; site: SiteName | 'clashroyale' }[] = [
+    { label: 'Apps', site: 'google' },
+    { label: 'Google', site: 'google' },
+    { label: 'YouTube', site: 'youtube' },
+    { label: 'Twitter', site: 'twitter' },
+    { label: 'Vine', site: 'vine' },
+    { label: 'Spotify', site: 'spotify' },
+    { label: 'musical.ly', site: 'musically' },
+    { label: 'Tumblr', site: 'tumblr' },
+    { label: 'MyInstants', site: 'myinstants' },
+    { label: 'Cool Math', site: 'coolmath' },
+    { label: 'Clash Royale', site: 'clashroyale' },
   ];
 
   return (
@@ -287,7 +289,13 @@ function BookmarksBar({ activeSite, onNavigate, isTumblr }: BookmarksBarProps) {
       {bookmarks.map((b) => (
         <button
           key={`${b.label}-${b.site}`}
-          onClick={() => onNavigate(b.site)}
+          onClick={() => {
+            if (b.site === 'clashroyale') {
+              onClashRoyale?.();
+            } else {
+              onNavigate(b.site as SiteName);
+            }
+          }}
           className={`flex h-7 shrink-0 items-center gap-2 rounded-[2px] px-3.5 cursor-pointer ${
             isTumblr
               ? activeSite === b.site && b.label !== 'Apps'
@@ -300,8 +308,10 @@ function BookmarksBar({ activeSite, onNavigate, isTumblr }: BookmarksBarProps) {
         >
           {b.label === 'Apps' ? (
             <span className={`text-[12px] ${isTumblr ? 'text-white/38' : 'text-[#67727d]'}`}>&#9638;</span>
+          ) : b.site === 'clashroyale' ? (
+            <span className="text-[13px]">⚔️</span>
           ) : (
-            <BookmarkFavicon site={b.site} />
+            <BookmarkFavicon site={b.site as SiteName} />
           )}
           <span className="leading-none tracking-[0.01em]">{b.label}</span>
         </button>
@@ -320,6 +330,7 @@ interface BrowserShellProps {
   children: ReactNode;
   tabs: BrowserTab[];
   activeTabId: string;
+  onClashRoyale?: () => void;
   onAddTab: () => void;
   onSwitchTab: (id: string) => void;
   onCloseTab: (id: string) => void;
@@ -332,6 +343,7 @@ export function BrowserShell({
   children,
   tabs,
   activeTabId,
+  onClashRoyale,
   onAddTab,
   onSwitchTab,
   onCloseTab,
@@ -358,7 +370,7 @@ export function BrowserShell({
         onNavigate={actions.navigateFromUrl}
         isTumblr={isTumblr}
       />
-      <BookmarksBar activeSite={navState.site} onNavigate={(site) => actions.navigate(site)} isTumblr={isTumblr} />
+      <BookmarksBar activeSite={navState.site} onNavigate={(site) => actions.navigate(site)} onClashRoyale={onClashRoyale} isTumblr={isTumblr} />
       <div
         id="browser-content-scroll"
         data-browser-scroll-container

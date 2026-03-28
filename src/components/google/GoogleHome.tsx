@@ -15,6 +15,7 @@ const EASTER_EGG_QUERIES = [
   'mannequin challenge',
   'ppap',
   'pen pineapple apple pen',
+  'clash royale',
 ];
 
 const SUGGESTION_KEYS = EASTER_EGG_QUERIES;
@@ -83,7 +84,7 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
 
       <div className="flex flex-1 flex-col items-center justify-center px-4 pb-[120px]">
         <div
-          className="mb-7 select-none text-[92px] font-normal leading-none tracking-[-4px]"
+          className="mb-7 select-none text-[92px] font-normal leading-none tracking-[-4px] flex items-end gap-2"
           style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}
         >
           <span className="text-[#4285F4]">G</span>
@@ -92,6 +93,29 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
           <span className="text-[#4285F4]">g</span>
           <span className="text-[#34A853]">l</span>
           <span className="text-[#EA4335]">e</span>
+          {/* Dabbing stick figure */}
+          <svg
+            width="60"
+            height="60"
+            viewBox="0 0 80 80"
+            className="mb-2"
+            style={{ overflow: 'visible', animation: 'googleDab 2s ease-in-out infinite' }}
+          >
+            <circle cx="40" cy="12" r="8" fill="#4285F4" />
+            <line x1="40" y1="20" x2="40" y2="50" stroke="#EA4335" strokeWidth="3" strokeLinecap="round" />
+            <line x1="40" y1="28" x2="15" y2="10" stroke="#FBBC05" strokeWidth="3" strokeLinecap="round" />
+            <line x1="40" y1="28" x2="55" y2="15" stroke="#FBBC05" strokeWidth="3" strokeLinecap="round" />
+            <line x1="55" y1="15" x2="45" y2="8" stroke="#FBBC05" strokeWidth="3" strokeLinecap="round" />
+            <line x1="40" y1="50" x2="28" y2="72" stroke="#34A853" strokeWidth="3" strokeLinecap="round" />
+            <line x1="40" y1="50" x2="52" y2="72" stroke="#34A853" strokeWidth="3" strokeLinecap="round" />
+          </svg>
+          <style>{`
+            @keyframes googleDab {
+              0%, 100% { transform: rotate(0deg); }
+              15% { transform: rotate(-20deg) translateY(-5px); }
+              30% { transform: rotate(0deg); }
+            }
+          `}</style>
         </div>
 
         <div className="relative w-full max-w-[584px]">

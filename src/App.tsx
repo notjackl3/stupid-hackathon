@@ -37,6 +37,7 @@ import { DamnDaniel } from './components/easter-eggs/DamnDaniel';
 import { CreepyClown } from './components/easter-eggs/CreepyClown';
 import { FidgetSpinnerCursor } from './components/easter-eggs/FidgetSpinnerCursor';
 import { PPAPCombiner } from './components/easter-eggs/PPAPCombiner';
+import { ClashRoyale } from './components/easter-eggs/ClashRoyale';
 import { ChatGPTSike } from './components/easter-eggs/ChatGPTSike';
 import { LoganPaul } from './components/easter-eggs/LoganPaul';
 import type { BrowserTab, NavigationState } from './types';
@@ -109,6 +110,7 @@ function App() {
   const [showLogan, setShowLogan] = useState(false);
 
   const [showChatGPTSike, setShowChatGPTSike] = useState(false);
+  const [showClashRoyale, setShowClashRoyale] = useState(false);
 
   // Harambe confirmation dialog
   const [harambeConfirmAction, setHarambeConfirmAction] = useState<(() => void) | null>(null);
@@ -301,6 +303,11 @@ function App() {
       // PPAP search
       if (lower.includes('ppap') || lower.includes('pen pineapple')) {
         setShowPPAP(true);
+      }
+
+      // Clash Royale
+      if (lower.includes('clash royale') || lower.includes('clashroyale')) {
+        setShowClashRoyale(true);
       }
 
       // ChatGPT sike
@@ -701,6 +708,7 @@ function App() {
         onSwitchTab={switchTab}
         onCloseTab={closeTab}
         onCloseAttempt={() => confirmWithHarambe(() => {})}
+        onClashRoyale={() => setShowClashRoyale(true)}
       >
         {renderContent()}
       </BrowserShell>
@@ -754,6 +762,10 @@ function App() {
           })}
           onCancel={() => confirmWithHarambe(() => setShowPPAP(false))}
         />
+      )}
+
+      {showClashRoyale && (
+        <ClashRoyale onDismiss={() => setShowClashRoyale(false)} />
       )}
 
       {showChatGPTSike && (
