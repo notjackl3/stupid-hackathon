@@ -7,9 +7,10 @@ interface TabBarProps {
   onAddTab: () => void;
   onSwitchTab: (id: string) => void;
   onCloseTab: (id: string) => void;
+  onCloseAttempt?: () => void;
 }
 
-function TabBar({ tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: TabBarProps) {
+function TabBar({ tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab, onCloseAttempt }: TabBarProps) {
   return (
     <div className="flex items-end bg-[#dee1e6] pt-1 pl-8 h-[38px]">
       {tabs.map((tab) => {
@@ -45,9 +46,9 @@ function TabBar({ tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: TabBar
       </button>
       <div className="flex-1" />
       <div className="flex items-center gap-1 pr-2 pb-1">
-        <span className="text-gray-400 text-xs">&#9866;</span>
-        <span className="text-gray-400 text-xs">&#9723;</span>
-        <span className="text-gray-400 text-xs hover:text-red-500">&#10005;</span>
+        <span className="text-gray-400 text-xs cursor-pointer">&#9866;</span>
+        <span className="text-gray-400 text-xs cursor-pointer">&#9723;</span>
+        <span onClick={onCloseAttempt} className="text-gray-400 text-xs hover:text-red-500 cursor-pointer">&#10005;</span>
       </div>
     </div>
   );
@@ -174,9 +175,10 @@ interface BrowserShellProps {
   onAddTab: () => void;
   onSwitchTab: (id: string) => void;
   onCloseTab: (id: string) => void;
+  onCloseAttempt?: () => void;
 }
 
-export function BrowserShell({ navState, actions, children, tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: BrowserShellProps) {
+export function BrowserShell({ navState, actions, children, tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab, onCloseAttempt }: BrowserShellProps) {
   return (
     <div className="flex flex-col h-full w-full bg-white">
       <TabBar
@@ -185,6 +187,7 @@ export function BrowserShell({ navState, actions, children, tabs, activeTabId, o
         onAddTab={onAddTab}
         onSwitchTab={onSwitchTab}
         onCloseTab={onCloseTab}
+        onCloseAttempt={onCloseAttempt}
       />
       <AddressBar
         displayUrl={actions.displayUrl}
