@@ -32,8 +32,44 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
 
       {/* Center content */}
       <div className="flex flex-col items-center justify-center flex-1 pb-24">
-        {/* Google Logo */}
-        <div className="mb-7">
+        {/* Google Logo with dabbing arms */}
+        <div className="mb-7 relative">
+          <style>{`
+            @keyframes dabSwing {
+              0%, 100% { transform: rotate(-60deg); }
+              50% { transform: rotate(150deg); }
+            }
+          `}</style>
+          {/* Left arm — pivots from bottom, swings upward */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 10,
+              bottom: '50%',
+              width: 6,
+              height: 70,
+              background: '#4285F4',
+              borderRadius: 3,
+              transformOrigin: 'bottom center',
+              animation: 'dabSwing 1.6s ease-in-out infinite',
+              zIndex: 1,
+            }}
+          />
+          {/* Right arm — pivots from bottom, swings upward */}
+          <div
+            style={{
+              position: 'absolute',
+              right: 10,
+              bottom: '50%',
+              width: 6,
+              height: 70,
+              background: '#EA4335',
+              borderRadius: 3,
+              transformOrigin: 'bottom center',
+              animation: 'dabSwing 1.6s ease-in-out infinite',
+              zIndex: 1,
+            }}
+          />
           <span className="text-[92px] font-normal select-none leading-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
             <span className="text-[#4285F4]">G</span>
             <span className="text-[#EA4335]">o</span>
