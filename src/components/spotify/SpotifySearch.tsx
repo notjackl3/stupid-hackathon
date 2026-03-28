@@ -140,10 +140,12 @@ export function SpotifySearch({ query, onSearch, onOpenAlbum, onPlayTrack }: Spo
                     className="rounded-[8px] bg-[#202020] p-4 text-left transition hover:bg-[#252525]"
                   >
                     <div
-                      className="flex h-32 items-end rounded-[6px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white"
+                      className="relative flex h-32 items-end overflow-hidden rounded-[6px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white"
                       style={{ background: artist.cover.gradient }}
                     >
-                      {artist.cover.label}
+                      {artist.cover.imageUrl ? (
+                        <img src={artist.cover.imageUrl} alt={artist.name} className="absolute inset-0 h-full w-full object-cover" />
+                      ) : artist.cover.label}
                     </div>
                     <div className="mt-3 text-[16px] font-semibold text-white">{artist.name}</div>
                     <div className="mt-1 text-[12px] text-white/46">{artist.monthlyListeners}</div>
@@ -171,10 +173,12 @@ export function SpotifySearch({ query, onSearch, onOpenAlbum, onPlayTrack }: Spo
                     className="rounded-[8px] bg-[#202020] p-3 text-left transition hover:bg-[#252525]"
                   >
                     <div
-                      className="flex aspect-square items-end rounded-[6px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white"
+                      className="relative flex aspect-square items-end overflow-hidden rounded-[6px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white"
                       style={{ background: album.cover.gradient }}
                     >
-                      {album.cover.label}
+                      {album.cover.imageUrl ? (
+                        <img src={album.cover.imageUrl} alt={album.title} className="absolute inset-0 h-full w-full object-cover" />
+                      ) : album.cover.label}
                     </div>
                     <div className="mt-3 text-[15px] font-semibold text-white">{album.title}</div>
                     <div className="mt-1 text-[12px] text-white/46">{album.artist}</div>

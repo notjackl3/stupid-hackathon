@@ -84,10 +84,12 @@ export function SpotifyPlaylist({ resourceType, resourceId, onSearch, onPlayTrac
 
       <section className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end">
         <div
-          className="flex h-[220px] w-[220px] shrink-0 items-end rounded-[6px] p-4 text-[18px] font-black uppercase tracking-[0.18em] text-white shadow-[0_28px_44px_rgba(0,0,0,0.35)]"
+          className="relative flex h-[220px] w-[220px] shrink-0 items-end overflow-hidden rounded-[6px] p-4 text-[18px] font-black uppercase tracking-[0.18em] text-white shadow-[0_28px_44px_rgba(0,0,0,0.35)]"
           style={{ background: resource.cover.gradient }}
         >
-          {resource.cover.label}
+          {resource.cover.imageUrl ? (
+            <img src={resource.cover.imageUrl} alt={resource.title} className="absolute inset-0 h-full w-full object-cover" />
+          ) : resource.cover.label}
         </div>
 
         <div>

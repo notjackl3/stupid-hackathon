@@ -140,10 +140,12 @@ export function SpotifyHome({ onSearch, onOpenPlaylist, onOpenAlbum, onPlayTrack
               className="group rounded-[6px] bg-[#202020] p-3 text-left transition hover:bg-[#252525]"
             >
               <div
-                className="flex aspect-square items-end rounded-[4px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white shadow-[0_18px_28px_rgba(0,0,0,0.3)]"
+                className="relative flex aspect-square items-end overflow-hidden rounded-[4px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white shadow-[0_18px_28px_rgba(0,0,0,0.3)]"
                 style={{ background: playlist.cover.gradient }}
               >
-                {playlist.cover.label}
+                {playlist.cover.imageUrl ? (
+                  <img src={playlist.cover.imageUrl} alt={playlist.title} className="absolute inset-0 h-full w-full object-cover" />
+                ) : playlist.cover.label}
               </div>
               <div className="mt-3 flex items-start justify-between gap-2">
                 <div>
@@ -198,10 +200,12 @@ export function SpotifyHome({ onSearch, onOpenPlaylist, onOpenAlbum, onPlayTrack
               className="rounded-[6px] bg-[#202020] p-3 text-left transition hover:bg-[#252525]"
             >
               <div
-                className="flex aspect-square items-end rounded-[4px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white shadow-[0_18px_28px_rgba(0,0,0,0.3)]"
+                className="relative flex aspect-square items-end overflow-hidden rounded-[4px] p-3 text-[11px] font-black uppercase tracking-[0.18em] text-white shadow-[0_18px_28px_rgba(0,0,0,0.3)]"
                 style={{ background: album.cover.gradient }}
               >
-                {album.cover.label}
+                {album.cover.imageUrl ? (
+                  <img src={album.cover.imageUrl} alt={album.title} className="absolute inset-0 h-full w-full object-cover" />
+                ) : album.cover.label}
               </div>
               <div className="mt-3 text-[15px] font-semibold text-white">{album.title}</div>
               <div className="mt-1 text-[12px] text-white/48">{album.artist}</div>

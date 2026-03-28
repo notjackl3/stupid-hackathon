@@ -17,6 +17,7 @@ export const CATEGORIES = [
   { id: 'more', label: 'More Games' },
 ];
 
+// embedUrl = '' means it was a Flash game — show the "Flash Player required" screen
 export const GAMES: CoolmathGame[] = [
   {
     slug: 'run-3',
@@ -24,7 +25,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'skill',
     description: 'Run and jump through an increasingly difficult space tunnel. Watch out for gaps!',
     color: '#2d1b4e',
-    embedUrl: 'https://html5.gamedistribution.com/rvvASMiM/a]4f2a5a54a6425faab05c8c52a2ab75c/index.html',
+    embedUrl: '',
     icon: '🏃',
   },
   {
@@ -33,7 +34,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'strategy',
     description: "You're working at an ice cream shop on a tropical island. Take orders, mix and blend, add toppings, and serve!",
     color: '#4fc3f7',
-    embedUrl: 'https://www.miniplay.com/embed/papas-freezeria',
+    embedUrl: '',
     icon: '🍦',
   },
   {
@@ -42,7 +43,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'logic',
     description: 'Help Fireboy and Watergirl work together to get through the Forest Temple. Use teamwork to solve puzzles!',
     color: '#e65100',
-    embedUrl: 'https://html5.gamedistribution.com/rvvASMiM/b2e5c8485f5c4ed5b26783a5dd8a85b2/index.html',
+    embedUrl: '',
     icon: '🔥',
   },
   {
@@ -51,7 +52,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'skill',
     description: 'Train your duck to run, swim, and fly. Enter races to earn coins and become the champion!',
     color: '#fdd835',
-    embedUrl: 'https://html5.gamedistribution.com/rvvASMiM/9f0e09f732774ce49c23c8e63e1b3b47/index.html',
+    embedUrl: '',
     icon: '🦆',
   },
   {
@@ -60,7 +61,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'logic',
     description: 'Roll the block around the floating platforms and try to get it to fall through the square hole.',
     color: '#37474f',
-    embedUrl: 'https://www.miniplay.com/embed/bloxorz',
+    embedUrl: '',
     icon: '🧊',
   },
   {
@@ -69,7 +70,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'logic',
     description: 'Slide the block to hit every square on your way to the goal. Plan your path carefully!',
     color: '#1565c0',
-    embedUrl: 'https://www.miniplay.com/embed/b-cubed',
+    embedUrl: '',
     icon: '🟦',
   },
   {
@@ -78,7 +79,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'classic',
     description: 'The classic snake game. Eat the apples, grow longer, and try not to run into yourself!',
     color: '#2e7d32',
-    embedUrl: 'https://playsnake.org',
+    embedUrl: 'https://lorecioni.github.io/snake/',
     icon: '🐍',
   },
   {
@@ -87,7 +88,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'classic',
     description: 'The classic game of strategy. Play against the computer or challenge a friend.',
     color: '#4e342e',
-    embedUrl: 'https://lichess.org/embed/game/q7ZvsdUF?theme=brown&bg=dark',
+    embedUrl: 'https://playpager.com/embed/chess/game/index.html',
     icon: '♟️',
   },
   {
@@ -96,7 +97,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'numbers',
     description: 'Use logic and numbers to figure out where the mines are hiding. Classic Windows game!',
     color: '#546e7a',
-    embedUrl: 'https://minesweeper.online/game/new?mode=0',
+    embedUrl: '',
     icon: '💣',
   },
   {
@@ -105,7 +106,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'logic',
     description: 'Draw lines to guide falling sugar into the cups. A sweet physics puzzle!',
     color: '#fff9c4',
-    embedUrl: 'https://www.miniplay.com/embed/sugar-sugar',
+    embedUrl: '',
     icon: '🍬',
   },
   {
@@ -114,7 +115,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'skill',
     description: 'Roll and jump through levels as a bouncy red ball. Watch out for obstacles!',
     color: '#c62828',
-    embedUrl: 'https://www.miniplay.com/embed/red-ball',
+    embedUrl: '',
     icon: '🔴',
   },
   {
@@ -123,7 +124,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'strategy',
     description: 'Sneak past guards, avoid cameras, and crack safes in this stealth adventure!',
     color: '#1a237e',
-    embedUrl: 'https://www.miniplay.com/embed/bob-the-robber',
+    embedUrl: '',
     icon: '🥷',
   },
   {
@@ -132,7 +133,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'logic',
     description: 'Help the little red car solve puzzles and find its way through each level.',
     color: '#d32f2f',
-    embedUrl: 'https://www.miniplay.com/embed/wheely',
+    embedUrl: '',
     icon: '🚗',
   },
   {
@@ -141,17 +142,8 @@ export const GAMES: CoolmathGame[] = [
     category: 'skill',
     description: 'Can you park the car without crashing? Navigate tight parking lots and tricky spots.',
     color: '#455a64',
-    embedUrl: 'https://html5.gamedistribution.com/rvvASMiM/0dd5c8d2c9ac48e8b8c8c5a22e0f2e03/index.html',
+    embedUrl: '',
     icon: '🅿️',
-  },
-  {
-    slug: 'iq-ball',
-    title: 'IQ Ball',
-    category: 'logic',
-    description: 'Use your stretchy arm to grab onto objects and swing to the goal. A brainy physics game!',
-    color: '#7cb342',
-    embedUrl: 'https://www.miniplay.com/embed/iq-ball',
-    icon: '🧠',
   },
   {
     slug: 'checkers',
@@ -159,7 +151,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'classic',
     description: 'The classic board game. Jump your opponent and try to king your pieces!',
     color: '#bf360c',
-    embedUrl: 'https://cardgames.io/checkers/',
+    embedUrl: 'https://playpager.com/embed/checkers/index.html',
     icon: '🏁',
   },
   {
@@ -168,17 +160,26 @@ export const GAMES: CoolmathGame[] = [
     category: 'numbers',
     description: 'Slide numbered tiles on a grid to combine them and create a tile with the number 2048.',
     color: '#f9a825',
-    embedUrl: 'https://play2048.co/',
+    embedUrl: 'https://hczhcz.github.io/2048/20ez/',
     icon: '🔢',
   },
   {
-    slug: 'civiballs',
-    title: 'Civiballs',
-    category: 'logic',
-    description: 'Cut the chains to drop the balls into the matching colored pots. Ancient puzzles await!',
-    color: '#8d6e63',
-    embedUrl: 'https://www.miniplay.com/embed/civiballs',
-    icon: '⛓️',
+    slug: 'solitaire',
+    title: 'Solitaire',
+    category: 'classic',
+    description: 'The classic card game. Sort all cards into four foundation piles by suit from Ace to King.',
+    color: '#1b5e20',
+    embedUrl: 'https://playpager.com/embed/solitaire/index.html',
+    icon: '🃏',
+  },
+  {
+    slug: 'sudoku',
+    title: 'Sudoku',
+    category: 'numbers',
+    description: 'Fill in the grid so every row, column, and 3x3 box contains the numbers 1-9.',
+    color: '#283593',
+    embedUrl: 'https://playpager.com/embed/sudoku/index.html',
+    icon: '9️⃣',
   },
 ];
 
