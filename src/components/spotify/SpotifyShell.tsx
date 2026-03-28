@@ -12,15 +12,11 @@ type SpotifyNavSection = 'home' | 'search' | 'radio' | 'library';
 interface SpotifyShellProps {
   children: ReactNode;
   currentTrack: SpotifyTrack | null;
-  hasQueue: boolean;
   activeSection: SpotifyNavSection;
   onHome: () => void;
   onSearch: () => void;
   onRadio: () => void;
   onPlaylistOpen: (playlistSlug: string) => void;
-  onPreviousTrack: () => void;
-  onNextTrack: () => void;
-  onShuffleTrack: () => void;
 }
 
 function SidebarButton({
@@ -48,15 +44,11 @@ function SidebarButton({
 export function SpotifyShell({
   children,
   currentTrack,
-  hasQueue,
   activeSection,
   onHome,
   onSearch,
   onRadio,
   onPlaylistOpen,
-  onPreviousTrack,
-  onNextTrack,
-  onShuffleTrack,
 }: SpotifyShellProps) {
   return (
     <div className="flex h-full flex-col bg-[#121212] text-white">
@@ -132,13 +124,7 @@ export function SpotifyShell({
         </div>
       </div>
 
-      <SpotifyPlayer
-        currentTrack={currentTrack}
-        hasQueue={hasQueue}
-        onPrevious={onPreviousTrack}
-        onNext={onNextTrack}
-        onShuffle={onShuffleTrack}
-      />
+      <SpotifyPlayer currentTrack={currentTrack} />
     </div>
   );
 }

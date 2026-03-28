@@ -173,7 +173,6 @@ function App() {
   }, [triggerDamnDaniel]);
 
   const [navState, actions] = useNavigation(onNavigate);
-  const [spotifyQueue, setSpotifyQueue] = useState<SpotifyTrack[]>([]);
   const [spotifyCurrentTrack, setSpotifyCurrentTrack] = useState<SpotifyTrack | null>(null);
 
   // Tab state
@@ -418,9 +417,8 @@ function App() {
     actions.navigate('spotify', 'playlist', { resourceType: 'album', resourceId: albumSlug });
   }, [actions]);
 
-  const handleSpotifyPlayTrack = useCallback((track: SpotifyTrack, queue: SpotifyTrack[]) => {
+  const handleSpotifyPlayTrack = useCallback((track: SpotifyTrack, _queue: SpotifyTrack[]) => {
     setSpotifyCurrentTrack(track);
-    setSpotifyQueue(queue.length ? queue : [track]);
 
     if (track.slug === 'black-beatles') {
       setMannequinDurationSeconds(5);
@@ -435,38 +433,9 @@ function App() {
     actions.navigate('spotify', 'playlist', { resourceType: 'playlist', resourceId: 'closer-radio' });
     if (firstTrack) {
       setSpotifyCurrentTrack(firstTrack);
-      setSpotifyQueue(queue);
     }
   }, [actions]);
 
-  const handleSpotifyPrevious = useCallback(() => {
-    if (!spotifyCurrentTrack || spotifyQueue.length === 0) {
-      return;
-    }
-
-    const currentIndex = spotifyQueue.findIndex((track) => track.slug === spotifyCurrentTrack.slug);
-    const nextIndex = currentIndex <= 0 ? spotifyQueue.length - 1 : currentIndex - 1;
-    setSpotifyCurrentTrack(spotifyQueue[nextIndex]);
-  }, [spotifyCurrentTrack, spotifyQueue]);
-
-  const handleSpotifyNext = useCallback(() => {
-    if (!spotifyCurrentTrack || spotifyQueue.length === 0) {
-      return;
-    }
-
-    const currentIndex = spotifyQueue.findIndex((track) => track.slug === spotifyCurrentTrack.slug);
-    const nextIndex = currentIndex === -1 || currentIndex === spotifyQueue.length - 1 ? 0 : currentIndex + 1;
-    setSpotifyCurrentTrack(spotifyQueue[nextIndex]);
-  }, [spotifyCurrentTrack, spotifyQueue]);
-
-  const handleSpotifyShuffle = useCallback(() => {
-    if (spotifyQueue.length === 0) {
-      return;
-    }
-
-    const nextTrack = spotifyQueue[Math.floor(Math.random() * spotifyQueue.length)];
-    setSpotifyCurrentTrack(nextTrack);
-  }, [spotifyQueue]);
 
   const renderContent = () => {
     const { site, page, query, videoId, resourceType, resourceId } = navState;
@@ -645,15 +614,11 @@ function App() {
         return (
           <SpotifyShell
             currentTrack={spotifyCurrentTrack}
-            hasQueue={spotifyQueue.length > 0}
             activeSection={activeSection}
             onHome={handleSpotifyHome}
             onSearch={() => handleSpotifySearch(query)}
             onRadio={handleSpotifyRadio}
             onPlaylistOpen={handleSpotifyOpenPlaylist}
-            onPreviousTrack={handleSpotifyPrevious}
-            onNextTrack={handleSpotifyNext}
-            onShuffleTrack={handleSpotifyShuffle}
           >
             {spotifyContent}
           </SpotifyShell>
