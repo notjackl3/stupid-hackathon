@@ -30,101 +30,25 @@ const OPTION_PAIRS = [
   ["Twitter", "Facebook"],
 ];
 
-const TRUMP_QUOTES = [
-  "We're gonna make the internet great again!",
-  "Wrong. WRONG!",
-  "Nobody knows more about memes than me.",
-  "Believe me, it's gonna be HUGE.",
-  "This is a disaster. Total disaster.",
-  "I have the best words.",
-  "You're fired!",
-];
-
-const HILLARY_QUOTES = [
-  "When they go low, we go high.",
-  "That's just not true, Donald.",
-  "I have 30 years of experience.",
-  "Delete your account.",
-  "Pokémon GO to the polls!",
-  "I'm with her... I mean, me.",
-  "That's a debunked conspiracy.",
-];
-
 type Phase = 'voting' | 'results' | 'breaking';
-
-function StickFigure({ side, speaking }: { side: 'left' | 'right'; speaking: boolean }) {
-  const isTrump = side === 'left';
-  const headImg = isTrump ? '/trump.png' : '/hillary.png';
-  const tieColor = isTrump ? '#cc0000' : '#1a5dab';
-
-  return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      position: 'relative',
-    }}>
-      <img
-        src={headImg}
-        alt=""
-        style={{
-          width: '120px',
-          height: '120px',
-          objectFit: 'cover',
-          animation: speaking
-            ? 'headShake 0.15s ease-in-out infinite alternate'
-            : 'headIdle 2s ease-in-out infinite',
-          transformOrigin: 'bottom center',
-        }}
-      />
-      <svg width="100" height="160" viewBox="0 0 100 160" style={{ marginTop: '-4px' }}>
-        <line x1="50" y1="0" x2="50" y2="18" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-        <line x1="50" y1="18" x2="50" y2="90" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-        <polygon points="50,18 44,42 50,48 56,42" fill={tieColor} />
-        {speaking ? (
-          <>
-            <line x1="50" y1="34" x2={isTrump ? 90 : 10} y2="14"
-              stroke="#333" strokeWidth="4" strokeLinecap="round"
-              style={{ animation: 'armWave 0.3s ease-in-out infinite alternate' }} />
-            <line x1="50" y1="34" x2={isTrump ? 10 : 90} y2="48"
-              stroke="#333" strokeWidth="4" strokeLinecap="round" />
-          </>
-        ) : (
-          <>
-            <line x1="50" y1="34" x2="15" y2="70" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-            <line x1="50" y1="34" x2="85" y2="70" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-          </>
-        )}
-        <line x1="50" y1="90" x2="25" y2="155" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-        <line x1="50" y1="90" x2="75" y2="155" stroke="#333" strokeWidth="4" strokeLinecap="round" />
-      </svg>
-    </div>
-  );
-}
 
 export function ElectionPoll({ onDismiss }: ElectionPollProps) {
   const [phase, setPhase] = useState<Phase>('voting');
   const [questionIdx] = useState(() => Math.floor(Math.random() * POLL_QUESTIONS.length));
   const [pairIdx] = useState(() => Math.floor(Math.random() * OPTION_PAIRS.length));
-  const [trumpSpeaking, setTrumpSpeaking] = useState(true);
-  const [trumpQuote] = useState(() => TRUMP_QUOTES[Math.floor(Math.random() * TRUMP_QUOTES.length)]);
-  const [hillaryQuote] = useState(() => HILLARY_QUOTES[Math.floor(Math.random() * HILLARY_QUOTES.length)]);
   const [votesA, setVotesA] = useState(0);
   const [votesB, setVotesB] = useState(0);
   const [winner, setWinner] = useState('');
+  const [timer, setTimer] = useState(30);
   const eventSourceRef = useRef<EventSource | null>(null);
 
   const question = POLL_QUESTIONS[questionIdx];
   const [optionA, optionB] = OPTION_PAIRS[pairIdx];
 
-  // Generate a unique topic for this voting session
   const [topic] = useState(() => `election2016-${Math.random().toString(36).slice(2, 10)}`);
-
-  // Build the QR URL — replace localhost with the real network IP so phones can reach it
   const [networkOrigin, setNetworkOrigin] = useState(window.location.origin);
 
   useEffect(() => {
-    // Use WebRTC to discover local network IP
     const pc = new RTCPeerConnection({ iceServers: [] });
     pc.createDataChannel('');
     pc.createOffer().then(offer => pc.setLocalDescription(offer));
@@ -143,47 +67,41 @@ export function ElectionPoll({ onDismiss }: ElectionPollProps) {
 
   const voteUrl = `${networkOrigin}/vote.html?t=${topic}&q=${encodeURIComponent(question)}&a=${encodeURIComponent(optionA)}&b=${encodeURIComponent(optionB)}`;
 
-  // Alternate who's speaking
+  // Countdown timer
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTrumpSpeaking(prev => !prev);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+    if (phase !== 'voting') return;
+    if (timer <= 0) {
+      endVoting();
+      return;
+    }
+    const t = setTimeout(() => setTimer((s) => s - 1), 1000);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timer, phase]);
 
   // Subscribe to votes via ntfy.sh SSE
   useEffect(() => {
     const es = new EventSource(`https://ntfy.sh/${topic}/sse`);
     eventSourceRef.current = es;
-
     es.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
         if (data.message) {
           const parsed = JSON.parse(data.message);
-          if (parsed.vote === optionA) {
-            setVotesA(prev => prev + 1);
-          } else if (parsed.vote === optionB) {
-            setVotesB(prev => prev + 1);
-          }
+          if (parsed.vote === optionA) setVotesA((prev) => prev + 1);
+          else if (parsed.vote === optionB) setVotesB((prev) => prev + 1);
         }
-      } catch {
-        // ignore parse errors
-      }
+      } catch { /* ignore */ }
     };
-
-    return () => {
-      es.close();
-      eventSourceRef.current = null;
-    };
+    return () => { es.close(); eventSourceRef.current = null; };
   }, [topic, optionA, optionB]);
 
-  // Host can also vote directly
   const hostVote = useCallback((choice: 'a' | 'b') => {
-    if (choice === 'a') setVotesA(prev => prev + 1);
-    else setVotesB(prev => prev + 1);
+    if (choice === 'a') setVotesA((prev) => prev + 1);
+    else setVotesB((prev) => prev + 1);
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const endVoting = useCallback(() => {
     eventSourceRef.current?.close();
     const w = votesA >= votesB ? optionA : optionB;
@@ -198,395 +116,160 @@ export function ElectionPoll({ onDismiss }: ElectionPollProps) {
   const totalVotes = votesA + votesB;
   const pctA = totalVotes > 0 ? Math.round((votesA / totalVotes) * 100) : 50;
   const pctB = totalVotes > 0 ? 100 - pctA : 50;
+  const answersCount = totalVotes;
 
-  // Breaking news
+  // ── Breaking news ──
   if (phase === 'breaking') {
     return (
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9998,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'rgba(0,0,0,0.8)',
-        animation: 'fadeIn 0.3s ease-out',
-      }}>
-        <div style={{ textAlign: 'center' }}>
-          <div style={{
-            background: 'linear-gradient(to right, #cc0000, #990000)',
-            color: 'white',
-            padding: '8px 40px',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            letterSpacing: '4px',
-            textTransform: 'uppercase',
-            borderBottom: '4px solid #ff0000',
-          }}>
-            ⚡ BREAKING NEWS ⚡
+      <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/80">
+        <div className="text-center animate-[fadeIn_0.3s_ease-out]">
+          <div className="bg-gradient-to-r from-red-700 to-red-900 text-white px-10 py-2 text-sm font-bold tracking-[4px] uppercase border-b-4 border-red-500">
+            BREAKING NEWS
           </div>
-          <div style={{
-            background: '#1a1a2e',
-            color: 'white',
-            padding: '24px 48px',
-            borderBottom: '4px solid #cc0000',
-          }}>
-            <div style={{
-              background: '#cc0000',
-              padding: '4px 16px',
-              fontWeight: 'bold',
-              fontSize: '13px',
-              display: 'inline-block',
-              marginBottom: '12px',
-            }}>
-              CNN PROJECTION
-            </div>
-            <div style={{
-              fontSize: '32px',
-              fontWeight: 'bold',
-              fontFamily: 'Georgia, serif',
-            }}>
-              {winner.toUpperCase()} WINS
-            </div>
-            <div style={{
-              fontSize: '16px',
-              opacity: 0.7,
-              marginTop: '8px',
-              fontFamily: 'Georgia, serif',
-            }}>
-              {pctA}% to {pctB}% — {totalVotes} votes cast
-            </div>
+          <div className="bg-[#1a1a2e] text-white px-12 py-6 border-b-4 border-red-700">
+            <div className="bg-red-700 px-4 py-1 font-bold text-sm inline-block mb-3">CNN PROJECTION</div>
+            <div className="text-4xl font-bold font-serif">{winner.toUpperCase()} WINS</div>
+            <div className="text-base opacity-70 mt-2 font-serif">{pctA}% to {pctB}% — {totalVotes} votes cast</div>
           </div>
         </div>
-        <style>{`
-          @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        `}</style>
+        <style>{`@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }`}</style>
       </div>
     );
   }
 
-  // Results reveal
+  // ── Results reveal ──
   if (phase === 'results') {
     return (
-      <div style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9998,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'rgba(0,0,0,0.7)',
-      }}>
-        <div style={{
-          textAlign: 'center',
-          animation: 'fadeIn 0.5s ease-out',
-        }}>
-          <div style={{ fontSize: '48px', marginBottom: '12px' }}>🗳️</div>
-          <div style={{
-            color: 'white',
-            fontSize: '28px',
-            fontFamily: 'Georgia, serif',
-            fontWeight: 'bold',
-          }}>
-            THE VOTES ARE IN...
-          </div>
+      <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/70">
+        <div className="text-center animate-[fadeIn_0.5s_ease-out]">
+          <div className="text-5xl mb-3">🗳️</div>
+          <div className="text-white text-3xl font-serif font-bold">THE VOTES ARE IN...</div>
         </div>
-        <style>{`
-          @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        `}</style>
+        <style>{`@keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }`}</style>
       </div>
     );
   }
 
-  // Voting phase
+  // ── Voting phase — Kahoot-style ──
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 9998,
-      background: 'rgba(0,0,0,0.5)',
-      display: 'flex',
-      alignItems: 'flex-end',
-      justifyContent: 'center',
-    }}>
+    <div className="fixed inset-0 z-[9998] flex flex-col" style={{ background: '#46178f', fontFamily: "'Montserrat', Arial, sans-serif" }}>
       {/* Close button */}
       <button
         onClick={onDismiss}
-        style={{
-          position: 'absolute',
-          right: '16px',
-          top: '16px',
-          background: 'rgba(0,0,0,0.5)',
-          border: 'none',
-          color: 'white',
-          cursor: 'pointer',
-          fontSize: '20px',
-          width: '32px',
-          height: '32px',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/30 text-white text-lg flex items-center justify-center cursor-pointer hover:bg-black/50"
       >
         ✕
       </button>
 
-      {/* Top center: Question + QR + Vote bar + End button */}
-      <div style={{
-        position: 'absolute',
-        top: '30px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '14px',
-      }}>
-        {/* Question */}
-        <div style={{
-          background: 'linear-gradient(135deg, #002868, #BF0A30)',
-          padding: '12px 32px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
-        }}>
-          <span style={{
-            color: 'white',
-            fontSize: '18px',
-            fontWeight: 'bold',
-            fontFamily: 'Georgia, serif',
-            textTransform: 'uppercase',
-            letterSpacing: '2px',
-          }}>
-            🗳️ {question}
-          </span>
+      {/* Top bar — question + timer */}
+      <div className="flex items-center justify-between px-6 py-3">
+        <div className="text-white/60 text-sm font-bold">{answersCount} Answers</div>
+        <div className="text-white text-lg font-bold tracking-wide uppercase">{question}</div>
+        <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white text-xl font-bold">
+          {timer}
+        </div>
+      </div>
+
+      {/* Middle — QR code + live bar */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-6">
+        {/* QR */}
+        <div className="flex flex-col items-center gap-2">
+          <QRCodeSVG value={voteUrl} size={180} level="L" fgColor="white" bgColor="transparent" />
+          <span className="text-white/80 text-sm font-bold">Scan to vote!</span>
         </div>
 
-        {/* QR Code */}
-        <div style={{
-          background: 'white',
-          padding: '12px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '6px',
-        }}>
-          <QRCodeSVG value={voteUrl} size={140} level="L" />
-          <span style={{
-            fontSize: '11px',
-            color: '#666',
-            fontFamily: 'Georgia, serif',
-          }}>
-            Scan to vote!
-          </span>
-        </div>
-
-        {/* Live vote tally bar */}
-        <div style={{
-          width: '320px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '4px',
-        }}>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            color: 'white',
-            fontSize: '14px',
-            fontFamily: 'Georgia, serif',
-            fontWeight: 'bold',
-          }}>
+        {/* Live vote bar */}
+        <div className="w-[500px] max-w-[90vw]">
+          <div className="flex justify-between text-white text-sm font-bold mb-1">
             <span>{optionA}: {votesA}</span>
-            <span style={{ opacity: 0.6, fontSize: '12px' }}>{totalVotes} votes</span>
+            <span className="opacity-60">{totalVotes} votes</span>
             <span>{optionB}: {votesB}</span>
           </div>
-          <div style={{
-            height: '24px',
-            borderRadius: '4px',
-            overflow: 'hidden',
-            display: 'flex',
-            border: '2px solid white',
-          }}>
-            <div style={{
-              width: `${pctA}%`,
-              background: '#002868',
-              transition: 'width 0.5s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '11px',
-              color: 'white',
-              fontWeight: 'bold',
-              minWidth: totalVotes > 0 ? '30px' : '50%',
-            }}>
+          <div className="h-8 rounded-lg overflow-hidden flex bg-white/20">
+            <div
+              className="flex items-center justify-center text-white text-xs font-bold transition-all duration-500"
+              style={{ width: `${pctA}%`, background: '#e21b3c', minWidth: totalVotes > 0 ? 40 : '50%' }}
+            >
               {totalVotes > 0 ? `${pctA}%` : ''}
             </div>
-            <div style={{
-              width: `${pctB}%`,
-              background: '#BF0A30',
-              transition: 'width 0.5s ease',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '11px',
-              color: 'white',
-              fontWeight: 'bold',
-              minWidth: totalVotes > 0 ? '30px' : '50%',
-            }}>
+            <div
+              className="flex items-center justify-center text-white text-xs font-bold transition-all duration-500"
+              style={{ width: `${pctB}%`, background: '#1368ce', minWidth: totalVotes > 0 ? 40 : '50%' }}
+            >
               {totalVotes > 0 ? `${pctB}%` : ''}
             </div>
           </div>
         </div>
 
-        {/* Host voting + End button */}
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <button
-            onClick={() => hostVote('a')}
-            style={{
-              background: '#002868',
-              color: 'white',
-              border: '2px solid white',
-              padding: '8px 20px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontFamily: 'Georgia, serif',
-              textTransform: 'uppercase',
-              borderRadius: '4px',
-            }}
-          >
-            {optionA}
-          </button>
-
-          <button
-            onClick={endVoting}
-            style={{
-              background: '#333',
-              color: '#FFD700',
-              border: '2px solid #FFD700',
-              padding: '8px 20px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: '13px',
-              fontFamily: 'Georgia, serif',
-              textTransform: 'uppercase',
-              borderRadius: '4px',
-              letterSpacing: '1px',
-            }}
-          >
-            🔔 End Voting
-          </button>
-
-          <button
-            onClick={() => hostVote('b')}
-            style={{
-              background: '#BF0A30',
-              color: 'white',
-              border: '2px solid white',
-              padding: '8px 20px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              fontSize: '14px',
-              fontFamily: 'Georgia, serif',
-              textTransform: 'uppercase',
-              borderRadius: '4px',
-            }}
-          >
-            {optionB}
-          </button>
-        </div>
+        {/* End voting */}
+        <span
+          onClick={endVoting}
+          className="text-white/50 text-sm font-bold cursor-pointer hover:text-white/80 underline uppercase tracking-wider"
+        >
+          End Voting
+        </span>
       </div>
 
-      {/* Trump — bottom left */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0px',
-        left: '8%',
-        display: 'flex',
-        alignItems: 'flex-end',
-        gap: '12px',
-      }}>
-        <StickFigure side="left" speaking={trumpSpeaking} />
-        <div style={{
-          background: 'rgba(255,255,255,0.95)',
-          borderRadius: '12px',
-          padding: '10px 14px',
-          maxWidth: '180px',
-          fontSize: '13px',
-          color: '#333',
-          fontFamily: 'Georgia, serif',
-          position: 'relative',
-          marginBottom: '120px',
-          opacity: trumpSpeaking ? 1 : 0.3,
-          transition: 'opacity 0.3s',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-        }}>
-          "{trumpQuote}"
-          <div style={{
-            position: 'absolute',
-            left: '-8px',
-            bottom: '16px',
-            width: 0,
-            height: 0,
-            borderTop: '8px solid transparent',
-            borderBottom: '8px solid transparent',
-            borderRight: '8px solid rgba(255,255,255,0.95)',
-          }} />
-        </div>
-      </div>
+      {/* Bottom — two big vote buttons, Kahoot-style split with stickmen */}
+      <div className="flex h-[260px]">
+        {/* Left option — red */}
+        <button
+          onClick={() => hostVote('a')}
+          className="flex-1 flex items-end justify-center cursor-pointer transition-all hover:brightness-110 active:scale-[0.98] relative overflow-hidden"
+          style={{ background: '#e21b3c' }}
+        >
+          <div className="text-white text-4xl font-bold absolute inset-0 flex items-center justify-center drop-shadow-lg z-10 pointer-events-none">{optionA}</div>
+          <div className="flex flex-col items-center mb-0" style={{ animation: 'walkLeftRight 2s ease-in-out infinite alternate' }}>
+            <img src="/trump.png" alt="" className="w-32 h-32 object-cover" style={{ animation: 'headShake 0.4s ease-in-out infinite alternate' }} />
+            <svg width="80" height="140" viewBox="0 0 80 140" className="mt-[-2px]">
+              <line x1="40" y1="0" x2="40" y2="14" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <line x1="40" y1="14" x2="40" y2="75" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <polygon points="40,14 36,34 40,38 44,34" fill="#ff6b6b" />
+              <line x1="40" y1="28" x2="10" y2="12" stroke="white" strokeWidth="3" strokeLinecap="round" style={{ animation: 'armWaveL 0.6s ease-in-out infinite alternate' }} />
+              <line x1="40" y1="28" x2="72" y2="40" stroke="white" strokeWidth="3" strokeLinecap="round" style={{ animation: 'armWaveR 0.8s ease-in-out infinite alternate' }} />
+              <line x1="40" y1="75" x2="22" y2="135" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <line x1="40" y1="75" x2="58" y2="135" stroke="white" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+          </div>
+        </button>
 
-      {/* Hillary — bottom right */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0px',
-        right: '8%',
-        display: 'flex',
-        alignItems: 'flex-end',
-        gap: '12px',
-      }}>
-        <div style={{
-          background: 'rgba(255,255,255,0.95)',
-          borderRadius: '12px',
-          padding: '10px 14px',
-          maxWidth: '180px',
-          fontSize: '13px',
-          color: '#333',
-          fontFamily: 'Georgia, serif',
-          position: 'relative',
-          marginBottom: '120px',
-          opacity: !trumpSpeaking ? 1 : 0.3,
-          transition: 'opacity 0.3s',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-        }}>
-          "{hillaryQuote}"
-          <div style={{
-            position: 'absolute',
-            right: '-8px',
-            bottom: '16px',
-            width: 0,
-            height: 0,
-            borderTop: '8px solid transparent',
-            borderBottom: '8px solid transparent',
-            borderLeft: '8px solid rgba(255,255,255,0.95)',
-          }} />
-        </div>
-        <StickFigure side="right" speaking={!trumpSpeaking} />
+        {/* Right option — blue */}
+        <button
+          onClick={() => hostVote('b')}
+          className="flex-1 flex items-end justify-center cursor-pointer transition-all hover:brightness-110 active:scale-[0.98] relative overflow-hidden"
+          style={{ background: '#1368ce' }}
+        >
+          <div className="text-white text-4xl font-bold absolute inset-0 flex items-center justify-center drop-shadow-lg z-10 pointer-events-none">{optionB}</div>
+          <div className="flex flex-col items-center mb-0" style={{ animation: 'walkLeftRight 2.3s ease-in-out infinite alternate-reverse' }}>
+            <img src="/hillary.png" alt="" className="w-32 h-32 object-cover" style={{ animation: 'headShake 0.5s ease-in-out infinite alternate-reverse' }} />
+            <svg width="80" height="140" viewBox="0 0 80 140" className="mt-[-2px]">
+              <line x1="40" y1="0" x2="40" y2="14" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <line x1="40" y1="14" x2="40" y2="75" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <line x1="40" y1="28" x2="8" y2="40" stroke="white" strokeWidth="3" strokeLinecap="round" style={{ animation: 'armWaveR 0.7s ease-in-out infinite alternate' }} />
+              <line x1="40" y1="28" x2="70" y2="12" stroke="white" strokeWidth="3" strokeLinecap="round" style={{ animation: 'armWaveL 0.5s ease-in-out infinite alternate' }} />
+              <line x1="40" y1="75" x2="22" y2="135" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              <line x1="40" y1="75" x2="58" y2="135" stroke="white" strokeWidth="3" strokeLinecap="round" />
+            </svg>
+          </div>
+        </button>
       </div>
 
       <style>{`
         @keyframes headShake {
-          0% { transform: rotate(-8deg); }
-          100% { transform: rotate(8deg); }
+          0% { transform: rotate(-10deg) translateX(-4px); }
+          100% { transform: rotate(10deg) translateX(4px); }
         }
-        @keyframes headIdle {
-          0%, 100% { transform: rotate(0deg); }
-          50% { transform: rotate(2deg); }
+        @keyframes armWaveL {
+          0% { transform: rotate(-10deg); }
+          100% { transform: rotate(10deg); }
         }
-        @keyframes armWave {
-          0% { transform: rotate(-5deg); }
-          100% { transform: rotate(5deg); }
+        @keyframes armWaveR {
+          0% { transform: rotate(8deg); }
+          100% { transform: rotate(-8deg); }
+        }
+        @keyframes walkLeftRight {
+          0% { transform: translateX(-60px); }
+          100% { transform: translateX(60px); }
         }
       `}</style>
     </div>

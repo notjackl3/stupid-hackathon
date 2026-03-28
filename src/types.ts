@@ -1,15 +1,22 @@
-export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr' | 'myinstants';
-export type PageName = 'home' | 'search' | 'video' | 'explore' | 'tagged';
+export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr' | 'myinstants' | 'musically' | 'spotify';
+export type PageName = 'home' | 'search' | 'video' | 'explore' | 'tagged' | 'playlist' | 'live';
+export type NavigationResourceType = 'playlist' | 'album' | '';
 
 export interface NavigationState {
   site: SiteName;
   page: PageName;
   query: string;
   videoId: string;
+  resourceType: NavigationResourceType;
+  resourceId: string;
 }
 
 export interface NavigationActions {
-  navigate: (site: SiteName, page?: PageName, params?: { query?: string; videoId?: string }) => void;
+  navigate: (
+    site: SiteName,
+    page?: PageName,
+    params?: { query?: string; videoId?: string; resourceType?: NavigationResourceType; resourceId?: string }
+  ) => void;
   navigateFromUrl: (url: string) => void;
   search: (query: string) => void;
   goBack: () => void;
@@ -84,6 +91,38 @@ export interface VinePost {
 
 export interface VineQueryData {
   vines: VinePost[];
+}
+
+export interface MusicallyComment {
+  user: string;
+  text: string;
+}
+
+export interface MusicallyPost {
+  id: string;
+  username: string;
+  displayName: string;
+  verified: boolean;
+  caption: string;
+  fans: string;
+  hearts: number;
+  shares: number;
+  comments: MusicallyComment[];
+  songTitle: string;
+  artist: string;
+  hashtags: string[];
+  city?: string;
+  category: string;
+  videoDescription: string;
+  videoColor: string;
+  videoId?: string;
+  startSeconds?: number;
+  endSeconds?: number;
+  avatarUrl?: string;
+}
+
+export interface MusicallyQueryData {
+  posts: MusicallyPost[];
 }
 
 export type TumblrPostType = 'reblog_chain' | 'text' | 'photo' | 'quote' | 'link' | 'chat' | 'sponsored';

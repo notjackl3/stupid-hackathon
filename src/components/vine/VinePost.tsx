@@ -5,10 +5,62 @@ interface VinePostProps {
   vine: VinePostType;
 }
 
+function hashString(input: string) {
+  let hash = 0;
+  for (let index = 0; index < input.length; index += 1) {
+    hash = (hash * 31 + input.charCodeAt(index)) >>> 0;
+  }
+  return hash;
+}
+
+function avatarSvgDataUri(vine: VinePostType) {
+  const seed = hashString(`${vine.username}:${vine.displayName}`);
+  const palettes = [
+    ['#f8d56c', '#ef7f5f', '#31243a'],
+    ['#79d9c5', '#2fbf90', '#173d3f'],
+    ['#9fc7ff', '#5d7ce2', '#1f2859'],
+    ['#f7b3c8', '#d45f8c', '#4c2131'],
+    ['#ffd7a0', '#ff955f', '#4b2f24'],
+    ['#b9f1a7', '#5bc56e', '#1d3f29'],
+  ];
+  const [base, accent, ink] = palettes[seed % palettes.length];
+  const initial = vine.displayName.trim().charAt(0).toUpperCase() || '?';
+  const offsetA = 12 + (seed % 14);
+  const offsetB = 66 - (seed % 12);
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="${base}" />
+          <stop offset="100%" stop-color="${accent}" />
+        </linearGradient>
+      </defs>
+      <rect width="88" height="88" rx="44" fill="url(#bg)" />
+      <circle cx="${offsetA}" cy="16" r="10" fill="#ffffff" fill-opacity="0.18" />
+      <circle cx="${offsetB}" cy="72" r="12" fill="#ffffff" fill-opacity="0.12" />
+      <path d="M23 67c2-13 11-21 21-21s19 8 21 21" fill="${ink}" fill-opacity="0.2" />
+      <circle cx="44" cy="35" r="16" fill="#fff4e8" />
+      <path d="M29 34c1-9 7-15 15-15 9 0 15 6 15 15-6-3-12-4-18-4-5 0-9 1-12 4z" fill="${ink}" />
+      <circle cx="38" cy="36" r="1.8" fill="${ink}" />
+      <circle cx="50" cy="36" r="1.8" fill="${ink}" />
+      <path d="M39 43c2 2 8 2 10 0" fill="none" stroke="${ink}" stroke-linecap="round" stroke-width="2.2" />
+      <circle cx="65" cy="64" r="11" fill="#ffffff" fill-opacity="0.94" />
+      <text x="65" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="${ink}">
+        ${initial}
+      </text>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg.replace(/\s+/g, ' ').trim())}`;
+}
+
 export function VinePost({ vine }: VinePostProps) {
   const [playing, setPlaying] = useState(false);
   const [imgError, setImgError] = useState(false);
   const articleRef = useRef<HTMLElement | null>(null);
+  const fallbackAvatarUrl = avatarSvgDataUri(vine);
+  const avatarUrl = !imgError && vine.avatarUrl ? vine.avatarUrl : fallbackAvatarUrl;
 
   useEffect(() => {
     const node = articleRef.current;
@@ -34,21 +86,12 @@ export function VinePost({ vine }: VinePostProps) {
   return (
     <article ref={articleRef} className="border-b border-[#e7e7e7] bg-white">
       <div className="flex items-center gap-3 px-4 py-3">
-        {vine.avatarUrl && !imgError ? (
-          <img
-            src={vine.avatarUrl}
-            alt={vine.displayName}
-            className="h-11 w-11 flex-shrink-0 rounded-full object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div
-            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold text-white"
-            style={{ backgroundColor: vine.videoColor }}
-          >
-            {vine.displayName[0].toUpperCase()}
-          </div>
-        )}
+        <img
+          src={avatarUrl}
+          alt={vine.displayName}
+          className="h-11 w-11 flex-shrink-0 rounded-full object-cover"
+          onError={() => setImgError(true)}
+        />
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1">
             <span className="truncate font-bold text-[15px] text-[#0f2320]">{vine.displayName}</span>

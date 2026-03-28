@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, type KeyboardEvent } from 're
 import type { Tweet, TwitterQueryData } from '../../types';
 import { searchTwitter } from '../../lib/fuzzySearch';
 import { RightSidebar } from './TrendingSidebar';
+import { getTwitterProfile, TWITTER_HOME_PROFILE, TWITTER_TRENDS } from '../../data/twitterProfiles';
 import twitterData from '../../data/twitterResults.json';
 
 interface TwitterFeedProps {
@@ -10,71 +11,7 @@ interface TwitterFeedProps {
 }
 
 const TWEETS_PER_BATCH = 5;
-
-// Google Favicon API for brand logos, Wikipedia for public figures
-const G = (domain: string) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-const W = (path: string) => `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}`;
-
-const REAL_AVATARS: Record<string, string> = {
-  // Brands / media
-  BuzzFeed: G('buzzfeed.com'),
-  BuzzFeedTech: G('buzzfeed.com'),
-  CNN: G('cnn.com'),
-  cabordsreaking: G('cnn.com'),
-  CNNPolitics: G('cnn.com'),
-  CNNTech: G('cnn.com'),
-  BBCBreaking: G('bbc.com'),
-  CNBC: G('cnbc.com'),
-  Apple: G('apple.com'),
-  Google: G('google.com'),
-  googleplus: G('google.com'),
-  YouTube: G('youtube.com'),
-  netflix: G('netflix.com'),
-  instagram: G('instagram.com'),
-  Snapchat: G('snapchat.com'),
-  Uber: G('uber.com'),
-  SpaceX: G('spacex.com'),
-  PokemonGoApp: G('pokemongolive.com'),
-  SamsungMobile: G('samsung.com'),
-  PrimeVideo: G('primevideo.com'),
-  espn: G('espn.com'),
-  HuffPost: G('huffpost.com'),
-  WIRED: G('wired.com'),
-  TheEconomist: G('economist.com'),
-  WebMD: G('webmd.com'),
-  verge: G('theverge.com'),
-  jpmorgan: G('jpmorgan.com'),
-  nbcsnl: G('nbc.com'),
-  CollegeHumor: G('collegehumor.com'),
-  FTC: G('ftc.gov'),
-  CincinnatiZoo: G('cincinnatizoo.org'),
-  NateSilver538: G('fivethirtyeight.com'),
-  DudePerfect: G('dudeperfect.com'),
-  business: G('bloomberg.com'),
-  // People
-  POTUS: W('8/8d/President_Barack_Obama.jpg/220px-President_Barack_Obama.jpg'),
-  elonmusk: W('3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/220px-Elon_Musk_Royal_Society_%28crop2%29.jpg'),
-  tim_cook: W('e/e1/Tim_Cook_%282017%2C_cropped%29.jpg/220px-Tim_Cook_%282017%2C_cropped%29.jpg'),
-  WarrenBuffett: W('5/51/Warren_Buffett_KU_Visit.jpg/220px-Warren_Buffett_KU_Visit.jpg'),
-  TheEllenShow: W('b/b8/Ellen_DeGeneres_2011.jpg/220px-Ellen_DeGeneres_2011.jpg'),
-  djkhaled: W('e/e3/DJ_Khaled_2019_by_Glenn_Francis.jpg/220px-DJ_Khaled_2019_by_Glenn_Francis.jpg'),
-};
-
-const TRENDS = [
-  { tag: '#Harambe', tweets: '30.9K Tweets', context: '@CincinnatiZoo and 12 others are Tweeting about this' },
-  { tag: '#PokemonGO', tweets: '892K Tweets' },
-  { tag: '#Election2016', tweets: '2.1M Tweets' },
-  { tag: '#DamnDaniel', tweets: '456K Tweets' },
-  { tag: '#MannequinChallenge', tweets: '678K Tweets' },
-  { tag: '#BottleFlipChallenge', tweets: '534K Tweets' },
-  { tag: 'Trump', tweets: '1.8M Tweets', context: '@NateSilver538 and @CNN are Tweeting about this' },
-  { tag: 'Hillary', tweets: '1.5M Tweets' },
-  { tag: '#RIPVine', tweets: '2.3M Tweets' },
-];
-
-function getAvatarUrl(handle: string): string {
-  return REAL_AVATARS[handle] ?? `https://i.pravatar.cc/96?u=${encodeURIComponent(handle)}`;
-}
+const twitterDataset = twitterData as Record<string, TwitterQueryData>;
 
 function renderTweetText(text: string): React.ReactNode {
   const parts = text.split(/(@\w+|#\w+)/g);
@@ -127,25 +64,29 @@ function MessagesIcon() {
 }
 
 function TweetCard({ tweet }: { tweet: Tweet }) {
+  const profile = getTwitterProfile(tweet.handle, tweet.avatar);
+  const displayName = profile.displayName ?? tweet.displayName;
+  const verified = profile.verified ?? tweet.verified;
+
   return (
-    <div className="flex gap-[10px] px-[15px] py-[10px] border-b border-[#e6ecf0] hover:bg-[#f5f8fa] cursor-pointer transition-colors duration-150">
+    <div className="flex gap-[10px] px-[12px] py-[9px] border-b border-[#e1e8ed] hover:bg-[#f5f8fa] cursor-pointer transition-colors duration-150">
       <img
-        src={getAvatarUrl(tweet.handle)}
-        alt={tweet.displayName}
-        className="w-[48px] h-[48px] rounded-full flex-shrink-0 bg-[#e1e8ed] object-cover"
+        src={profile.avatarSrc}
+        alt={displayName}
+        className="w-[48px] h-[48px] rounded-[4px] flex-shrink-0 bg-[#e1e8ed] object-cover"
       />
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-[2px] flex-wrap leading-[20px]">
-          <span className="font-bold text-[14px] text-[#14171a] hover:underline cursor-pointer">{tweet.displayName}</span>
-          {tweet.verified && <VerifiedBadge />}
+        <div className="flex items-center gap-[2px] flex-wrap leading-[18px]">
+          <span className="font-bold text-[14px] text-[#14171a] hover:underline cursor-pointer">{displayName}</span>
+          {verified && <VerifiedBadge />}
           <span className="text-[13px] text-[#657786] ml-[3px]">@{tweet.handle}</span>
           <span className="text-[13px] text-[#657786] mx-[2px]">&middot;</span>
           <span className="text-[13px] text-[#657786] hover:underline cursor-pointer">{tweet.timestamp}</span>
         </div>
-        <p className="text-[14px] text-[#14171a] mt-[2px] leading-[20px] whitespace-pre-wrap">{renderTweetText(tweet.text)}</p>
-        <div className="flex items-center mt-[8px] text-[#657786] max-w-[425px] justify-between">
+        <p className="text-[14px] text-[#14171a] mt-[1px] leading-[20px] whitespace-pre-wrap">{renderTweetText(tweet.text)}</p>
+        <div className="flex items-center mt-[7px] text-[#657786] max-w-[425px] justify-between">
           <button className="group flex items-center gap-[5px] text-[12px] hover:text-[#1da1f2] cursor-pointer py-[2px]">
-            <div className="w-[34px] h-[34px] flex items-center justify-center rounded-full group-hover:bg-[#e8f5fd] transition-colors">
+            <div className="w-[28px] h-[28px] flex items-center justify-center rounded-[14px] group-hover:bg-[#e8f5fd] transition-colors">
               <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[#657786] group-hover:fill-[#1da1f2]">
                 <path d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z" />
               </svg>
@@ -153,7 +94,7 @@ function TweetCard({ tweet }: { tweet: Tweet }) {
             <span>{tweet.replies > 0 ? tweet.replies.toLocaleString() : ''}</span>
           </button>
           <button className="group flex items-center gap-[5px] text-[12px] hover:text-[#17bf63] cursor-pointer py-[2px]">
-            <div className="w-[34px] h-[34px] flex items-center justify-center rounded-full group-hover:bg-[#e6f3e6] transition-colors">
+            <div className="w-[28px] h-[28px] flex items-center justify-center rounded-[14px] group-hover:bg-[#e6f3e6] transition-colors">
               <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[#657786] group-hover:fill-[#17bf63]">
                 <path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z" />
               </svg>
@@ -161,7 +102,7 @@ function TweetCard({ tweet }: { tweet: Tweet }) {
             <span>{tweet.retweets > 0 ? tweet.retweets.toLocaleString() : ''}</span>
           </button>
           <button className="group flex items-center gap-[5px] text-[12px] hover:text-[#e0245e] cursor-pointer py-[2px]">
-            <div className="w-[34px] h-[34px] flex items-center justify-center rounded-full group-hover:bg-[#fde8ef] transition-colors">
+            <div className="w-[28px] h-[28px] flex items-center justify-center rounded-[14px] group-hover:bg-[#fde8ef] transition-colors">
               <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[#657786] group-hover:fill-[#e0245e]">
                 <path d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z" />
               </svg>
@@ -169,7 +110,7 @@ function TweetCard({ tweet }: { tweet: Tweet }) {
             <span>{tweet.likes > 0 ? tweet.likes.toLocaleString() : ''}</span>
           </button>
           <button className="group flex items-center gap-[5px] text-[12px] hover:text-[#1da1f2] cursor-pointer py-[2px]">
-            <div className="w-[34px] h-[34px] flex items-center justify-center rounded-full group-hover:bg-[#e8f5fd] transition-colors">
+            <div className="w-[28px] h-[28px] flex items-center justify-center rounded-[14px] group-hover:bg-[#e8f5fd] transition-colors">
               <svg viewBox="0 0 24 24" className="w-[16px] h-[16px] fill-[#657786] group-hover:fill-[#1da1f2]">
                 <path d="M17.53 7.77l-5.396-5.396c-.293-.293-.768-.293-1.06 0l-5.396 5.396c-.293.293-.293.768 0 1.06s.768.294 1.06 0L10.69 4.88v11.25c0 .414.336.75.75.75s.75-.336.75-.75V4.88l3.952 3.952c.147.146.34.22.53.22s.384-.073.53-.22c.294-.293.294-.768 0-1.06z" />
               </svg>
@@ -189,6 +130,20 @@ function generateFillerTweets(sourceTweets: Tweet[], batchNum: number): Tweet[] 
   }));
 }
 
+function buildTweetPool(query: string): Tweet[] {
+  const primaryTweets = !query
+    ? twitterDataset._trending?.tweets ?? []
+    : searchTwitter(twitterDataset, query)?.results.tweets ?? [];
+
+  const seenIds = new Set(primaryTweets.map((tweet) => tweet.id));
+  const overflowTweets = Object.entries(twitterDataset)
+    .filter(([key]) => key !== '_trending')
+    .flatMap(([, value]) => value.tweets)
+    .filter((tweet) => !seenIds.has(tweet.id));
+
+  return [...primaryTweets, ...overflowTweets];
+}
+
 export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
   const [searchInput, setSearchInput] = useState(query);
   const [allTweets, setAllTweets] = useState<Tweet[]>([]);
@@ -203,18 +158,7 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
 
     const delay = 500 + Math.random() * 300;
     const timer = setTimeout(() => {
-      const data = twitterData as Record<string, TwitterQueryData>;
-      let fetched: Tweet[] = [];
-
-      if (!query) {
-        const trending = data['_trending'];
-        fetched = trending?.tweets ?? [];
-      } else {
-        const match = searchTwitter(data, query);
-        if (match) {
-          fetched = match.results.tweets;
-        }
-      }
+      const fetched = buildTweetPool(query);
 
       setAllTweets(fetched);
       setDisplayedTweets(fetched.slice(0, TWEETS_PER_BATCH));
@@ -272,10 +216,12 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
     }
   };
 
+  const currentUser = TWITTER_HOME_PROFILE;
+
   return (
     <div className="min-h-full w-full bg-[#e6ecf0]" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
       {/* Twitter Header */}
-      <div className="bg-white border-b border-[#e6ecf0] shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+      <div className="bg-white border-b border-[#d8e2ea] shadow-[0_1px_2px_rgba(0,0,0,0.06)]">
         <div className="w-full flex items-center justify-between h-[46px] px-[16px]">
           <div className="flex items-center h-full gap-[2px]">
             <a className="flex flex-col items-center justify-center px-[10px] h-full border-b-2 border-[#1da1f2] cursor-pointer group">
@@ -321,9 +267,9 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
               Tweet
             </button>
             <img
-              src={getAvatarUrl('user2016')}
+              src={currentUser.avatarSrc}
               alt="Profile"
-              className="w-[32px] h-[32px] rounded-full cursor-pointer bg-[#e1e8ed] object-cover"
+              className="w-[32px] h-[32px] rounded-[4px] cursor-pointer bg-[#e1e8ed] object-cover"
             />
           </div>
         </div>
@@ -336,32 +282,32 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
           {/* Profile card */}
           <div className="bg-white border border-[#e6ecf0] rounded-[5px] overflow-hidden mb-[10px]">
             <img
-              src="https://picsum.photos/seed/twitter2016/360/160"
+              src={currentUser.bannerSrc}
               alt=""
               className="h-[80px] w-full object-cover bg-gradient-to-r from-[#1da1f2] to-[#45b0f5]"
             />
             <div className="px-[12px] pb-[12px] relative">
               <img
-                src={getAvatarUrl('user2016')}
+                src={currentUser.avatarSrc}
                 alt="User"
-                className="w-[56px] h-[56px] rounded-full border-[3px] border-white bg-[#e1e8ed] absolute -top-[28px] object-cover"
+                className="w-[56px] h-[56px] rounded-[6px] border-[3px] border-white bg-[#e1e8ed] absolute -top-[28px] object-cover"
               />
               <div className="pt-[32px]">
-                <div className="font-bold text-[14px] text-[#14171a] hover:underline cursor-pointer">waff</div>
-                <div className="text-[12px] text-[#657786]">@dangeredwolf</div>
+                <div className="font-bold text-[14px] text-[#14171a] hover:underline cursor-pointer">{currentUser.name}</div>
+                <div className="text-[12px] text-[#657786]">@{currentUser.handle}</div>
               </div>
               <div className="flex justify-between mt-[10px] border-t border-[#e6ecf0] pt-[10px]">
                 <a className="flex flex-col cursor-pointer group">
                   <span className="text-[10px] text-[#657786] font-bold tracking-wide uppercase group-hover:text-[#1da1f2]">Tweets</span>
-                  <span className="text-[14px] font-bold text-[#1da1f2]">38.9K</span>
+                  <span className="text-[14px] font-bold text-[#1da1f2]">{currentUser.tweets}</span>
                 </a>
                 <a className="flex flex-col cursor-pointer group">
                   <span className="text-[10px] text-[#657786] font-bold tracking-wide uppercase group-hover:text-[#1da1f2]">Following</span>
-                  <span className="text-[14px] font-bold text-[#1da1f2]">1,981</span>
+                  <span className="text-[14px] font-bold text-[#1da1f2]">{currentUser.following}</span>
                 </a>
                 <a className="flex flex-col cursor-pointer group">
                   <span className="text-[10px] text-[#657786] font-bold tracking-wide uppercase group-hover:text-[#1da1f2]">Followers</span>
-                  <span className="text-[14px] font-bold text-[#1da1f2]">3,419</span>
+                  <span className="text-[14px] font-bold text-[#1da1f2]">{currentUser.followers}</span>
                 </a>
               </div>
             </div>
@@ -373,7 +319,7 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
               <h3 className="font-bold text-[#14171a] text-[13px]">Trends</h3>
               <span className="text-[11px] text-[#1da1f2] hover:underline cursor-pointer">Change</span>
             </div>
-            {TRENDS.slice(0, 7).map((trend) => (
+            {TWITTER_TRENDS.map((trend) => (
               <div
                 key={trend.tag}
                 className="px-[12px] py-[6px] hover:bg-[#f5f8fa] cursor-pointer border-b border-[#e6ecf0] last:border-b-0 transition-colors"
@@ -395,9 +341,9 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
           <div className="bg-white border border-[#e6ecf0] rounded-[5px] mb-[10px] px-[12px] py-[10px]">
             <div className="flex gap-[10px] items-start">
               <img
-                src={getAvatarUrl('user2016')}
+                src={currentUser.avatarSrc}
                 alt="You"
-                className="w-[32px] h-[32px] rounded-full flex-shrink-0 bg-[#e1e8ed] object-cover"
+                className="w-[32px] h-[32px] rounded-[4px] flex-shrink-0 bg-[#e1e8ed] object-cover"
               />
               <div className="flex-1 relative">
                 <input
@@ -423,8 +369,23 @@ export function TwitterFeed({ query, onSearch }: TwitterFeedProps) {
           {/* Search header */}
           {query && (
             <div className="bg-white border border-[#e6ecf0] rounded-[5px] mb-[10px] px-[15px] py-[10px]">
-              <span className="text-[13px] text-[#657786]">Search results for </span>
-              <span className="text-[13px] font-bold text-[#14171a]">"{query}"</span>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-[13px] text-[#657786]">Search results for </span>
+                  <span className="text-[13px] font-bold text-[#14171a]">"{query}"</span>
+                </div>
+                <span className="text-[11px] uppercase tracking-[0.12em] text-[#8899a6]">Top</span>
+              </div>
+              <div className="mt-[10px] flex items-center gap-[14px] border-t border-[#e6ecf0] pt-[8px] text-[12px]">
+                {['Top', 'Latest', 'Accounts', 'Photos', 'Videos', 'More'].map((tab) => (
+                  <span
+                    key={tab}
+                    className={tab === 'Top' ? 'font-bold text-[#1da1f2]' : 'cursor-pointer text-[#657786] hover:text-[#1da1f2]'}
+                  >
+                    {tab}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
 

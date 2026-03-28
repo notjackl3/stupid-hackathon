@@ -408,6 +408,7 @@ function Sidebar({ activeCategory, onCategoryClick, onHome }: {
 interface YouTubeHomeProps {
   onSearch: (query: string) => void;
   onVideoClick: (videoId: string) => void;
+  onLive?: () => void;
 }
 
 const staticData = homepageData as Record<string, YouTubeVideoData[]>;
@@ -425,7 +426,7 @@ const SIDEBAR_KEY_MAP: Record<string, string> = {
 
 // -- Main Component -----------------------------------------------------------
 
-export function YouTubeHome({ onSearch, onVideoClick }: YouTubeHomeProps) {
+export function YouTubeHome({ onSearch, onVideoClick, onLive }: YouTubeHomeProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [scrollOffsets, setScrollOffsets] = useState<Record<string, number>>({});
   const [data, setData] = useState<Record<string, YouTubeVideoData[]> | null>(null);
@@ -455,6 +456,10 @@ export function YouTubeHome({ onSearch, onVideoClick }: YouTubeHomeProps) {
   }, []);
 
   const handleCategoryClick = (name: string) => {
+    if (name === 'Live' && onLive) {
+      onLive();
+      return;
+    }
     setActiveCategory(name);
     setCategoryLoading(true);
     setCategoryVideos([]);

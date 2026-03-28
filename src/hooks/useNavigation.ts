@@ -6,10 +6,17 @@ const DEFAULT_STATE: NavigationState = {
   page: 'home',
   query: '',
   videoId: '',
+  resourceType: '',
+  resourceId: '',
+};
+
+const EMPTY_RESOURCE = {
+  resourceType: '' as const,
+  resourceId: '',
 };
 
 function deriveDisplayUrl(state: NavigationState): string {
-  const { site, page, query, videoId } = state;
+  const { site, page, query, videoId, resourceType, resourceId } = state;
 
   switch (site) {
     case 'google':
@@ -19,6 +26,9 @@ function deriveDisplayUrl(state: NavigationState): string {
       return 'www.google.com';
 
     case 'youtube':
+      if (page === 'live') {
+        return 'www.youtube.com/live';
+      }
       if (page === 'video' && videoId) {
         return `www.youtube.com/watch?v=${videoId}`;
       }
@@ -60,6 +70,27 @@ function deriveDisplayUrl(state: NavigationState): string {
       }
       return 'www.myinstants.com';
 
+    case 'musically':
+      if (page === 'explore') {
+        if (query) {
+          return `musical.ly/discover?q=${encodeURIComponent(query).replace(/%20/g, '+')}`;
+        }
+        return 'musical.ly/discover';
+      }
+      if (page === 'search' && query) {
+        return `musical.ly/search?q=${encodeURIComponent(query).replace(/%20/g, '+')}`;
+      }
+      return 'musical.ly';
+
+    case 'spotify':
+      if (page === 'playlist' && resourceType && resourceId) {
+        return `open.spotify.com/${resourceType}/${resourceId}`;
+      }
+      if (page === 'search' && query) {
+        return `open.spotify.com/search/${encodeURIComponent(query).replace(/%20/g, '%20')}`;
+      }
+      return 'open.spotify.com';
+
     default:
       return 'www.google.com';
   }
@@ -71,36 +102,36 @@ function parseUrl(raw: string): NavigationState {
   if (url.startsWith('youtube.com') || url.startsWith('youtube')) {
     if (url.includes('watch?v=')) {
       const videoId = url.split('v=')[1]?.split('&')[0] ?? '';
-      return { site: 'youtube', page: 'video', query: '', videoId };
+      return { site: 'youtube', page: 'video', query: '', videoId, ...EMPTY_RESOURCE };
     }
     if (url.includes('search_query=') || url.includes('results?')) {
       const query = decodeURIComponent(url.split('search_query=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'youtube', page: 'search', query, videoId: '' };
+      return { site: 'youtube', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
     }
-    return { site: 'youtube', page: 'home', query: '', videoId: '' };
+    return { site: 'youtube', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
   }
 
   if (url.startsWith('twitter.com') || url.startsWith('twitter')) {
     if (url.includes('search?q=')) {
       const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'twitter', page: 'search', query, videoId: '' };
+      return { site: 'twitter', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
     }
-    return { site: 'twitter', page: 'home', query: '', videoId: '' };
+    return { site: 'twitter', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
   }
 
   if (url.startsWith('vine.co') || url.startsWith('vine')) {
     if (url.includes('explore')) {
       if (url.includes('q=')) {
         const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-        return { site: 'vine', page: 'explore', query, videoId: '' };
+        return { site: 'vine', page: 'explore', query, videoId: '', ...EMPTY_RESOURCE };
       }
-      return { site: 'vine', page: 'explore', query: '', videoId: '' };
+      return { site: 'vine', page: 'explore', query: '', videoId: '', ...EMPTY_RESOURCE };
     }
     if (url.includes('search?q=') || url.includes('q=')) {
       const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'vine', page: 'search', query, videoId: '' };
+      return { site: 'vine', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
     }
-    return { site: 'vine', page: 'home', query: '', videoId: '' };
+    return { site: 'vine', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
   }
 
   if (url.startsWith('tumblr.com') || url.startsWith('tumblr')) {
@@ -108,31 +139,71 @@ function parseUrl(raw: string): NavigationState {
 
     if (normalizedUrl.startsWith('search/')) {
       const query = decodeURIComponent(normalizedUrl.replace(/^search\//, '').split('?')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'tumblr', page: 'search', query, videoId: '' };
+      return { site: 'tumblr', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
     }
 
     if (normalizedUrl.startsWith('tagged/')) {
       const query = decodeURIComponent(normalizedUrl.replace(/^tagged\//, '').split('?')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'tumblr', page: 'tagged', query, videoId: '' };
+      return { site: 'tumblr', page: 'tagged', query, videoId: '', ...EMPTY_RESOURCE };
     }
 
-    return { site: 'tumblr', page: 'home', query: '', videoId: '' };
+    return { site: 'tumblr', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
   }
 
   if (url.startsWith('myinstants.com') || url.startsWith('myinstants')) {
     if (url.includes('name=') || url.includes('search')) {
       const query = decodeURIComponent(url.split('name=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'myinstants', page: 'search', query, videoId: '' };
+      return { site: 'myinstants', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
     }
-    return { site: 'myinstants', page: 'home', query: '', videoId: '' };
+    return { site: 'myinstants', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
+  }
+
+  if (url.startsWith('musical.ly') || url.startsWith('musically')) {
+    if (url.includes('discover')) {
+      if (url.includes('q=')) {
+        const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
+        return { site: 'musically', page: 'explore', query, videoId: '', ...EMPTY_RESOURCE };
+      }
+      return { site: 'musically', page: 'explore', query: '', videoId: '', ...EMPTY_RESOURCE };
+    }
+
+    if (url.includes('search?q=') || url.includes('q=')) {
+      const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
+      return { site: 'musically', page: 'search', query, videoId: '', ...EMPTY_RESOURCE };
+    }
+
+    return { site: 'musically', page: 'home', query: '', videoId: '', ...EMPTY_RESOURCE };
+  }
+
+  if (url.startsWith('open.spotify.com') || url.startsWith('spotify.com') || url.startsWith('spotify')) {
+    const normalizedUrl = url
+      .replace(/^open\.spotify\.com\/?/, '')
+      .replace(/^spotify\.com\/?/, '');
+
+    if (normalizedUrl.startsWith('search/')) {
+      const query = decodeURIComponent(normalizedUrl.replace(/^search\//, '').split('?')[0] ?? '').replace(/\+/g, ' ');
+      return { site: 'spotify', page: 'search', query, videoId: '', resourceType: '', resourceId: '' };
+    }
+
+    if (normalizedUrl.startsWith('playlist/')) {
+      const resourceId = normalizedUrl.replace(/^playlist\//, '').split('?')[0] ?? '';
+      return { site: 'spotify', page: 'playlist', query: '', videoId: '', resourceType: 'playlist', resourceId };
+    }
+
+    if (normalizedUrl.startsWith('album/')) {
+      const resourceId = normalizedUrl.replace(/^album\//, '').split('?')[0] ?? '';
+      return { site: 'spotify', page: 'playlist', query: '', videoId: '', resourceType: 'album', resourceId };
+    }
+
+    return { site: 'spotify', page: 'home', query: '', videoId: '', resourceType: '', resourceId: '' };
   }
 
   if (url.startsWith('google.com') || url.startsWith('google')) {
     if (url.includes('search?q=') || url.includes('q=')) {
       const query = decodeURIComponent(url.split('q=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
-      return { site: 'google', page: 'search', query, videoId: '' };
+      return { site: 'google', page: 'search', query, videoId: '', resourceType: '', resourceId: '' };
     }
-    return { site: 'google', page: 'home', query: '', videoId: '' };
+    return { site: 'google', page: 'home', query: '', videoId: '', resourceType: '', resourceId: '' };
   }
 
   return DEFAULT_STATE;
@@ -156,12 +227,18 @@ export function useNavigation(onNavigate?: () => void): [NavigationState, Naviga
     onNavigate?.();
   }, [onNavigate]);
 
-  const navigate = useCallback((site: SiteName, page: PageName = 'home', params?: { query?: string; videoId?: string }) => {
+  const navigate = useCallback((
+    site: SiteName,
+    page: PageName = 'home',
+    params?: { query?: string; videoId?: string; resourceType?: NavigationState['resourceType']; resourceId?: string }
+  ) => {
     pushState({
       site,
       page,
       query: params?.query ?? '',
       videoId: params?.videoId ?? '',
+      resourceType: params?.resourceType ?? '',
+      resourceId: params?.resourceId ?? '',
     });
   }, [pushState]);
 
@@ -175,6 +252,8 @@ export function useNavigation(onNavigate?: () => void): [NavigationState, Naviga
       page: 'search',
       query,
       videoId: '',
+      resourceType: '',
+      resourceId: '',
     });
   }, [pushState, state]);
 

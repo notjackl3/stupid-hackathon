@@ -1,0 +1,478 @@
+{
+  "_featured": {
+    "posts": [
+      {
+        "id": "m1",
+        "username": "babyariel",
+        "displayName": "Baby Ariel",
+        "verified": true,
+        "caption": "when the beat drop hits before your math homework does",
+        "fans": "18.2M fans",
+        "hearts": 1240000,
+        "shares": 189000,
+        "comments": [
+          { "user": "sparkleteen", "text": "the wink on the beat omg" },
+          { "user": "foru", "text": "featured page energy" }
+        ],
+        "songTitle": "Sorry",
+        "artist": "Justin Bieber",
+        "hashtags": ["featured", "lipsync", "sorrychallenge"],
+        "city": "South Florida",
+        "category": "popular",
+        "videoDescription": "Baby Ariel musical.ly-era tutorial clip with front-camera gestures, beat-matched hand motions, and quick in-app performance tips",
+        "videoColor": "#ff7a59",
+        "videoId": "EQq0FLlMuQE",
+        "startSeconds": 44,
+        "endSeconds": 50,
+        "avatarUrl": "https://unavatar.io/x/babyariel"
+      },
+      {
+        "id": "m2",
+        "username": "jacobsartorius",
+        "displayName": "Jacob Sartorius",
+        "verified": true,
+        "caption": "POV: you practiced this transition 47 times and it finally landed",
+        "fans": "14.7M fans",
+        "hearts": 980000,
+        "shares": 142000,
+        "comments": [
+          { "user": "muservibes", "text": "the hoodie flip was clean" },
+          { "user": "teenpopdaily", "text": "this is all over discover rn" }
+        ],
+        "songTitle": "Work from Home",
+        "artist": "Fifth Harmony",
+        "hashtags": ["transition", "featured", "slowmo"],
+        "city": "Virginia",
+        "category": "dance",
+        "videoDescription": "Jacob Sartorius musical.ly compilation with fast hallway lip-sync cuts, hoodie flips, and typical 2016 camera jerks",
+        "videoColor": "#ff5f8f",
+        "videoId": "-xGN-wgg-2k",
+        "startSeconds": 11,
+        "endSeconds": 17,
+        "avatarUrl": "https://unavatar.io/x/jacobsartorius"
+      },
+      {
+        "id": "m3",
+        "username": "lorengray",
+        "displayName": "Loren",
+        "verified": true,
+        "caption": "that one dramatic chorus everyone used this week",
+        "fans": "15.9M fans",
+        "hearts": 1160000,
+        "shares": 168000,
+        "comments": [
+          { "user": "crownhunter", "text": "crown incoming" },
+          { "user": "softgrunge16", "text": "the lighting is perfect" }
+        ],
+        "songTitle": "Closer",
+        "artist": "The Chainsmokers",
+        "hashtags": ["featured", "closer", "softfilter"],
+        "city": "Los Angeles",
+        "category": "popular",
+        "videoDescription": "Loren-style musical.ly compilation energy with soft filters, close-up lip sync framing, and dramatic hand-to-camera cuts",
+        "videoColor": "#ff8d6b",
+        "avatarUrl": "https://unavatar.io/x/loren"
+      },
+      {
+        "id": "m4",
+        "username": "lisaandlena",
+        "displayName": "Lisa and Lena",
+        "verified": true,
+        "caption": "duet but make it twin telepathy",
+        "fans": "21.1M fans",
+        "hearts": 1510000,
+        "shares": 244000,
+        "comments": [
+          { "user": "twintok", "text": "the synchronized turn!!!" },
+          { "user": "duetdaily", "text": "saving this for inspo" }
+        ],
+        "songTitle": "Cheap Thrills",
+        "artist": "Sia",
+        "hashtags": ["duet", "featured", "twins"],
+        "city": "Stuttgart",
+        "category": "duet",
+        "videoDescription": "Lisa and Lena musical.ly battle footage with twin choreography, side-by-side reactions, and fast duet-style edits",
+        "videoColor": "#ff9f54",
+        "videoId": "BLy0XPsqUmk",
+        "startSeconds": 18,
+        "endSeconds": 24,
+        "avatarUrl": "https://unavatar.io/x/lisaandlena"
+      },
+      {
+        "id": "m5",
+        "username": "kristenhancher",
+        "displayName": "Kristen Hancher",
+        "verified": true,
+        "caption": "used the city filter and now i’m legally in a music video",
+        "fans": "9.8M fans",
+        "hearts": 744000,
+        "shares": 98000,
+        "comments": [
+          { "user": "filterfeed", "text": "city vibes undefeated" },
+          { "user": "nightdrive", "text": "this belongs on the hot page" }
+        ],
+        "songTitle": "Work",
+        "artist": "Rihanna",
+        "hashtags": ["city", "featured", "nightfilter"],
+        "city": "Toronto",
+        "category": "city-lights",
+        "videoDescription": "Kristen Hancher-style city-filter compilation with soft blur, selfie framing, and a slower dramatic lip-sync cadence",
+        "videoColor": "#ff6f61",
+        "avatarUrl": "https://unavatar.io/x/kristenhancher"
+      },
+      {
+        "id": "m6",
+        "username": "crownedmuser99",
+        "displayName": "CrownedMuser99",
+        "verified": false,
+        "caption": "that over-the-shoulder comedy turn still works every single time",
+        "fans": "2.4M fans",
+        "hearts": 403000,
+        "shares": 56000,
+        "comments": [
+          { "user": "lolfilter", "text": "the face at the end took me out" },
+          { "user": "discoverdance", "text": "comedy musically is back" }
+        ],
+        "songTitle": "NO",
+        "artist": "Meghan Trainor",
+        "hashtags": ["comedy", "acting", "featured"],
+        "city": "Phoenix",
+        "category": "comedy",
+        "videoDescription": "Comedic musical.ly compilation with exaggerated facial acting, fast reaction cuts, and a very 2016 punchline freeze",
+        "videoColor": "#ff8570",
+        "avatarUrl": "https://unavatar.io/x/selenagomez"
+      }
+    ]
+  },
+  "popular": {
+    "posts": [
+      {
+        "id": "m1",
+        "username": "babyariel",
+        "displayName": "Baby Ariel",
+        "verified": true,
+        "caption": "when the beat drop hits before your math homework does",
+        "fans": "18.2M fans",
+        "hearts": 1240000,
+        "shares": 189000,
+        "comments": [
+          { "user": "sparkleteen", "text": "the wink on the beat omg" },
+          { "user": "foru", "text": "featured page energy" }
+        ],
+        "songTitle": "Sorry",
+        "artist": "Justin Bieber",
+        "hashtags": ["featured", "lipsync", "sorrychallenge"],
+        "city": "South Florida",
+        "category": "popular",
+        "videoDescription": "Baby Ariel musical.ly-era tutorial clip with front-camera gestures, beat-matched hand motions, and quick in-app performance tips",
+        "videoColor": "#ff7a59",
+        "videoId": "EQq0FLlMuQE",
+        "startSeconds": 61,
+        "endSeconds": 67,
+        "avatarUrl": "https://unavatar.io/x/babyariel"
+      },
+      {
+        "id": "m3",
+        "username": "lorengray",
+        "displayName": "Loren",
+        "verified": true,
+        "caption": "that one dramatic chorus everyone used this week",
+        "fans": "15.9M fans",
+        "hearts": 1160000,
+        "shares": 168000,
+        "comments": [
+          { "user": "crownhunter", "text": "crown incoming" },
+          { "user": "softgrunge16", "text": "the lighting is perfect" }
+        ],
+        "songTitle": "Closer",
+        "artist": "The Chainsmokers",
+        "hashtags": ["featured", "closer", "softfilter"],
+        "city": "Los Angeles",
+        "category": "popular",
+        "videoDescription": "Loren-style musical.ly compilation energy with soft filters, close-up lip sync framing, and dramatic hand-to-camera cuts",
+        "videoColor": "#ff8d6b",
+        "avatarUrl": "https://unavatar.io/x/loren"
+      },
+      {
+        "id": "m7",
+        "username": "itsjojosiwa",
+        "displayName": "JoJo",
+        "verified": true,
+        "caption": "when your room is already glittery so the musical.ly filter does nothing",
+        "fans": "7.1M fans",
+        "hearts": 611000,
+        "shares": 77000,
+        "comments": [
+          { "user": "bowenergy", "text": "this is so extra in the best way" },
+          { "user": "muserparty", "text": "front page material" }
+        ],
+        "songTitle": "Side To Side",
+        "artist": "Ariana Grande",
+        "hashtags": ["popular", "glitter", "roomtour"],
+        "city": "Omaha",
+        "category": "popular",
+        "videoDescription": "Popular-page musical.ly compilation with bright room lighting, overcommitted hand choreography, and quick cut zooms",
+        "videoColor": "#ff6d88",
+        "avatarUrl": "https://unavatar.io/x/itsjojosiwa"
+      }
+    ]
+  },
+  "duet": {
+    "posts": [
+      {
+        "id": "m4",
+        "username": "lisaandlena",
+        "displayName": "Lisa and Lena",
+        "verified": true,
+        "caption": "duet but make it twin telepathy",
+        "fans": "21.1M fans",
+        "hearts": 1510000,
+        "shares": 244000,
+        "comments": [
+          { "user": "twintok", "text": "the synchronized turn!!!" },
+          { "user": "duetdaily", "text": "saving this for inspo" }
+        ],
+        "songTitle": "Cheap Thrills",
+        "artist": "Sia",
+        "hashtags": ["duet", "featured", "twins"],
+        "city": "Stuttgart",
+        "category": "duet",
+        "videoDescription": "Lisa and Lena musical.ly battle footage with twin choreography, side-by-side reactions, and fast duet-style edits",
+        "videoColor": "#ff9f54",
+        "videoId": "BLy0XPsqUmk",
+        "startSeconds": 33,
+        "endSeconds": 39,
+        "avatarUrl": "https://unavatar.io/x/lisaandlena"
+      },
+      {
+        "id": "m8",
+        "username": "bestfriendbeats",
+        "displayName": "BestFriendBeats",
+        "verified": false,
+        "caption": "best friend duet where one person knows the words and the other just commits",
+        "fans": "1.3M fans",
+        "hearts": 286000,
+        "shares": 33000,
+        "comments": [
+          { "user": "duetmode", "text": "the late entry makes this" },
+          { "user": "roomsync", "text": "sending this to my duo partner" }
+        ],
+        "songTitle": "I Took A Pill In Ibiza",
+        "artist": "Mike Posner",
+        "hashtags": ["duet", "bestfriend", "split"],
+        "city": "Chicago",
+        "category": "duet",
+        "videoDescription": "Duet-style musical.ly battle clip with stitched reactions, mirrored timing, and a pair-performance edit rhythm",
+        "videoColor": "#ff7c70",
+        "videoId": "BLy0XPsqUmk",
+        "startSeconds": 49,
+        "endSeconds": 55,
+        "avatarUrl": "https://unavatar.io/x/taylorswift"
+      }
+    ]
+  },
+  "comedy": {
+    "posts": [
+      {
+        "id": "m6",
+        "username": "crownedmuser99",
+        "displayName": "CrownedMuser99",
+        "verified": false,
+        "caption": "that over-the-shoulder comedy turn still works every single time",
+        "fans": "2.4M fans",
+        "hearts": 403000,
+        "shares": 56000,
+        "comments": [
+          { "user": "lolfilter", "text": "the face at the end took me out" },
+          { "user": "discoverdance", "text": "comedy musically is back" }
+        ],
+        "songTitle": "NO",
+        "artist": "Meghan Trainor",
+        "hashtags": ["comedy", "acting", "featured"],
+        "city": "Phoenix",
+        "category": "comedy",
+        "videoDescription": "Comedic musical.ly compilation with exaggerated facial acting, fast reaction cuts, and a very 2016 punchline freeze",
+        "videoColor": "#ff8570",
+        "avatarUrl": "https://unavatar.io/x/selenagomez"
+      },
+      {
+        "id": "m9",
+        "username": "relatablebell",
+        "displayName": "Relatable Bell",
+        "verified": false,
+        "caption": "when your mom says be yourself and then sees your musical.ly drafts",
+        "fans": "860K fans",
+        "hearts": 201000,
+        "shares": 25000,
+        "comments": [
+          { "user": "draftfolder", "text": "way too accurate" },
+          { "user": "foryou2016", "text": "the cutoff scream lmao" }
+        ],
+        "songTitle": "Work",
+        "artist": "Rihanna",
+        "hashtags": ["comedy", "drafts", "relatable"],
+        "city": "Atlanta",
+        "category": "comedy",
+        "videoDescription": "Comedy-side musical.ly compilation with a setup-to-punchline cut, front camera mugging, and reaction-heavy timing",
+        "videoColor": "#ff6f79",
+        "avatarUrl": "https://unavatar.io/x/arianagrande"
+      }
+    ]
+  },
+  "dance": {
+    "posts": [
+      {
+        "id": "m2",
+        "username": "jacobsartorius",
+        "displayName": "Jacob Sartorius",
+        "verified": true,
+        "caption": "POV: you practiced this transition 47 times and it finally landed",
+        "fans": "14.7M fans",
+        "hearts": 980000,
+        "shares": 142000,
+        "comments": [
+          { "user": "muservibes", "text": "the hoodie flip was clean" },
+          { "user": "teenpopdaily", "text": "this is all over discover rn" }
+        ],
+        "songTitle": "Work from Home",
+        "artist": "Fifth Harmony",
+        "hashtags": ["transition", "featured", "slowmo"],
+        "city": "Virginia",
+        "category": "dance",
+        "videoDescription": "Jacob Sartorius musical.ly compilation with fast hallway lip-sync cuts, hoodie flips, and typical 2016 camera jerks",
+        "videoColor": "#ff5f8f",
+        "videoId": "-xGN-wgg-2k",
+        "startSeconds": 26,
+        "endSeconds": 32,
+        "avatarUrl": "https://unavatar.io/x/jacobsartorius"
+      },
+      {
+        "id": "m10",
+        "username": "danceszn",
+        "displayName": "DanceSZN",
+        "verified": false,
+        "caption": "this hand combo looked easy until i tried it in socks",
+        "fans": "1.9M fans",
+        "hearts": 331000,
+        "shares": 41000,
+        "comments": [
+          { "user": "sockslide", "text": "the recovery was smooth tho" },
+          { "user": "loopcity", "text": "using this audio tonight" }
+        ],
+        "songTitle": "Cheap Thrills",
+        "artist": "Sia",
+        "hashtags": ["dance", "handcombo", "loop"],
+        "city": "Dallas",
+        "category": "dance",
+        "videoDescription": "Top boys musical.ly compilation with hand choreography, downbeat snaps, and stitched trend clips from 2016",
+        "videoColor": "#ff9173",
+        "videoId": "xjOA5G4Bfzw",
+        "startSeconds": 14,
+        "endSeconds": 20,
+        "avatarUrl": "https://unavatar.io/x/camila_cabello"
+      }
+    ]
+  },
+  "city-lights": {
+    "posts": [
+      {
+        "id": "m5",
+        "username": "kristenhancher",
+        "displayName": "Kristen Hancher",
+        "verified": true,
+        "caption": "used the city filter and now i’m legally in a music video",
+        "fans": "9.8M fans",
+        "hearts": 744000,
+        "shares": 98000,
+        "comments": [
+          { "user": "filterfeed", "text": "city vibes undefeated" },
+          { "user": "nightdrive", "text": "this belongs on the hot page" }
+        ],
+        "songTitle": "Work",
+        "artist": "Rihanna",
+        "hashtags": ["city", "featured", "nightfilter"],
+        "city": "Toronto",
+        "category": "city-lights",
+        "videoDescription": "Kristen Hancher-style city-filter compilation with soft blur, selfie framing, and a slower dramatic lip-sync cadence",
+        "videoColor": "#ff6f61",
+        "avatarUrl": "https://unavatar.io/x/kristenhancher"
+      },
+      {
+        "id": "m11",
+        "username": "midnightmuser",
+        "displayName": "Midnight Muser",
+        "verified": false,
+        "caption": "went outside for golden hour and stayed until the streetlights hit",
+        "fans": "970K fans",
+        "hearts": 187000,
+        "shares": 22000,
+        "comments": [
+          { "user": "cityglow", "text": "the blur effect is perfect here" },
+          { "user": "discovermepls", "text": "late-night musical.ly always wins" }
+        ],
+        "songTitle": "Closer",
+        "artist": "The Chainsmokers",
+        "hashtags": ["city-lights", "night", "filter"],
+        "city": "New York",
+        "category": "city-lights",
+        "videoDescription": "City-filter musical.ly compilation with streetlight bokeh, selfie framing, and soft-focus lip-sync pacing",
+        "videoColor": "#ff8a70",
+        "avatarUrl": "https://unavatar.io/x/dualipa"
+      }
+    ]
+  },
+  "throwback": {
+    "posts": [
+      {
+        "id": "m12",
+        "username": "throwbackloops",
+        "displayName": "Throwback Loops",
+        "verified": false,
+        "caption": "when the app says 2016 and you immediately reach for a denim jacket",
+        "fans": "640K fans",
+        "hearts": 144000,
+        "shares": 18000,
+        "comments": [
+          { "user": "retrofilter", "text": "this feels exactly like old discover" },
+          { "user": "chorusclub", "text": "bring this challenge back" }
+        ],
+        "songTitle": "Sorry",
+        "artist": "Justin Bieber",
+        "hashtags": ["throwback", "2016", "featured"],
+        "city": "Nashville",
+        "category": "throwback",
+        "videoDescription": "Baby Ariel tutorial-era musical.ly clip with classic 2015-2016 gestures, front-camera framing, and overt beat counting",
+        "videoColor": "#ff8b72",
+        "videoId": "EQq0FLlMuQE",
+        "startSeconds": 84,
+        "endSeconds": 90,
+        "avatarUrl": "https://unavatar.io/x/shawnmendes"
+      },
+      {
+        "id": "m8",
+        "username": "bestfriendbeats",
+        "displayName": "BestFriendBeats",
+        "verified": false,
+        "caption": "best friend duet where one person knows the words and the other just commits",
+        "fans": "1.3M fans",
+        "hearts": 286000,
+        "shares": 33000,
+        "comments": [
+          { "user": "duetmode", "text": "the late entry makes this" },
+          { "user": "roomsync", "text": "sending this to my duo partner" }
+        ],
+        "songTitle": "I Took A Pill In Ibiza",
+        "artist": "Mike Posner",
+        "hashtags": ["duet", "bestfriend", "split"],
+        "city": "Chicago",
+        "category": "duet",
+        "videoDescription": "Duet-style musical.ly battle clip with stitched reactions, mirrored timing, and a pair-performance edit rhythm",
+        "videoColor": "#ff7c70",
+        "videoId": "BLy0XPsqUmk",
+        "startSeconds": 58,
+        "endSeconds": 64,
+        "avatarUrl": "https://unavatar.io/x/taylorswift"
+      }
+    ]
+  }
+}

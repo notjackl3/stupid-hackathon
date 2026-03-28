@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react';
 
 interface MannequinChallengeProps {
   onDismiss: () => void;
+  durationSeconds?: number;
+  trackLabel?: string;
 }
 
-export function MannequinChallenge({ onDismiss }: MannequinChallengeProps) {
-  const [secondsLeft, setSecondsLeft] = useState(15);
+export function MannequinChallenge({
+  onDismiss,
+  durationSeconds = 15,
+  trackLabel = 'Black Beatles',
+}: MannequinChallengeProps) {
+  const [secondsLeft, setSecondsLeft] = useState(durationSeconds);
   const [showTitle, setShowTitle] = useState(true);
 
   useEffect(() => {
@@ -74,7 +80,7 @@ export function MannequinChallenge({ onDismiss }: MannequinChallengeProps) {
         fontSize: '14px',
         fontFamily: 'monospace',
       }}>
-        🎵 Black Beatles — {secondsLeft}s
+        🎵 {trackLabel} — {secondsLeft}s
       </div>
 
       {/* Fake camera recording indicator */}

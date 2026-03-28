@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import tumblrData from '../../data/tumblrResults.json';
 import { searchTumblr } from '../../lib/fuzzySearch';
 import type { TumblrData, TumblrPost as TumblrPostType } from '../../types';
@@ -13,10 +13,12 @@ interface TumblrSearchProps {
   onHome: () => void;
 }
 
+const SEARCH_FILTERS = ['Top', 'Latest', 'Posts', 'Blogs', 'Tags'];
+
 function DeleteConfirmation({ onHome }: { onHome: () => void }) {
   return (
-    <div className="rounded-sm border border-white/10 bg-white text-[#36465d] shadow-[0_1px_0_rgba(0,0,0,0.12)]">
-      <div className="border-b border-[#e8ebef] px-6 py-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#7c8593]">
+    <div className="rounded-[4px] bg-white text-[#36465d] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+      <div className="border-b border-[#e8ebef] px-6 py-3 text-[10px] font-bold uppercase tracking-[0.18em] text-[#7c8593]">
         Delete Blog
       </div>
       <div className="px-6 py-6">
@@ -32,13 +34,70 @@ function DeleteConfirmation({ onHome }: { onHome: () => void }) {
         <div className="mt-6 flex gap-3">
           <button
             onClick={onHome}
-            className="cursor-pointer rounded-sm bg-[#36465d] px-4 py-2 text-sm font-semibold text-white"
+            className="cursor-pointer rounded-[3px] bg-[#36465d] px-4 py-2 text-sm font-semibold text-white"
           >
             never mind
           </button>
-          <button className="cursor-not-allowed rounded-sm border border-[#e6c6c6] px-4 py-2 text-sm font-semibold text-[#b16a6a]">
+          <button className="cursor-not-allowed rounded-[3px] border border-[#e6c6c6] px-4 py-2 text-sm font-semibold text-[#b16a6a]">
             delete everything
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SearchMetaRail({
+  mode,
+  query,
+  resultCount,
+  onTagClick,
+}: {
+  mode: 'search' | 'tagged';
+  query: string;
+  resultCount: number;
+  onTagClick: (tag: string) => void;
+}) {
+  const relatedTags = useMemo(
+    () =>
+      mode === 'tagged'
+        ? [query, `${query} aesthetic`, `${query} discourse`, `${query} fanart`]
+        : [query, `${query} memes`, `${query} text post`, `${query} aesthetic`],
+    [mode, query]
+  );
+
+  return (
+    <div className="mb-4 rounded-[4px] bg-white px-5 py-4 text-[#36465d] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+      <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#7c8593]">
+        {mode === 'tagged' ? 'Tag page' : 'Search results'}
+      </div>
+      <div className="mt-3 grid gap-4 text-[14px] text-[#51627a] sm:grid-cols-3">
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#7c8593]">Results</div>
+          <div className="mt-1 text-[24px] font-bold text-[#243140]">{resultCount}</div>
+        </div>
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#7c8593]">Top blogs</div>
+          <div className="mt-2 space-y-1">
+            {['staff', 'fandom', 'aesthetics'].map((blog) => (
+              <div key={blog}>@{blog}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#7c8593]">Related tags</div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {relatedTags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => onTagClick(tag)}
+                className="rounded-full bg-[#eef3f8] px-3 py-1 text-[12px] font-semibold text-[#607289] hover:bg-[#dfe8f2]"
+              >
+                #{tag}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -86,7 +145,7 @@ export function TumblrSearch({ query, mode, onSearch, onTagClick, onHome }: Tumb
   const isTagged = mode === 'tagged';
 
   return (
-    <div className="min-h-full bg-[#0d2138] bg-[radial-gradient(circle_at_top,#20334d_0%,#12243d_32%,#0d2138_70%)]">
+    <div className="min-h-full bg-[#2f4158] bg-[radial-gradient(circle_at_top,rgba(102,125,155,0.45)_0%,rgba(70,91,118,0.16)_20%,rgba(47,65,88,0)_32%),linear-gradient(180deg,#34465d_0%,#2f4158_240px,#2f4158_100%)]">
       <TumblrHeader
         searchInput={searchInput}
         setSearchInput={setSearchInput}
@@ -96,27 +155,53 @@ export function TumblrSearch({ query, mode, onSearch, onTagClick, onHome }: Tumb
 
       <TumblrPageShell onTagClick={onTagClick}>
         <TumblrHero
-          eyebrow={isTagged ? 'tagged' : 'search'}
+          eyebrow={isTagged ? 'Tagged' : 'Search'}
           title={isTagged ? `#${query}` : `"${query}"`}
           description={
             !loading && !exact && matchedQuery ? (
               <>
-                Showing results for <span className="font-bold text-white">{matchedQuery}</span>
+                Showing results for <span className="font-bold text-[#243140]">{matchedQuery}</span>
               </>
+            ) : isTagged ? (
+              'Posts people actually bothered to tag.'
             ) : (
-              'A suspiciously specific slice of 2016 Tumblr.'
+              'Searching the dashboard, blogs, and the collective memory of 2016.'
             )
+          }
+          actions={
+            <div className="flex flex-wrap gap-2">
+              {SEARCH_FILTERS.map((filter, index) => (
+                <button
+                  key={filter}
+                  type="button"
+                  className={`rounded-full px-3 py-1.5 text-[12px] font-bold ${
+                    index === 0 ? 'bg-[#44546b] text-white' : 'bg-[#edf2f7] text-[#607289]'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           }
         />
 
+        {!loading && !isDeleteEgg ? (
+          <SearchMetaRail
+            mode={mode}
+            query={exact || !matchedQuery ? query : matchedQuery}
+            resultCount={results.length}
+            onTagClick={onTagClick}
+          />
+        ) : null}
+
         {loading ? (
-          <div className="rounded-sm border border-white/10 bg-white px-6 py-10 text-center text-sm text-[#7c8593] shadow-[0_1px_0_rgba(0,0,0,0.12)]">
+          <div className="rounded-[4px] bg-white px-6 py-10 text-center text-sm text-[#7c8593] shadow-[0_1px_0_rgba(0,0,0,0.15)]">
             loading the discourse...
           </div>
         ) : isDeleteEgg ? (
           <DeleteConfirmation onHome={onHome} />
         ) : results.length === 0 ? (
-          <div className="rounded-sm border border-white/10 bg-white px-6 py-10 text-center shadow-[0_1px_0_rgba(0,0,0,0.12)]">
+          <div className="rounded-[4px] bg-white px-6 py-10 text-center shadow-[0_1px_0_rgba(0,0,0,0.15)]">
             <div className="text-lg font-bold text-[#243140]">No posts found.</div>
             <p className="mt-2 text-sm text-[#7c8593]">
               2016 Tumblr has absolutely no idea what this tag means yet.

@@ -9,7 +9,7 @@ interface TumblrPostProps {
 function Avatar({ label, color }: { label: string; color?: string }) {
   return (
     <div
-      className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-sm text-[26px] font-bold uppercase text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+      className="flex h-[64px] w-[64px] flex-shrink-0 items-center justify-center rounded-[4px] text-[24px] font-bold uppercase text-white shadow-[0_1px_0_rgba(0,0,0,0.18)]"
       style={{ backgroundColor: color ?? '#51627a' }}
     >
       {label.slice(0, 1)}
@@ -44,15 +44,20 @@ function UserLabel({
 function NotesAndActions({
   notes,
   liked,
+  timestamp,
   onToggleLike,
 }: {
   notes: string;
   liked: boolean;
+  timestamp: string;
   onToggleLike: () => void;
 }) {
   return (
     <div className="mt-4 border-t border-[#e8ebef] pt-3">
-      <div className="text-[13px] font-bold text-[#36465d]">{notes}</div>
+      <div className="flex items-center justify-between gap-3 text-[13px]">
+        <div className="font-bold text-[#36465d]">{notes}</div>
+        <div className="text-[11px] uppercase tracking-[0.08em] text-[#98a3b1]">{timestamp}</div>
+      </div>
       <div className="mt-3 flex items-center gap-4 text-[13px] text-[#7c8593]">
         <button className="cursor-pointer font-semibold hover:text-[#36465d]">↻ Reblog</button>
         <button
@@ -85,7 +90,7 @@ function TagRow({ tags, onTagClick }: { tags: string[]; onTagClick: (tag: string
 
 function ReblogEntry({ entry, depth }: { entry: TumblrReblogEntry; depth: number }) {
   return (
-    <div className="border-l border-[#d8dde4] pl-4" style={{ marginLeft: `${depth * 12}px` }}>
+    <div className="border-l border-[#d8dde4] pl-4" style={{ marginLeft: `${depth * 10}px` }}>
       <UserLabel username={entry.username} blogTitle={entry.blogTitle} color={entry.blogColor} subtle />
       <p className="mt-2 whitespace-pre-wrap text-[15px] leading-7 text-[#2f3a4a]">{entry.content}</p>
     </div>
@@ -94,6 +99,7 @@ function ReblogEntry({ entry, depth }: { entry: TumblrReblogEntry; depth: number
 
 export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
   const [liked, setLiked] = useState(false);
+  const fakeTimestamp = post.timestamp ?? '11:42am · Oct 2016';
 
   const headerEntry =
     post.type === 'reblog_chain'
@@ -111,8 +117,8 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
     >
       <Avatar label={headerEntry?.username ?? 't'} color={headerEntry?.blogColor} />
 
-      <div className="min-w-0 flex-1 rounded-sm border border-white/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.12)]">
-        <div className="border-b border-[#eef1f4] px-5 py-4">
+      <div className="min-w-0 flex-1 rounded-[4px] bg-white shadow-[0_1px_0_rgba(0,0,0,0.15)]">
+        <div className="px-5 py-4">
           <div className="flex items-start justify-between gap-3">
             <UserLabel
               username={headerEntry?.username ?? 'anonymous'}
@@ -120,11 +126,11 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
               color={headerEntry?.blogColor}
             />
             {post.sponsorLabel ? (
-              <span className="rounded-sm bg-[#edf2f8] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#607289]">
+              <span className="rounded-[3px] bg-[#edf2f8] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#607289]">
                 {post.sponsorLabel}
               </span>
             ) : (
-              <span className="text-[18px] leading-none text-[#9aa6b3]">...</span>
+              <span className="text-[18px] leading-none text-[#9aa6b3]">•••</span>
             )}
           </div>
 
@@ -145,7 +151,7 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
           {post.type === 'photo' ? (
             <div className="mt-3">
               <div
-                className="flex h-72 items-end overflow-hidden rounded-sm p-4 text-sm font-medium text-white shadow-inner"
+                className="flex h-72 items-end overflow-hidden rounded-[3px] p-4 text-sm font-medium text-white shadow-inner"
                 style={{ background: post.imageColor ?? '#7587a1' }}
               >
                 <div className="max-w-md bg-black/30 px-3 py-2 leading-6">
@@ -172,7 +178,7 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
               {post.content ? (
                 <p className="mb-3 text-[15px] leading-6 text-[#2f3a4a]">{post.content}</p>
               ) : null}
-              <div className="rounded-sm border border-[#d7dce2] bg-[#f7f9fb] p-4">
+              <div className="rounded-[3px] border border-[#d7dce2] bg-[#f7f9fb] p-4">
                 <div className="text-[11px] uppercase tracking-[0.12em] text-[#7c8593]">{post.linkUrl}</div>
                 <div className="mt-1 text-lg font-bold text-[#243140]">{post.linkTitle}</div>
                 <p className="mt-2 text-sm leading-6 text-[#51627a]">{post.linkDescription}</p>
@@ -181,7 +187,7 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
           ) : null}
 
           {post.type === 'chat' ? (
-            <div className="mt-3 rounded-sm border border-[#d7dce2] bg-[#f8fafc]">
+            <div className="mt-3 rounded-[3px] border border-[#d7dce2] bg-[#f8fafc]">
               {post.chatLines?.map((line, index) => (
                 <div
                   key={`${line.speaker}-${index}`}
@@ -195,10 +201,10 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
           ) : null}
 
           {post.type === 'sponsored' ? (
-            <div className="mt-3 rounded-sm border border-[#e2d5b0] bg-[#fff8de] p-4">
+            <div className="mt-3 rounded-[3px] border border-[#e2d5b0] bg-[#fff8de] p-4">
               <p className="text-[15px] leading-6 text-[#403529]">{post.content}</p>
               {post.ctaLabel ? (
-                <button className="mt-3 cursor-pointer rounded-sm bg-[#f5c542] px-3 py-2 text-sm font-semibold text-[#2d2419]">
+                <button className="mt-3 cursor-pointer rounded-[3px] bg-[#f5c542] px-3 py-2 text-sm font-semibold text-[#2d2419]">
                   {post.ctaLabel}
                 </button>
               ) : null}
@@ -215,6 +221,7 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
           <NotesAndActions
             notes={post.notes}
             liked={liked}
+            timestamp={fakeTimestamp}
             onToggleLike={() => setLiked((value) => !value)}
           />
         </div>
