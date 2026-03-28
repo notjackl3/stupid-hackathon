@@ -79,17 +79,18 @@ export function SpotifyPlayer({ currentTrack, hasQueue, onPrevious, onNext, onSh
             <span>{currentTrack ? currentTrack.duration : '0:00'}</span>
           </div>
 
-          <div className="overflow-hidden rounded-[6px] border border-white/8 bg-[#111111]">
+          <div className="relative overflow-hidden rounded-[6px] border border-white/8 bg-[#111111]" style={{ height: currentTrack ? '80px' : undefined }}>
             {currentTrack ? (
               <iframe
                 key={currentTrack.trackId}
                 title={`Spotify player for ${currentTrack.title}`}
                 src={`https://open.spotify.com/embed/track/${currentTrack.trackId}?theme=0`}
                 width="100%"
-                height="80"
+                height="152"
                 frameBorder="0"
                 allow="encrypted-media"
                 loading="lazy"
+                className="absolute left-0 top-0"
               />
             ) : (
               <div className="flex h-20 items-center justify-center px-4 text-center text-[12px] text-white/48">

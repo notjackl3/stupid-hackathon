@@ -30,6 +30,8 @@ function BookmarkFavicon({ site }: { site: SiteName }) {
       return <img src="/bookmarks/musically-logo.svg" alt="" className="h-4 w-4 object-contain" />;
     case 'spotify':
       return <img src="/bookmarks/spotify-logo.svg" alt="" className="h-4 w-4 object-contain" />;
+    case 'coolmath':
+      return <span className="flex h-4 w-4 items-center justify-center rounded-[2px] bg-[#2d6b2d] text-[8px] font-bold text-white">CM</span>;
   }
 }
 
@@ -279,6 +281,7 @@ function BookmarksBar({ activeSite, onNavigate, isTumblr }: BookmarksBarProps) {
     { label: 'musical.ly', site: 'musically' as const },
     { label: 'Tumblr', site: 'tumblr' as const },
     { label: 'MyInstants', site: 'myinstants' as const },
+    { label: 'Cool Math', site: 'coolmath' as const },
   ];
 
   return (

@@ -2,6 +2,7 @@ export interface SpotifyCoverArt {
   gradient: string;
   accent: string;
   label: string;
+  imageUrl?: string;
 }
 
 export interface SpotifyTrack {
@@ -70,10 +71,11 @@ export interface SpotifySearchResult {
   aside?: string;
 }
 
-const cover = (gradient: string, accent: string, label: string): SpotifyCoverArt => ({
+const cover = (gradient: string, accent: string, label: string, imageUrl?: string): SpotifyCoverArt => ({
   gradient,
   accent,
   label,
+  imageUrl,
 });
 
 export const spotifyTracks: SpotifyTrack[] = [

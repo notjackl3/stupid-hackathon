@@ -1,4 +1,4 @@
-export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr' | 'myinstants' | 'musically' | 'spotify';
+export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr' | 'myinstants' | 'musically' | 'spotify' | 'coolmath';
 export type PageName = 'home' | 'search' | 'video' | 'explore' | 'tagged' | 'playlist' | 'live';
 export type NavigationResourceType = 'playlist' | 'album' | '';
 
