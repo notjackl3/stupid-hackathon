@@ -161,7 +161,7 @@ export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGa
             {/* Game embed area */}
             <div
               className="relative overflow-hidden rounded-[3px] border-2 border-[#00cccc] bg-[#111]"
-              style={{ aspectRatio: '4 / 3', maxHeight: '600px' }}
+              style={isFlash ? { aspectRatio: '4 / 3' } : { height: '600px' }}
             >
               {isFlash ? (
                 <FlashRequired title={game.title} />

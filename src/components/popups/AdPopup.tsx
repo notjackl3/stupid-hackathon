@@ -53,9 +53,11 @@ export function AdPopup({ variant, onClose, onSpawnNew }: AdPopupProps) {
           <div className="text-lg font-bold text-[#e91e63] mb-2">
             Hot Singles in Your Area! &#128293;
           </div>
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-pink-200 to-pink-400 rounded-full mb-3 flex items-center justify-center text-3xl">
-            &#128578;
-          </div>
+          <img
+            src="https://lh3.googleusercontent.com/a/ACg8ocINlBUVcPutS2-B0LiRmB32lN6bfhjxaBZmyNQyLL7-oN0EukAc=s300-c"
+            alt=""
+            className="w-20 h-20 mx-auto rounded-full mb-3 object-cover"
+          />
           <p className="text-sm text-gray-600 mb-3">3 people nearby want to meet you!</p>
           <button
             onClick={handleFakeClose}

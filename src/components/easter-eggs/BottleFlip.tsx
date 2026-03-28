@@ -325,6 +325,7 @@ export function BottleFlip({ onConfirm, onCancel }: BottleFlipProps) {
   >('unknown');
   const stateRef = useRef(state);
   stateRef.current = state;
+  const attemptCount = useRef(0);
 
   const doFlip = useCallback(() => {
     if (
@@ -333,12 +334,14 @@ export function BottleFlip({ onConfirm, onCancel }: BottleFlipProps) {
       stateRef.current === 'landed'
     )
       return;
+    attemptCount.current++;
     setState('flipping');
   }, []);
 
   const handleResult = useCallback(
     (landed: boolean) => {
-      if (landed) {
+      const forceSuccess = attemptCount.current >= 3;
+      if (landed || forceSuccess) {
         setState('landed');
         setTimeout(onConfirm, 800);
       } else {

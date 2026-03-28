@@ -79,7 +79,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'classic',
     description: 'The classic snake game. Eat the apples, grow longer, and try not to run into yourself!',
     color: '#2e7d32',
-    embedUrl: 'https://lorecioni.github.io/snake/',
+    embedUrl: '',
     icon: '🐍',
   },
   {
