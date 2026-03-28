@@ -38,10 +38,19 @@ function randomPopup(): PopupInstance {
   };
 }
 
+function makeVirusPopup(): PopupInstance {
+  const pos = randomPosition();
+  return { id: Date.now() + Math.random(), type: 'virus', ...pos };
+}
+
 export function PopupManager({ triggerCount }: PopupManagerProps) {
   const [popups, setPopups] = useState<PopupInstance[]>([]);
   const [dragging, setDragging] = useState<{ id: number; offsetX: number; offsetY: number } | null>(null);
+  const [floodMode, setFloodMode] = useState(false);
   const lastTrigger = useRef(0);
+  const virusClickCount = useRef(0);
+  const floodInterval = useRef<number | null>(null);
+  const floodStarted = useRef(false); // ref so handleVirusClick never has a stale closure
 
   // 30% chance of popup on navigation
   useEffect(() => {
@@ -59,7 +68,32 @@ export function PopupManager({ triggerCount }: PopupManagerProps) {
     return () => window.clearTimeout(timer);
   }, [triggerCount, popups.length]);
 
+  // Clean up flood interval on unmount
+  useEffect(() => {
+    return () => {
+      if (floodInterval.current) window.clearInterval(floodInterval.current);
+    };
+  }, []);
+
+  const startFlood = useCallback(() => {
+    if (floodStarted.current) return;
+    floodStarted.current = true;
+    setFloodMode(true);
+    setPopups((prev) => [...prev, ...Array.from({ length: 20 }, makeVirusPopup)]);
+    floodInterval.current = window.setInterval(() => {
+      setPopups((prev) => [...prev, ...Array.from({ length: 5 }, makeVirusPopup)]);
+    }, 400);
+  }, []);
+
+  const handleVirusClick = useCallback(() => {
+    virusClickCount.current += 1;
+    if (virusClickCount.current >= 5 && !floodStarted.current) {
+      startFlood();
+    }
+  }, [startFlood]);
+
   const closePopup = useCallback((id: number) => {
+    if (floodStarted.current) return; // can't escape the flood
     setPopups((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
@@ -124,6 +158,8 @@ export function PopupManager({ triggerCount }: PopupManagerProps) {
             <VirusWarning
               onClose={() => closePopup(popup.id)}
               onSpawnNew={spawnNew}
+              onVirusClick={handleVirusClick}
+              floodMode={floodMode}
             />
           )}
         </div>

@@ -1,9 +1,15 @@
 interface VirusWarningProps {
   onClose: () => void;
   onSpawnNew: () => void;
+  onVirusClick?: () => void;
+  floodMode?: boolean;
 }
 
-export function VirusWarning({ onClose, onSpawnNew }: VirusWarningProps) {
+export function VirusWarning({ onClose, onSpawnNew, onVirusClick, floodMode }: VirusWarningProps) {
+  function handleButtonClick(cb: () => void) {
+    onVirusClick?.();
+    cb();
+  }
   return (
     <div className="bg-[#f0f0f0] border-2 border-[#cc0000] shadow-2xl rounded w-[420px] select-none">
       {/* Windows XP style title bar */}
@@ -12,7 +18,7 @@ export function VirusWarning({ onClose, onSpawnNew }: VirusWarningProps) {
           <span className="text-yellow-300">&#9888;</span>
           <span className="text-sm font-bold">Windows Security Alert</span>
         </div>
-        <button onClick={onClose} className="text-white hover:text-red-200 font-bold text-lg leading-none cursor-pointer">&#10005;</button>
+        <button onClick={() => handleButtonClick(onClose)} className="text-white hover:text-red-200 font-bold text-lg leading-none cursor-pointer">&#10005;</button>
       </div>
       <div className="p-4">
         <div className="flex gap-3 mb-3">
@@ -39,18 +45,23 @@ export function VirusWarning({ onClose, onSpawnNew }: VirusWarningProps) {
 
         <div className="flex gap-2 justify-center">
           <button
-            onClick={onSpawnNew}
+            onClick={() => handleButtonClick(onSpawnNew)}
             className="bg-[#cc0000] text-white px-5 py-2 rounded hover:bg-[#aa0000] font-bold cursor-pointer"
           >
             &#128274; Fix Now (Recommended)
           </button>
           <button
-            onClick={onSpawnNew}
+            onClick={() => handleButtonClick(onSpawnNew)}
             className="bg-gray-200 text-gray-600 px-4 py-2 rounded hover:bg-gray-300 cursor-pointer"
           >
             Remind Me Later
           </button>
         </div>
+        {floodMode && (
+          <p className="text-[10px] text-red-600 mt-2 text-center font-bold animate-pulse">
+            &#9888; CRITICAL: VIRUS SPREADING... &#9888;
+          </p>
+        )}
 
         <p className="text-[10px] text-gray-400 mt-2 text-center">
           Windows Defender 2016 &middot; Totally Real Microsoft Software
