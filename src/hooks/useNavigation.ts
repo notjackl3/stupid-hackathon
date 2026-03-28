@@ -54,6 +54,12 @@ function deriveDisplayUrl(state: NavigationState): string {
       }
       return 'tumblr.com';
 
+    case 'myinstants':
+      if (page === 'search' && query) {
+        return `www.myinstants.com/search/?name=${encodeURIComponent(query).replace(/%20/g, '+')}`;
+      }
+      return 'www.myinstants.com';
+
     default:
       return 'www.google.com';
   }
@@ -111,6 +117,14 @@ function parseUrl(raw: string): NavigationState {
     }
 
     return { site: 'tumblr', page: 'home', query: '', videoId: '' };
+  }
+
+  if (url.startsWith('myinstants.com') || url.startsWith('myinstants')) {
+    if (url.includes('name=') || url.includes('search')) {
+      const query = decodeURIComponent(url.split('name=')[1]?.split('&')[0] ?? '').replace(/\+/g, ' ');
+      return { site: 'myinstants', page: 'search', query, videoId: '' };
+    }
+    return { site: 'myinstants', page: 'home', query: '', videoId: '' };
   }
 
   if (url.startsWith('google.com') || url.startsWith('google')) {

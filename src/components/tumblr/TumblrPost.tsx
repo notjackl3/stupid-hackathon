@@ -9,7 +9,7 @@ interface TumblrPostProps {
 function Avatar({ label, color }: { label: string; color?: string }) {
   return (
     <div
-      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded bg-[#51627a] text-sm font-bold uppercase text-white"
+      className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-sm text-[26px] font-bold uppercase text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
       style={{ backgroundColor: color ?? '#51627a' }}
     >
       {label.slice(0, 1)}
@@ -17,17 +17,26 @@ function Avatar({ label, color }: { label: string; color?: string }) {
   );
 }
 
-function UserLabel({ username, blogTitle, color }: { username: string; blogTitle?: string; color?: string }) {
+function UserLabel({
+  username,
+  blogTitle,
+  color,
+  subtle = false,
+}: {
+  username: string;
+  blogTitle?: string;
+  color?: string;
+  subtle?: boolean;
+}) {
   return (
     <div className="min-w-0">
-      <div className="truncate text-sm font-bold" style={{ color: color ?? '#36465d' }}>
+      <div
+        className={`truncate text-[14px] font-bold ${subtle ? 'text-[#36465d]' : ''}`}
+        style={{ color: subtle ? undefined : color ?? '#36465d' }}
+      >
         {username}
       </div>
-      {blogTitle && (
-        <div className="truncate text-xs text-[#7c8593]">
-          {blogTitle}
-        </div>
-      )}
+      {blogTitle ? <div className="truncate text-xs text-[#7c8593]">{blogTitle}</div> : null}
     </div>
   );
 }
@@ -42,17 +51,17 @@ function NotesAndActions({
   onToggleLike: () => void;
 }) {
   return (
-    <div className="mt-4 border-t border-[#eef0f3] pt-3">
-      <div className="text-sm font-semibold text-[#36465d]">{notes}</div>
-      <div className="mt-3 flex items-center gap-3 text-xs text-[#7c8593]">
-        <button className="cursor-pointer rounded px-2 py-1 hover:bg-[#f2f4f7]">↻ reblog</button>
+    <div className="mt-4 border-t border-[#e8ebef] pt-3">
+      <div className="text-[13px] font-bold text-[#36465d]">{notes}</div>
+      <div className="mt-3 flex items-center gap-4 text-[13px] text-[#7c8593]">
+        <button className="cursor-pointer font-semibold hover:text-[#36465d]">↻ Reblog</button>
         <button
           onClick={onToggleLike}
-          className={`cursor-pointer rounded px-2 py-1 transition-colors ${liked ? 'text-[#e14d68]' : 'hover:bg-[#f2f4f7]'}`}
+          className={`cursor-pointer font-semibold ${liked ? 'text-[#da4f67]' : 'hover:text-[#36465d]'}`}
         >
-          ♥ like
+          ♥ Like
         </button>
-        <button className="cursor-pointer rounded px-2 py-1 hover:bg-[#f2f4f7]">… share</button>
+        <button className="cursor-pointer font-semibold hover:text-[#36465d]">Share</button>
       </div>
     </div>
   );
@@ -64,13 +73,9 @@ function TagRow({ tags, onTagClick }: { tags: string[]; onTagClick: (tag: string
   }
 
   return (
-    <div className="mt-4 flex flex-wrap gap-2 text-[12px] text-[#7c8593]">
+    <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-[13px] text-[#7c8593]">
       {tags.map((tag) => (
-        <button
-          key={tag}
-          onClick={() => onTagClick(tag)}
-          className="cursor-pointer hover:text-[#529ecc]"
-        >
+        <button key={tag} onClick={() => onTagClick(tag)} className="cursor-pointer hover:text-[#529ecc]">
           #{tag.toLowerCase()}
         </button>
       ))}
@@ -80,12 +85,9 @@ function TagRow({ tags, onTagClick }: { tags: string[]; onTagClick: (tag: string
 
 function ReblogEntry({ entry, depth }: { entry: TumblrReblogEntry; depth: number }) {
   return (
-    <div
-      className="mt-3 border-l-2 border-[#d7dce2] pl-3"
-      style={{ marginLeft: `${depth * 14}px` }}
-    >
-      <UserLabel username={entry.username} blogTitle={entry.blogTitle} color={entry.blogColor} />
-      <p className="mt-2 whitespace-pre-wrap text-[15px] leading-6 text-[#2f3a4a]">{entry.content}</p>
+    <div className="border-l border-[#d8dde4] pl-4" style={{ marginLeft: `${depth * 12}px` }}>
+      <UserLabel username={entry.username} blogTitle={entry.blogTitle} color={entry.blogColor} subtle />
+      <p className="mt-2 whitespace-pre-wrap text-[15px] leading-7 text-[#2f3a4a]">{entry.content}</p>
     </div>
   );
 }
@@ -93,93 +95,93 @@ function ReblogEntry({ entry, depth }: { entry: TumblrReblogEntry; depth: number
 export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
   const [liked, setLiked] = useState(false);
 
-  const headerEntry = post.type === 'reblog_chain'
-    ? post.chain?.[post.chain.length - 1]
-    : {
-        username: post.username ?? 'anonymous',
-        blogTitle: post.blogTitle,
-        blogColor: post.blogColor,
-      };
+  const headerEntry =
+    post.type === 'reblog_chain'
+      ? post.chain?.[post.chain.length - 1]
+      : {
+          username: post.username ?? 'anonymous',
+          blogTitle: post.blogTitle,
+          blogColor: post.blogColor,
+        };
 
   return (
-    <article className="rounded bg-white px-5 py-4 shadow-[0_1px_0_rgba(0,0,0,0.04)] ring-1 ring-black/5">
-      <div className="flex gap-3">
-        <Avatar
-          label={headerEntry?.username ?? 't'}
-          color={headerEntry?.blogColor}
-        />
-        <div className="min-w-0 flex-1">
+    <article
+      className="flex gap-3 text-[#36465d]"
+      style={{ fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }}
+    >
+      <Avatar label={headerEntry?.username ?? 't'} color={headerEntry?.blogColor} />
+
+      <div className="min-w-0 flex-1 rounded-sm border border-white/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.12)]">
+        <div className="border-b border-[#eef1f4] px-5 py-4">
           <div className="flex items-start justify-between gap-3">
             <UserLabel
               username={headerEntry?.username ?? 'anonymous'}
               blogTitle={headerEntry?.blogTitle}
               color={headerEntry?.blogColor}
             />
-            {post.sponsorLabel && (
-              <span className="rounded bg-[#edf2f8] px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#607289]">
+            {post.sponsorLabel ? (
+              <span className="rounded-sm bg-[#edf2f8] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#607289]">
                 {post.sponsorLabel}
               </span>
+            ) : (
+              <span className="text-[18px] leading-none text-[#9aa6b3]">...</span>
             )}
           </div>
 
-          {post.title && (
-            <h3 className="mt-3 text-[17px] font-bold text-[#243140]">{post.title}</h3>
-          )}
+          {post.title ? <h3 className="mt-3 text-[18px] font-bold text-[#243140]">{post.title}</h3> : null}
 
-          {post.type === 'reblog_chain' && post.chain && (
-            <div className="mt-1">
+          {post.type === 'reblog_chain' && post.chain ? (
+            <div className="mt-3 space-y-3">
               {post.chain.map((entry, index) => (
                 <ReblogEntry key={`${entry.username}-${index}`} entry={entry} depth={index} />
               ))}
             </div>
-          )}
+          ) : null}
 
-          {post.type === 'text' && post.content && (
+          {post.type === 'text' && post.content ? (
             <p className="mt-3 whitespace-pre-wrap text-[15px] leading-7 text-[#2f3a4a]">{post.content}</p>
-          )}
+          ) : null}
 
-          {post.type === 'photo' && (
+          {post.type === 'photo' ? (
             <div className="mt-3">
               <div
-                className="flex h-64 items-end rounded bg-[#7587a1] p-4 text-sm font-medium text-white shadow-inner"
+                className="flex h-72 items-end overflow-hidden rounded-sm p-4 text-sm font-medium text-white shadow-inner"
                 style={{ background: post.imageColor ?? '#7587a1' }}
               >
-                <div className="max-w-md rounded bg-black/25 px-3 py-2 backdrop-blur-[1px]">
+                <div className="max-w-md bg-black/30 px-3 py-2 leading-6">
                   {post.imageDescription}
                 </div>
               </div>
-              {post.caption && (
+              {post.caption ? (
                 <p className="mt-3 text-[15px] leading-6 text-[#2f3a4a]">{post.caption}</p>
-              )}
+              ) : null}
             </div>
-          )}
+          ) : null}
 
-          {post.type === 'quote' && (
-            <blockquote className="mt-3 border-l-4 border-[#cfd6de] pl-4 text-[26px] leading-9 text-[#243140]">
+          {post.type === 'quote' ? (
+            <blockquote className="mt-3 border-l-[3px] border-[#d4dae2] pl-4 text-[28px] leading-10 text-[#243140]">
               “{post.quote}”
-              {post.quoteSource && (
-                <footer className="mt-3 text-sm font-medium text-[#7c8593]">
-                  {post.quoteSource}
-                </footer>
-              )}
+              {post.quoteSource ? (
+                <footer className="mt-3 text-sm font-medium text-[#7c8593]">{post.quoteSource}</footer>
+              ) : null}
             </blockquote>
-          )}
+          ) : null}
 
-          {post.type === 'link' && (
+          {post.type === 'link' ? (
             <div className="mt-3">
-              {post.content && (
+              {post.content ? (
                 <p className="mb-3 text-[15px] leading-6 text-[#2f3a4a]">{post.content}</p>
-              )}
-              <div className="rounded border border-[#d7dce2] bg-[#f7f9fb] p-4">
-                <div className="text-xs uppercase tracking-[0.12em] text-[#7c8593]">{post.linkUrl}</div>
+              ) : null}
+              <div className="rounded-sm border border-[#d7dce2] bg-[#f7f9fb] p-4">
+                <div className="text-[11px] uppercase tracking-[0.12em] text-[#7c8593]">{post.linkUrl}</div>
                 <div className="mt-1 text-lg font-bold text-[#243140]">{post.linkTitle}</div>
                 <p className="mt-2 text-sm leading-6 text-[#51627a]">{post.linkDescription}</p>
               </div>
             </div>
-          )}
+          ) : null}
 
-          {post.type === 'chat' && (
-            <div className="mt-3 rounded border border-[#d7dce2] bg-[#f8fafc]">
+          {post.type === 'chat' ? (
+            <div className="mt-3 rounded-sm border border-[#d7dce2] bg-[#f8fafc]">
               {post.chatLines?.map((line, index) => (
                 <div
                   key={`${line.speaker}-${index}`}
@@ -190,27 +192,31 @@ export function TumblrPost({ post, onTagClick }: TumblrPostProps) {
                 </div>
               ))}
             </div>
-          )}
+          ) : null}
 
-          {post.type === 'sponsored' && (
-            <div className="mt-3 rounded border border-[#e2d5b0] bg-[#fff8de] p-4">
+          {post.type === 'sponsored' ? (
+            <div className="mt-3 rounded-sm border border-[#e2d5b0] bg-[#fff8de] p-4">
               <p className="text-[15px] leading-6 text-[#403529]">{post.content}</p>
-              {post.ctaLabel && (
-                <button className="mt-3 cursor-pointer rounded bg-[#f5c542] px-3 py-2 text-sm font-semibold text-[#2d2419]">
+              {post.ctaLabel ? (
+                <button className="mt-3 cursor-pointer rounded-sm bg-[#f5c542] px-3 py-2 text-sm font-semibold text-[#2d2419]">
                   {post.ctaLabel}
                 </button>
-              )}
+              ) : null}
             </div>
-          )}
+          ) : null}
 
-          {post.source && (
-            <div className="mt-4 text-xs text-[#7c8593]">
+          {post.source ? (
+            <div className="mt-4 text-[12px] text-[#7c8593]">
               Source: <span className="font-semibold text-[#36465d]">{post.source}</span>
             </div>
-          )}
+          ) : null}
 
           <TagRow tags={post.tags} onTagClick={onTagClick} />
-          <NotesAndActions notes={post.notes} liked={liked} onToggleLike={() => setLiked((value) => !value)} />
+          <NotesAndActions
+            notes={post.notes}
+            liked={liked}
+            onToggleLike={() => setLiked((value) => !value)}
+          />
         </div>
       </div>
     </article>

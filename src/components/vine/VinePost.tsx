@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { VinePost as VinePostType } from '../../types';
 
 interface VinePostProps {
@@ -8,9 +8,31 @@ interface VinePostProps {
 export function VinePost({ vine }: VinePostProps) {
   const [playing, setPlaying] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const articleRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const node = articleRef.current;
+    if (!node || !playing) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.45) {
+          setPlaying(false);
+        }
+      },
+      {
+        threshold: [0, 0.45, 0.7],
+      }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [playing]);
 
   return (
-    <article className="border-b border-[#e7e7e7] bg-white">
+    <article ref={articleRef} className="border-b border-[#e7e7e7] bg-white">
       <div className="flex items-center gap-3 px-4 py-3">
         {vine.avatarUrl && !imgError ? (
           <img
@@ -57,10 +79,10 @@ export function VinePost({ vine }: VinePostProps) {
       >
         {playing && vine.videoId ? (
           <iframe
-            src={`https://www.youtube.com/embed/${vine.videoId}?autoplay=1&controls=0&loop=1&mute=1&modestbranding=1&rel=0&showinfo=0&playlist=${vine.videoId}&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`}
-            className="absolute inset-0 h-full w-full"
-            allow="autoplay; encrypted-media"
-            style={{ border: 'none' }}
+            src={`https://www.youtube.com/embed/${vine.videoId}?autoplay=1&controls=0&loop=1&mute=0&modestbranding=1&rel=0&showinfo=0&playlist=${vine.videoId}&playsinline=1&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0`}
+            className="absolute inset-0 h-full w-full pointer-events-none"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            style={{ border: 'none', transform: 'scale(1.08)', transformOrigin: 'center center' }}
             title={vine.caption}
           />
         ) : (

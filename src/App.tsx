@@ -11,6 +11,7 @@ import { VineHome } from './components/vine/VineHome';
 import { VineExplore } from './components/vine/VineExplore';
 import { TumblrDashboard } from './components/tumblr/TumblrDashboard';
 import { TumblrSearch } from './components/tumblr/TumblrSearch';
+import { MyInstantsHome } from './components/myinstants/MyInstantsHome';
 import { PopupManager } from './components/popups/PopupManager';
 import { HarambeMemorial } from './components/easter-eggs/HarambeMemorial';
 import { ClippyAssistant } from './components/easter-eggs/ClippyAssistant';
@@ -41,6 +42,9 @@ function deriveTabLabel(state: NavigationState): string {
     return state.page === 'search' && state.query ? `${state.query} - YouTube` : 'YouTube';
   }
   if (state.site === 'twitter') return 'Twitter';
+  if (state.site === 'myinstants') {
+    return state.page === 'search' && state.query ? `${state.query} - Myinstants` : 'Myinstants';
+  }
   return 'New Tab';
 }
 
@@ -134,13 +138,17 @@ function App() {
 
   // Sync current navState into the active tab
   useEffect(() => {
-    setTabs((prev) =>
-      prev.map((t) =>
-        t.id === activeTabId
-          ? { ...t, label: deriveTabLabel(navState), savedState: { ...navState } }
-          : t
-      )
-    );
+    const timer = window.setTimeout(() => {
+      setTabs((prev) =>
+        prev.map((t) =>
+          t.id === activeTabId
+            ? { ...t, label: deriveTabLabel(navState), savedState: { ...navState } }
+            : t
+        )
+      );
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [navState, activeTabId]);
 
   const addTab = useCallback(() => {
@@ -288,6 +296,13 @@ function App() {
     actions.navigate('vine', 'explore');
   }, [actions]);
 
+  const handleMyInstantsSearch = useCallback((query: string) => {
+    if (query.toLowerCase().includes('harambe')) {
+      setShowHarambe(true);
+    }
+    actions.navigate('myinstants', 'search', { query });
+  }, [actions]);
+
   const handleTumblrSearch = useCallback((query: string) => {
     if (query.toLowerCase().includes('harambe')) {
       setShowHarambe(true);
@@ -370,6 +385,15 @@ function App() {
             query={query}
             onSearch={handleVineSearch}
             onExplore={handleVineExplore}
+          />
+        );
+
+      case 'myinstants':
+        return (
+          <MyInstantsHome
+            key={`myinstants-${query || 'home'}`}
+            query={query}
+            onSearch={handleMyInstantsSearch}
           />
         );
 

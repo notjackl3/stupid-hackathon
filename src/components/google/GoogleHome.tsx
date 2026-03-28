@@ -1,5 +1,4 @@
 import { useState, useMemo, useRef, type KeyboardEvent } from 'react';
-import googleResults from '../../data/googleResults.json';
 
 const EASTER_EGG_QUERIES = [
   'japan',
@@ -36,6 +35,13 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
     return SUGGESTION_KEYS.filter((key) => key.toLowerCase().includes(q)).slice(0, 10);
   }, [query]);
 
+  const submitSearch = () => {
+    const trimmed = query.trim();
+    if (trimmed) {
+      onSearch(trimmed);
+    }
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -61,74 +67,34 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
   };
 
   return (
-    <div className="relative flex flex-col min-h-[calc(100vh-120px)] bg-white">
-      {/* Top-right nav */}
-      <div className="flex items-center justify-end gap-4 px-6 pt-3 pb-1">
-        <a className="text-[13px] text-[#5f6368] hover:underline cursor-pointer">Gmail</a>
-        <a className="text-[13px] text-[#5f6368] hover:underline cursor-pointer">Images</a>
-        {/* Apps grid icon */}
-        <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer" title="Google apps">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="#5f6368">
-            <path d="M6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+    <div className="relative flex min-h-[calc(100vh-120px)] flex-col overflow-hidden bg-white font-[Arial,sans-serif] text-[#222]">
+      <div className="flex items-center justify-end gap-[18px] px-5 pt-4 text-[13px] leading-6">
+        <a className="cursor-pointer text-[#404040] hover:underline">Gmail</a>
+        <a className="cursor-pointer text-[#404040] hover:underline">Images</a>
+        <button className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-sm hover:bg-[#f3f3f3]" title="Google apps">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#777">
+            <path d="M6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
           </svg>
         </button>
-        <button className="text-[13px] text-white bg-[#4285F4] hover:bg-[#3367d6] px-5 py-1.5 rounded cursor-pointer font-medium">
+        <button className="cursor-pointer rounded-[2px] border border-[#2f5bb7] bg-[#4387fd] px-[12px] py-[6px] text-[13px] font-bold text-white">
           Sign in
         </button>
       </div>
 
-      {/* Center content */}
-      <div className="flex flex-col items-center justify-center flex-1 pb-24">
-        {/* Google Logo with dabbing arms */}
-        <div className="mb-7 relative">
-          <style>{`
-            @keyframes dabSwing {
-              0% { transform: rotate(-60deg); }
-              100% { transform: rotate(150deg); }
-            }
-          `}</style>
-          {/* Left arm — pivots from bottom, swings upward */}
-          <div
-            style={{
-              position: 'absolute',
-              left: 10,
-              bottom: '50%',
-              width: 6,
-              height: 70,
-              background: '#4285F4',
-              borderRadius: 3,
-              transformOrigin: 'bottom center',
-              animation: 'dabSwing 1.6s linear infinite alternate',
-              zIndex: 1,
-            }}
-          />
-          {/* Right arm — pivots from bottom, swings upward */}
-          <div
-            style={{
-              position: 'absolute',
-              right: 10,
-              bottom: '50%',
-              width: 6,
-              height: 70,
-              background: '#EA4335',
-              borderRadius: 3,
-              transformOrigin: 'bottom center',
-              animation: 'dabSwing 1.6s linear infinite alternate',
-              zIndex: 1,
-            }}
-          />
-          <span className="text-[92px] font-normal select-none leading-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
-            <span className="text-[#4285F4]">G</span>
-            <span className="text-[#EA4335]">o</span>
-            <span className="text-[#FBBC05]">o</span>
-            <span className="text-[#4285F4]">g</span>
-            <span className="text-[#34A853]">l</span>
-            <span className="text-[#EA4335]">e</span>
-          </span>
+      <div className="flex flex-1 flex-col items-center justify-center px-4 pb-[140px]">
+        <div
+          className="mb-11 select-none text-[92px] font-normal leading-none tracking-[-4px]"
+          style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}
+        >
+          <span className="text-[#4285F4]">G</span>
+          <span className="text-[#EA4335]">o</span>
+          <span className="text-[#FBBC05]">o</span>
+          <span className="text-[#4285F4]">g</span>
+          <span className="text-[#34A853]">l</span>
+          <span className="text-[#EA4335]">e</span>
         </div>
 
-        {/* Search bar — 2016 rectangular style */}
-        <div className="w-full max-w-[526px] mb-6 relative">
+        <div className="relative mb-6 w-full max-w-[526px]">
           <div className={`flex items-center border border-[#d2d2d2] px-3 py-2 bg-white shadow-sm hover:shadow transition-shadow ${showSuggestions && suggestions.length > 0 ? 'rounded-t border-b-0' : 'rounded'}`}>
             <input
               ref={inputRef}
@@ -173,45 +139,33 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
           )}
         </div>
 
-        {/* Buttons */}
-        <div className="flex gap-3">
+        <div className="mt-8 flex items-center gap-6">
           <button
-            onClick={() => query.trim() && onSearch(query.trim())}
-            className="bg-[#f2f2f2] text-[#5f6368] text-sm px-5 py-2 rounded border border-transparent hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
+            onClick={submitSearch}
+            className="min-w-[127px] cursor-pointer border border-[#dcdcdc] bg-[#f5f5f5] px-4 py-[9px] text-[13px] font-bold text-[#444] hover:border-[#c6c6c6]"
           >
             Google Search
           </button>
           <button
             onClick={() => onSearch('harambe')}
-            className="bg-[#f2f2f2] text-[#5f6368] text-sm px-5 py-2 rounded border border-transparent hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
+            className="min-w-[145px] cursor-pointer border border-[#dcdcdc] bg-[#f5f5f5] px-4 py-[9px] text-[13px] font-bold text-[#444] hover:border-[#c6c6c6]"
           >
-            I'm Feeling Lucky
+            I&apos;m Feeling Lucky
           </button>
-        </div>
-
-        {/* Google+ promo */}
-        <div className="mt-8 text-sm text-[#5f6368]">
-          <span>Try </span>
-          <a className="text-[#4285F4] hover:underline cursor-pointer">Google+</a>
-          <span> — share what matters most with the people who matter most.</span>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <div className="bg-[#f2f2f2] border-t border-[#e4e4e4] px-6 py-3 text-[13px] text-[#70757a]">
-          <span>United States</span>
-        </div>
-        <div className="bg-[#f2f2f2] border-t border-[#e4e4e4] px-6 py-3 flex justify-between text-[13px] text-[#70757a]">
-          <div className="flex gap-6">
-            <a className="hover:underline cursor-pointer">Advertising</a>
-            <a className="hover:underline cursor-pointer">Business</a>
-            <a className="hover:underline cursor-pointer">About</a>
+      <div className="absolute bottom-0 left-0 right-0 border-t border-[#e4e4e4] bg-[#f2f2f2]">
+        <div className="flex items-center justify-between px-5 py-3 text-[13px] text-[#666] sm:px-[20px]">
+          <div className="flex items-center gap-8">
+            <a className="cursor-pointer hover:underline">Advertising</a>
+            <a className="cursor-pointer hover:underline">Business</a>
+            <a className="cursor-pointer hover:underline">About</a>
           </div>
-          <div className="flex gap-6">
-            <a className="hover:underline cursor-pointer">Privacy</a>
-            <a className="hover:underline cursor-pointer">Terms</a>
-            <a className="hover:underline cursor-pointer">Settings</a>
+          <div className="flex items-center gap-8">
+            <a className="cursor-pointer hover:underline">Privacy</a>
+            <a className="cursor-pointer hover:underline">Terms</a>
+            <a className="cursor-pointer hover:underline">Settings</a>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr';
+export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr' | 'myinstants';
 export type PageName = 'home' | 'search' | 'video' | 'explore' | 'tagged';
 
 export interface NavigationState {

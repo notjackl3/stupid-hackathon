@@ -11,7 +11,7 @@ const client = import.meta.env.VITE_OPENAI_API_KEY
 const cache = new Map<string, GoogleQueryData>();
 
 export async function generateGoogleResults(query: string): Promise<GoogleQueryData | null> {
-  if (!import.meta.env.VITE_OPENAI_API_KEY) return null;
+  if (!import.meta.env.VITE_OPENAI_API_KEY || !client) return null;
 
   const key = query.toLowerCase().trim();
   if (cache.has(key)) return cache.get(key)!;

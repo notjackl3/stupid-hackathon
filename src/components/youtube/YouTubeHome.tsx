@@ -144,9 +144,14 @@ const CATEGORY_META: Record<string, CategoryMeta> = {
 };
 
 const VERIFIED_CHANNELS = new Set([
-  'Rick Astley', 'Justin Timberlake', 'Drake', 'Sia', 'Dude Perfect',
-  'The Chainsmokers', 'Adele', 'Taylor Swift', 'Wiz Khalifa', 'Alan Walker',
-  'Coldplay', 'TED', 'Major Lazer', 'Charlie Puth', 'Pokémon GO', 'IGN',
+  'Rick Astley', 'Justin Timberlake', 'Sia', 'Dude Perfect',
+  'The Chainsmokers', 'Adele', 'Alan Walker', 'Coldplay', 'TED',
+  'Fifth Harmony', 'Calvin Harris', 'Rihanna', 'Mike Posner', 'ZAYN',
+  'Fueled By Ramen', 'Nicky Jam', 'CaseyNeistat', 'Nike Football',
+  'The Late Late Show with James Corden', 'PIKOTARO', 'YouTube',
+  'Battlefield', 'Call of Duty', 'PlayOverwatch', 'Nintendo',
+  'Star Wars', 'Marvel Entertainment', 'Netflix', 'HBO', 'SpaceX',
+  'LastWeekTonight', 'NBA', 'Olympics', 'NBC News',
 ]);
 
 // -- Helpers ------------------------------------------------------------------
@@ -408,6 +413,16 @@ interface YouTubeHomeProps {
 const staticData = homepageData as Record<string, YouTubeVideoData[]>;
 const CATEGORY_ORDER = ['trending', 'music', 'gaming', 'recommended'];
 
+const SIDEBAR_KEY_MAP: Record<string, string> = {
+  'Music': 'music',
+  'Sports': 'sports',
+  'Gaming': 'gaming',
+  'Movies': 'movies',
+  'TV Shows': 'tvshows',
+  'News': 'news',
+  'Trending': 'trending',
+};
+
 // -- Main Component -----------------------------------------------------------
 
 export function YouTubeHome({ onSearch, onVideoClick }: YouTubeHomeProps) {
@@ -444,8 +459,12 @@ export function YouTubeHome({ onSearch, onVideoClick }: YouTubeHomeProps) {
     setCategoryLoading(true);
     setCategoryVideos([]);
     setScrollOffsets({});
+
+    const jsonKey = SIDEBAR_KEY_MAP[name];
+    const fallbackVideos = jsonKey ? (staticData[jsonKey] ?? []) : [];
+
     searchYouTube(`${name} 2016`).then((videos) => {
-      setCategoryVideos(videos);
+      setCategoryVideos(videos.length > 0 ? videos : fallbackVideos);
       setCategoryLoading(false);
     });
   };
