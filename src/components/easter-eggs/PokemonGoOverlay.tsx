@@ -210,32 +210,25 @@ function PokeballModel({ phase, onRollComplete }: { phase: Phase; onRollComplete
     if (phaseRef.current === 'throwing') {
       throwStartRef.current += delta;
       const t = throwStartRef.current;
-      const duration = 1.2;
+      const duration = 0.6;
       const progress = Math.min(t / duration, 1);
 
-      // Ball flies toward camera (z increases toward viewer)
-      // Ease-in curve for acceleration feel
       const eased = progress * progress;
       g.position.z = eased * 8;
-      // Arc upward then down
       g.position.y = Math.sin(progress * Math.PI) * 1.5 - progress * 0.5;
-      // Scale up as it approaches
       const scale = 1 + eased * 3;
       g.scale.setScalar(scale);
-      // Spin while flying
-      g.rotation.x += delta * 12;
-      g.rotation.z += delta * 3;
+      g.rotation.x += delta * 18;
+      g.rotation.z += delta * 5;
     }
 
     if (phaseRef.current === 'rolling') {
       rollStartRef.current += delta;
       const t = rollStartRef.current;
 
-      // Reset scale and position for ground rolling
       g.scale.setScalar(1);
 
-      // Rolling on the ground: starts from right, rolls to center, decelerates
-      const rollDuration = 3.0;
+      const rollDuration = 1.5;
       const progress = Math.min(t / rollDuration, 1);
 
       // Deceleration curve
@@ -246,20 +239,19 @@ function PokeballModel({ phase, onRollComplete }: { phase: Phase; onRollComplete
       g.position.y = -0.5; // on the ground
       g.position.z = 2; // in front of camera a bit
 
-      // Spin proportional to velocity (faster at start, slower at end)
       const velocity = Math.max(0, 1 - progress);
-      g.rotation.z -= velocity * delta * 10;
+      g.rotation.z -= velocity * delta * 14;
 
       // Add wobble as it slows down
-      if (progress > 0.6) {
-        const wobbleIntensity = (progress - 0.6) / 0.4;
-        g.rotation.x = Math.sin(t * 8) * 0.15 * (1 - wobbleIntensity);
+      if (progress > 0.5) {
+        const wobbleIntensity = (progress - 0.5) / 0.5;
+        g.rotation.x = Math.sin(t * 12) * 0.15 * (1 - wobbleIntensity);
       }
 
       // 3 shakes at the end
-      if (progress > 0.7) {
-        const shakeT = (progress - 0.7) / 0.3;
-        const shakeAngle = Math.sin(shakeT * Math.PI * 6) * 0.2 * (1 - shakeT);
+      if (progress > 0.6) {
+        const shakeT = (progress - 0.6) / 0.4;
+        const shakeAngle = Math.sin(shakeT * Math.PI * 8) * 0.2 * (1 - shakeT);
         g.rotation.z = shakeAngle;
       }
 
@@ -328,7 +320,7 @@ export function PokemonGoOverlay({ onDismiss }: PokemonGoOverlayProps) {
       video.srcObject = stream;
       video.playsInline = true;
       await video.play();
-      await new Promise(r => setTimeout(r, 300));
+      await new Promise(r => setTimeout(r, 150));
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth || 300;
       canvas.height = video.videoHeight || 300;
@@ -351,16 +343,15 @@ export function PokemonGoOverlay({ onDismiss }: PokemonGoOverlayProps) {
     // After throw animation (ball reaches camera), flash and transition to rolling
     setTimeout(() => {
       setShowFlash(true);
-      setTimeout(() => setShowFlash(false), 300);
+      setTimeout(() => setShowFlash(false), 200);
       setPhase('rolling');
-    }, 1200);
+    }, 600);
   }, [phase, snapPhoto]);
 
   const handleRollComplete = useCallback(() => {
-    // Short delay after roll stops, then show card
     setTimeout(() => {
       setPhase('caught');
-    }, 500);
+    }, 250);
   }, []);
 
   return (

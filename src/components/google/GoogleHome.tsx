@@ -1,4 +1,24 @@
-import { useState, type KeyboardEvent } from 'react';
+import { useState, useMemo, useRef, type KeyboardEvent } from 'react';
+import googleResults from '../../data/googleResults.json';
+
+const EASTER_EGG_QUERIES = [
+  'japan',
+  'logan paul',
+  'bottle flip',
+  'damn daniel',
+  'white vans',
+  'harambe',
+  'trump',
+  'hillary clinton',
+  'election 2016',
+  'pokemon go',
+  'pokémon go',
+  'mannequin challenge',
+  'ppap',
+  'pen pineapple apple pen',
+];
+
+const SUGGESTION_KEYS = EASTER_EGG_QUERIES;
 
 interface GoogleHomeProps {
   onSearch: (query: string) => void;
@@ -6,11 +26,38 @@ interface GoogleHomeProps {
 
 export function GoogleHome({ onSearch }: GoogleHomeProps) {
   const [query, setQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const suggestions = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    if (!q) return SUGGESTION_KEYS.slice(0, 10);
+    return SUGGESTION_KEYS.filter((key) => key.toLowerCase().includes(q)).slice(0, 10);
+  }, [query]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && query.trim()) {
-      onSearch(query.trim());
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : suggestions.length - 1));
+    } else if (e.key === 'Enter') {
+      if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
+        onSearch(suggestions[selectedIndex]);
+      } else if (query.trim()) {
+        onSearch(query.trim());
+      }
+      setShowSuggestions(false);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
     }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setShowSuggestions(false);
+    onSearch(suggestion);
   };
 
   return (
@@ -32,8 +79,44 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
 
       {/* Center content */}
       <div className="flex flex-col items-center justify-center flex-1 pb-24">
-        {/* Google Logo */}
-        <div className="mb-7">
+        {/* Google Logo with dabbing arms */}
+        <div className="mb-7 relative">
+          <style>{`
+            @keyframes dabSwing {
+              0% { transform: rotate(-60deg); }
+              100% { transform: rotate(150deg); }
+            }
+          `}</style>
+          {/* Left arm — pivots from bottom, swings upward */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 10,
+              bottom: '50%',
+              width: 6,
+              height: 70,
+              background: '#4285F4',
+              borderRadius: 3,
+              transformOrigin: 'bottom center',
+              animation: 'dabSwing 1.6s linear infinite alternate',
+              zIndex: 1,
+            }}
+          />
+          {/* Right arm — pivots from bottom, swings upward */}
+          <div
+            style={{
+              position: 'absolute',
+              right: 10,
+              bottom: '50%',
+              width: 6,
+              height: 70,
+              background: '#EA4335',
+              borderRadius: 3,
+              transformOrigin: 'bottom center',
+              animation: 'dabSwing 1.6s linear infinite alternate',
+              zIndex: 1,
+            }}
+          />
           <span className="text-[92px] font-normal select-none leading-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
             <span className="text-[#4285F4]">G</span>
             <span className="text-[#EA4335]">o</span>
@@ -45,12 +128,19 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
         </div>
 
         {/* Search bar — 2016 rectangular style */}
-        <div className="w-full max-w-[526px] mb-6">
-          <div className="flex items-center border border-[#d2d2d2] rounded px-3 py-2 bg-white shadow-sm hover:shadow transition-shadow">
+        <div className="w-full max-w-[526px] mb-6 relative">
+          <div className={`flex items-center border border-[#d2d2d2] px-3 py-2 bg-white shadow-sm hover:shadow transition-shadow ${showSuggestions && suggestions.length > 0 ? 'rounded-t border-b-0' : 'rounded'}`}>
             <input
+              ref={inputRef}
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setShowSuggestions(true);
+                setSelectedIndex(-1);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
               onKeyDown={handleKeyDown}
               className="flex-1 outline-none text-base text-gray-700 px-1"
               autoFocus
@@ -60,6 +150,27 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
               <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
             </svg>
           </div>
+          {/* Suggestions dropdown */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="absolute left-0 right-0 top-full bg-white border border-[#d2d2d2] border-t-0 rounded-b shadow-lg z-50">
+              <div className="border-t border-[#e8e8e8] mx-3" />
+              {suggestions.map((s, i) => (
+                <div
+                  key={s}
+                  onMouseDown={() => handleSuggestionClick(s)}
+                  onMouseEnter={() => setSelectedIndex(i)}
+                  className={`flex items-center gap-3 px-4 py-1.5 cursor-pointer text-sm ${
+                    i === selectedIndex ? 'bg-[#f2f2f2]' : 'hover:bg-[#f8f8f8]'
+                  }`}
+                >
+                  <svg className="w-3.5 h-3.5 text-[#9aa0a6] shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                  </svg>
+                  <span className="text-[#222]">{s}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Buttons */}

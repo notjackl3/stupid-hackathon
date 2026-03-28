@@ -28,6 +28,7 @@ import { CreepyClown } from './components/easter-eggs/CreepyClown';
 import { FidgetSpinnerCursor } from './components/easter-eggs/FidgetSpinnerCursor';
 import { PPAPCombiner } from './components/easter-eggs/PPAPCombiner';
 import { ChatGPTSike } from './components/easter-eggs/ChatGPTSike';
+import { LoganPaul } from './components/easter-eggs/LoganPaul';
 import type { BrowserTab, NavigationState } from './types';
 
 const DEFAULT_NAV_STATE: NavigationState = { site: 'google', page: 'home', query: '', videoId: '' };
@@ -61,6 +62,7 @@ function App() {
   const [showMannequin, setShowMannequin] = useState(false);
   const [damnDanielMsg, setDamnDanielMsg] = useState<string | null>(null);
   const [showPPAP, setShowPPAP] = useState(false);
+  const [showLogan, setShowLogan] = useState(false);
 
   const [showChatGPTSike, setShowChatGPTSike] = useState(false);
 
@@ -170,7 +172,7 @@ function App() {
     [activeTabId, navState, tabs, actions]
   );
 
-  const closeTab = useCallback(
+  const doCloseTab = useCallback(
     (tabId: string) => {
       if (tabs.length === 1) return;
       const newTabs = tabs.filter((t) => t.id !== tabId);
@@ -183,6 +185,14 @@ function App() {
       }
     },
     [tabs, activeTabId, actions]
+  );
+
+  const closeTab = useCallback(
+    (tabId: string) => {
+      if (tabs.length === 1) return;
+      confirmWithHarambe(() => doCloseTab(tabId));
+    },
+    [tabs, confirmWithHarambe, doCloseTab]
   );
 
   const handleSearch = useCallback(
@@ -217,6 +227,11 @@ function App() {
       // Mannequin challenge search
       if (lower.includes('mannequin challenge')) {
         setShowMannequin(true);
+      }
+
+      // Logan Paul Japan search
+      if (lower.includes('japan') || lower.includes('logan paul')) {
+        setShowLogan(true);
       }
 
       // PPAP search
@@ -460,6 +475,8 @@ function App() {
       {showChatGPTSike && (
         <ChatGPTSike onDismiss={() => { setShowChatGPTSike(false); actions.navigate('google', 'home'); }} />
       )}
+
+      {showLogan && <LoganPaul onDismiss={() => setShowLogan(false)} />}
 
       {/* Harambe confirmation dialog */}
       {harambeConfirmAction && (
