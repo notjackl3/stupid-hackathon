@@ -16,6 +16,7 @@ import { HarambeMemorial } from './components/easter-eggs/HarambeMemorial';
 import { ClippyAssistant } from './components/easter-eggs/ClippyAssistant';
 import { GooglePlusNotif } from './components/easter-eggs/GooglePlusNotif';
 import { DialupOverlay } from './components/DialupOverlay';
+import { IntroVideo } from './components/IntroVideo';
 import { ElectionPoll } from './components/easter-eggs/ElectionPoll';
 import { PokemonGoOverlay } from './components/easter-eggs/PokemonGoOverlay';
 import { HarambeWatermark } from './components/easter-eggs/HarambeWatermark';
@@ -26,6 +27,7 @@ import { DamnDaniel } from './components/easter-eggs/DamnDaniel';
 import { CreepyClown } from './components/easter-eggs/CreepyClown';
 import { FidgetSpinnerCursor } from './components/easter-eggs/FidgetSpinnerCursor';
 import { PPAPCombiner } from './components/easter-eggs/PPAPCombiner';
+import { ChatGPTSike } from './components/easter-eggs/ChatGPTSike';
 import type { BrowserTab, NavigationState } from './types';
 
 const DEFAULT_NAV_STATE: NavigationState = { site: 'google', page: 'home', query: '', videoId: '' };
@@ -45,6 +47,7 @@ function App() {
   const [showHarambe, setShowHarambe] = useState(false);
   const [showClippy, setShowClippy] = useState(false);
   const [showGooglePlus, setShowGooglePlus] = useState(false);
+  const [showIntroVideo, setShowIntroVideo] = useState(true);
   const [showDialup, setShowDialup] = useState(false);
   const navCountRef = useRef(0);
   const [navTrigger, setNavTrigger] = useState(0);
@@ -58,6 +61,8 @@ function App() {
   const [showMannequin, setShowMannequin] = useState(false);
   const [damnDanielMsg, setDamnDanielMsg] = useState<string | null>(null);
   const [showPPAP, setShowPPAP] = useState(false);
+
+  const [showChatGPTSike, setShowChatGPTSike] = useState(false);
 
   // Harambe confirmation dialog
   const [harambeConfirmAction, setHarambeConfirmAction] = useState<(() => void) | null>(null);
@@ -219,6 +224,11 @@ function App() {
         setShowPPAP(true);
       }
 
+      // ChatGPT sike
+      if (lower.includes('chatgpt') || lower.includes('chat gpt')) {
+        setShowChatGPTSike(true);
+      }
+
       const currentSite = site ?? navState.site;
       actions.navigate(currentSite, 'search', { query });
     },
@@ -376,6 +386,7 @@ function App() {
 
   return (
     <>
+      {showIntroVideo && <IntroVideo onDismiss={() => setShowIntroVideo(false)} />}
       {showDialup && <DialupOverlay onDismiss={() => setShowDialup(false)} />}
 
       {/* Harambe watermark — always present as spiritual guardian */}
@@ -444,6 +455,10 @@ function App() {
           })}
           onCancel={() => confirmWithHarambe(() => setShowPPAP(false))}
         />
+      )}
+
+      {showChatGPTSike && (
+        <ChatGPTSike onDismiss={() => setShowChatGPTSike(false)} />
       )}
 
       {/* Harambe confirmation dialog */}

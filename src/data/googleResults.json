@@ -285,5 +285,145 @@
   "2024": {
     "results": [],
     "didYouMean": "2016"
+  },
+  "instagram": {
+    "results": [
+      { "title": "Instagram - Photo and Video Sharing App", "url": "www.instagram.com", "snippet": "Capture and share the world's moments. Over 500 million users share photos and videos every day on Instagram." },
+      { "title": "Instagram Just Copied Snapchat — And It Actually Worked", "url": "www.wired.com/2016/instagram-stories-snapchat-copy", "snippet": "Instagram Stories launched in August 2016, blatantly copying Snapchat's core feature. It already has more daily users than Snapchat itself." },
+      { "title": "How to Get More Followers on Instagram - Social Media Today", "url": "www.socialmediatoday.com/how-to-get-instagram-followers-2016", "snippet": "Our top tips for growing your Instagram following in 2016. Post consistently, use hashtags wisely, and engage with your audience." },
+      { "title": "Instagram Reaches 500 Million Users - Forbes", "url": "www.forbes.com/instagram-500-million-users-2016", "snippet": "Facebook's Instagram division has hit 500 million monthly active users, cementing its place as the world's leading photo-sharing platform." }
+    ],
+    "ads": [
+      { "title": "Advertise on Instagram - Reach 500M+ Users", "url": "business.instagram.com/advertising", "snippet": "Grow your business with Instagram ads. Target by age, location, and interests. Start for as little as $5 a day." }
+    ],
+    "peopleAlsoAsk": ["How do I get more Instagram followers?", "What is Instagram Stories?", "Is Instagram free?", "What is the most liked Instagram photo?"]
+  },
+  "snapchat": {
+    "results": [
+      { "title": "Snapchat - The Fastest Way to Share a Moment", "url": "www.snapchat.com", "snippet": "Snapchat is the fastest way to share a moment! Send a photo or video, add a caption, and know it'll be deleted after it's viewed." },
+      { "title": "What Is Snapchat and Why Do Teens Love It? - Common Sense Media", "url": "www.commonsensemedia.org/what-is-snapchat", "snippet": "Snapchat lets users send photos and videos that disappear after viewing. Parents: here's what you need to know about your teen's favorite app." },
+      { "title": "Snapchat Filters: The Complete Guide to Lenses and Geofilters", "url": "www.mashable.com/snapchat-filters-guide-2016", "snippet": "Dog ears. Rainbow vomit. Face swap. Snapchat's filters have taken over social media. Here's how to find and use them all." },
+      { "title": "Instagram Copies Snapchat Stories. Snapchat Shrugs.", "url": "www.theverge.com/2016/snapchat-instagram-stories-reaction", "snippet": "Instagram launched Stories, a near-identical copy of Snapchat. Snapchat CEO Evan Spiegel's response? 'Imitation is a form of flattery.'" }
+    ],
+    "peopleAlsoAsk": ["How do Snapchat streaks work?", "What does the ghost emoji mean on Snapchat?", "Do Snaps really disappear?", "What age is Snapchat for?"]
+  },
+  "spotify": {
+    "results": [
+      { "title": "Spotify - Music for Everyone", "url": "www.spotify.com", "snippet": "Spotify is a digital music service that gives you access to millions of songs. Free with ads, or upgrade to Premium for $9.99/month." },
+      { "title": "Taylor Swift vs Spotify: The War Over Streaming Royalties", "url": "www.rollingstone.com/taylor-swift-spotify-feud-2016", "snippet": "Taylor Swift pulled her entire catalog from Spotify in 2014, calling streaming 'an experiment.' Other artists are following suit in the battle over royalties." },
+      { "title": "Best Spotify Playlists 2016 - Pitchfork", "url": "pitchfork.com/best-spotify-playlists-2016", "snippet": "From RapCaviar to Today's Top Hits, Spotify's curated playlists have changed how we discover music. Here are the best ones to follow." },
+      { "title": "Is Spotify Killing the Music Industry? - The Atlantic", "url": "www.theatlantic.com/spotify-music-industry-2016", "snippet": "Artists complain about streaming royalties (averaging $0.006 per stream), but the industry insists streaming is the future. Who's right?" }
+    ],
+    "ads": [
+      { "title": "Spotify Premium - 3 Months Free!", "url": "www.spotify.com/premium", "snippet": "No ads. Download music. Listen anywhere. Get 3 months of Spotify Premium free, then $9.99/month." }
+    ],
+    "peopleAlsoAsk": ["How much does Spotify cost?", "Can I use Spotify offline?", "Why did Taylor Swift leave Spotify?", "Is Spotify better than Apple Music?"]
+  },
+  "hoverboard": {
+    "results": [
+      { "title": "Hoverboards Are Catching Fire — Literally - CBS News", "url": "www.cbsnews.com/news/hoverboards-catching-fire-lithium-batteries", "snippet": "Multiple reports of self-balancing scooters igniting have led to a Consumer Product Safety Commission investigation. Don't charge them overnight." },
+      { "title": "Amazon Pulls Hoverboards Over Safety Concerns", "url": "www.businessinsider.com/amazon-pulls-hoverboards-safety-2016", "snippet": "Amazon has removed most hoverboard listings after receiving reports of fires caused by cheap lithium-ion battery packs." },
+      { "title": "Airlines Ban Hoverboards from All Flights", "url": "www.usatoday.com/airlines-ban-hoverboards-2016", "snippet": "Delta, American, United, and Southwest have all banned hoverboards from flights due to fire risk. Sorry, you'll have to check your exploding scooter." },
+      { "title": "What to Buy Instead of a Hoverboard This Holiday Season", "url": "www.cnet.com/hoverboard-alternatives-2016", "snippet": "With hoverboards banned from airlines and catching fire, here are safer gift ideas for your speed-obsessed loved ones." }
+    ],
+    "peopleAlsoAsk": ["Are hoverboards safe?", "Why do hoverboards catch fire?", "What is the best hoverboard brand?", "Are hoverboards banned on planes?"]
+  },
+  "clown sightings": {
+    "results": [
+      { "title": "Creepy Clown Sightings: Everything You Need to Know - Vox", "url": "www.vox.com/2016/creepy-clown-sightings-explained", "snippet": "The 2016 clown panic started in South Carolina and spread nationwide. Here's a timeline of the eeriest sightings and what's behind them." },
+      { "title": "Police Issue Warning Over Clown Sightings in 10+ States", "url": "www.cnn.com/2016/clown-sightings-police-warning", "snippet": "Law enforcement agencies across the country are investigating reports of people dressed as creepy clowns lurking near schools and neighborhoods." },
+      { "title": "McDonald's Retires Ronald McDonald Amid Clown Panic", "url": "www.huffingtonpost.com/ronald-mcdonald-retired-clown-panic", "snippet": "McDonald's has temporarily sidelined its beloved mascot Ronald McDonald in response to the nationwide creepy clown phenomenon." },
+      { "title": "The History of Scary Clowns: From Pogo to Pennywise", "url": "www.mentalfloss.com/scary-clown-history", "snippet": "John Wayne Gacy, Pennywise, and now 2016's clown panic. Why are we so afraid of clowns? Psychologists weigh in." }
+    ],
+    "peopleAlsoAsk": ["Why are people afraid of clowns?", "Where have clowns been spotted?", "Is the clown thing real?", "What is coulrophobia?"]
+  },
+  "olympics 2016": {
+    "results": [
+      { "title": "Rio 2016 Olympics: Complete Results and Medal Count", "url": "www.nbcolympics.com/results-medal-count-rio-2016", "snippet": "The United States leads the medal count at the Rio 2016 Summer Olympics. Michael Phelps adds 5 more golds to his record 23 total Olympic gold medals." },
+      { "title": "Michael Phelps vs. Ryan Lochte: What Happened in Rio", "url": "www.espn.com/olympics/michael-phelps-ryan-lochte-rio-2016", "snippet": "While Phelps added to his legendary career, teammate Ryan Lochte fabricated a robbery story that became the biggest scandal of the Games." },
+      { "title": "Usain Bolt Wins Triple-Triple at Rio 2016 Olympics - BBC", "url": "www.bbc.com/sport/olympics/usain-bolt-triple-triple", "snippet": "Jamaica's Usain Bolt has made history by winning gold in the 100m, 200m, and 4x100m relay for the third straight Olympics." },
+      { "title": "Simone Biles: The GOAT of Gymnastics After Rio 2016", "url": "www.si.com/olympics/simone-biles-rio-2016-goat-gymnastics", "snippet": "Simone Biles won 4 gold medals at Rio 2016, cementing her status as the greatest gymnast of all time. At 19, her best years may still be ahead." }
+    ],
+    "peopleAlsoAsk": ["Who won the most gold medals at Rio 2016?", "What happened with Ryan Lochte?", "How did Team USA do at Rio?", "When is the next Olympics?"]
+  },
+  "brexit": {
+    "results": [
+      { "title": "Brexit Explained: What the UK's EU Vote Means - BBC", "url": "www.bbc.com/news/uk-politics-brexit-explained", "snippet": "Britain voted 52% to 48% to leave the European Union. Prime Minister David Cameron resigned. Markets plunged. Now what?" },
+      { "title": "Markets React to Brexit: Pound Falls to 30-Year Low", "url": "www.ft.com/brexit-market-reaction-pound", "snippet": "The British pound fell to its lowest level since 1985 following the Brexit vote. Global stocks tumbled as investors grappled with the uncertainty." },
+      { "title": "Brexit Vote Results: Map Shows Stark UK Divide - The Guardian", "url": "www.theguardian.com/politics/brexit-results-map-2016", "snippet": "London voted overwhelmingly to Remain, while much of England and Wales voted to Leave. Scotland and Northern Ireland backed Remain." },
+      { "title": "What Happens Now That Britain Voted for Brexit?", "url": "www.washingtonpost.com/world/brexit-what-happens-next", "snippet": "Triggering Article 50 could take months or years. Trade agreements, immigration rules, and borders with Ireland are all up in the air." }
+    ],
+    "peopleAlsoAsk": ["What does Brexit mean?", "When did Brexit happen?", "Why did the UK vote to leave the EU?", "Will Brexit affect travel to Europe?"]
+  },
+  "star wars": {
+    "results": [
+      { "title": "Rogue One: A Star Wars Story - Official Site | December 16", "url": "www.starwars.com/films/rogue-one", "snippet": "Rogue One: A Star Wars Story opens December 16, 2016. An unlikely group of rebels band together on a mission to steal the plans to the Death Star." },
+      { "title": "Star Wars: The Force Awakens - Breaking Box Office Records", "url": "www.boxofficemojo.com/movies/star-wars-force-awakens", "snippet": "The Force Awakens earned $2 billion worldwide, making it the third highest-grossing film of all time. Critics and fans agree: Star Wars is back." },
+      { "title": "Who Is Rey? The Force Awakens Fan Theories - Screen Rant", "url": "screenrant.com/who-is-rey-force-awakens-fan-theories", "snippet": "Is Rey Luke Skywalker's daughter? A Kenobi? Snoke's apprentice? The internet has theories. Rogue One might give us clues." },
+      { "title": "Carrie Fisher, Princess Leia, in Stable Condition After Heart Attack", "url": "www.cnn.com/2016/carrie-fisher-heart-attack-stable", "snippet": "Star Wars icon Carrie Fisher suffered a heart attack on a trans-Atlantic flight. Fans worldwide are praying for her recovery." }
+    ],
+    "peopleAlsoAsk": ["When does Rogue One come out?", "Is The Force Awakens worth seeing?", "Who plays Rey in Star Wars?", "What order should I watch Star Wars?"]
+  },
+  "kanye west": {
+    "results": [
+      { "title": "Kanye West's 'The Life of Pablo' - Rolling Stone Review", "url": "www.rollingstone.com/music/kanye-west-life-of-pablo-review", "snippet": "Kanye's sprawling 7th album debuted exclusively on Tidal, then kept changing after release. A messy masterpiece or just a mess? Rolling Stone gives it 4 stars." },
+      { "title": "Kanye West Hospitalized, 'Saint Pablo Tour' Cancelled", "url": "www.tmz.com/kanye-west-hospitalized-tour-cancelled-2016", "snippet": "Kanye West has been hospitalized for psychiatric evaluation after a series of erratic onstage rants and cancelling shows. His manager confirms the hospitalization." },
+      { "title": "Kanye West vs Taylor Swift: The Famous Music Video Drama", "url": "www.vox.com/kanye-west-taylor-swift-famous-video-2016", "snippet": "'I feel like me and Taylor might still have sex.' The music video for 'Famous' reignited the Taylor-Kanye feud. Taylor says she never approved the lyric." },
+      { "title": "Kanye West's 13 Most Incredible Tweets of 2016 - BuzzFeed", "url": "www.buzzfeed.com/kanye-west-tweets-2016", "snippet": "From announcing he's $53 million in debt to declaring himself the greatest artist alive, Kanye's Twitter was peak 2016 chaos." }
+    ],
+    "peopleAlsoAsk": ["What is 'The Life of Pablo' about?", "Is Kanye West crazy?", "What happened between Kanye and Taylor Swift?", "Is Tidal worth it for Kanye's album?"]
+  },
+  "beyonce": {
+    "results": [
+      { "title": "Beyoncé 'Lemonade' Review: A Visual Album That Changes Everything", "url": "www.theguardian.com/music/beyonce-lemonade-review", "snippet": "Beyoncé's 'Lemonade' drops without warning on HBO and Tidal, accompanied by a 65-minute film. It's an emotional, political masterwork. 5 stars." },
+      { "title": "Who Is Becky With the Good Hair? The Internet Goes Wild", "url": "www.vox.com/becky-with-the-good-hair-lemonade-explained", "snippet": "Beyoncé's 'Sorry' references 'Becky with the good hair' and the internet immediately began theorizing about Jay-Z's alleged infidelity." },
+      { "title": "Beyoncé Super Bowl 50 Halftime Performance: Formation - USA Today", "url": "www.usatoday.com/beyonce-super-bowl-50-halftime-2016", "snippet": "Beyoncé's Black Panther-inspired Super Bowl performance of 'Formation' sparked national debate. Supporters called it powerful; critics called it anti-police." },
+      { "title": "Beyoncé Formation Tour: Sold Out in Minutes", "url": "www.billboard.com/beyonce-formation-tour-2016", "snippet": "Tickets for Beyoncé's 'Formation World Tour' sold out within minutes of going on sale. The stadium tour runs through October 2016." }
+    ],
+    "peopleAlsoAsk": ["What is 'Lemonade' about?", "Who is Becky with the good hair?", "What happened at Beyoncé's Super Bowl performance?", "When is the Formation Tour?"]
+  },
+  "drake": {
+    "results": [
+      { "title": "Drake 'Views' Review: Hip-Hop's Biggest Album of 2016 - Pitchfork", "url": "pitchfork.com/reviews/drake-views-2016", "snippet": "Drake's 'Views' debuted at #1, spending an unprecedented 13 consecutive weeks at the top of the Billboard Hot 100. Pitchfork gives it 6.6." },
+      { "title": "Hotline Bling: Drake's Dance Moves Become the Best Memes of 2016", "url": "www.buzzfeed.com/drake-hotline-bling-dance-memes", "snippet": "'Hotline Bling's' music video gave the internet Drake dancing, and the internet turned it into the gift that keeps on giving." },
+      { "title": "Drake vs. Meek Mill: Who Won the Rap Beef? - Complex", "url": "www.complex.com/drake-vs-meek-mill-rap-beef-recap", "snippet": "Meek Mill accused Drake of using ghostwriters. Drake responded with 'Charged Up' and 'Back to Back.' The diss track won a Grammy nomination." },
+      { "title": "Drake's 'One Dance' Is the UK's Biggest Song Ever", "url": "www.bbc.com/music/drake-one-dance-uk-record", "snippet": "'One Dance' has become the most streamed song in UK history, with over 1 billion Spotify plays. Drake is officially a global pop star." }
+    ],
+    "peopleAlsoAsk": ["What is Drake's real name?", "Did Drake use a ghostwriter?", "What is the best Drake album?", "Is Views a good album?"]
+  },
+  "mannequin challenge": {
+    "results": [
+      { "title": "The Mannequin Challenge: The Viral Trend Explained - Today", "url": "www.today.com/popculture/mannequin-challenge-explained-2016", "snippet": "Everyone from high school students to NFL teams is freezing in place while someone walks through filming. The Mannequin Challenge is everywhere." },
+      { "title": "Hillary Clinton Does the Mannequin Challenge at Campaign Rally", "url": "www.cnn.com/hillary-clinton-mannequin-challenge-2016", "snippet": "The Clinton campaign joined the viral trend, posting a Mannequin Challenge video two days before the election. Did it help? (It did not.)" },
+      { "title": "Oakland Raiders Mannequin Challenge: The NFL Gets In On It", "url": "www.espn.com/nfl/raiders-mannequin-challenge-2016", "snippet": "The Oakland Raiders posted the best Mannequin Challenge video in the NFL, complete with a dramatic play freeze-frame in the end zone." },
+      { "title": "Black Beatles Is the Official Anthem of the Mannequin Challenge", "url": "www.billboard.com/rae-sremmurd-black-beatles-mannequin-challenge", "snippet": "Rae Sremmurd's 'Black Beatles' became the unofficial soundtrack of every Mannequin Challenge video. The song hit #1 largely because of the trend." }
+    ],
+    "peopleAlsoAsk": ["What is the Mannequin Challenge?", "What song is used in the Mannequin Challenge?", "Who started the Mannequin Challenge?", "Why is it called the Mannequin Challenge?"]
+  },
+  "vr": {
+    "results": [
+      { "title": "Oculus Rift Review: The Future Is Here (Sort of) - The Verge", "url": "www.theverge.com/2016/oculus-rift-review", "snippet": "The Oculus Rift costs $599, requires a powerful gaming PC, and delivers genuinely mind-blowing VR. The future of gaming has arrived, if you can afford it." },
+      { "title": "HTC Vive vs. Oculus Rift: Which VR Headset Is Better?", "url": "www.pcmag.com/htc-vive-vs-oculus-rift-comparison", "snippet": "Both VR headsets deliver impressive experiences at very different price points. HTC Vive offers room-scale tracking; Oculus is cheaper. We compare them." },
+      { "title": "Google Cardboard: VR for the Rest of Us - Wired", "url": "www.wired.com/2016/google-cardboard-vr-review", "snippet": "For $15, you can experience basic VR with your smartphone. It's not Oculus Rift, but Google Cardboard proves that VR doesn't have to be expensive." },
+      { "title": "PlayStation VR Review: The Most Accessible VR Yet - GameSpot", "url": "www.gamespot.com/reviews/playstation-vr-review-2016", "snippet": "Sony's PlayStation VR launches at $399, making it the most accessible premium VR headset. If you have a PS4, this is the VR for you." }
+    ],
+    "peopleAlsoAsk": ["What is the best VR headset?", "Does VR make you sick?", "Is VR worth buying?", "What games are available for VR?"]
+  },
+  "facebook": {
+    "results": [
+      { "title": "Facebook - Log In or Sign Up", "url": "www.facebook.com", "snippet": "Connect with friends and the world around you on Facebook. Create a Page or Group for anything." },
+      { "title": "Facebook Fake News: Did It Influence the 2016 Election?", "url": "www.buzzfeed.com/facebook-fake-news-2016-election", "snippet": "Analysis shows that false stories on Facebook were shared more than real news in the final months of the 2016 campaign. Is Facebook responsible?" },
+      { "title": "Facebook Live: The Feature That's Changing Everything", "url": "www.wired.com/2016/facebook-live-changing-media", "snippet": "Facebook Live allows anyone to broadcast video to their followers in real time. Police incidents, protests, and breaking news are being streamed live." },
+      { "title": "Mark Zuckerberg Denies Facebook Had Impact on Election Result", "url": "www.theguardian.com/zuckerberg-facebook-election-2016", "snippet": "Facebook CEO Mark Zuckerberg calls it 'a pretty crazy idea' that fake news on Facebook influenced the election. Critics push back." }
+    ],
+    "peopleAlsoAsk": ["How do I delete my Facebook?", "Is Facebook safe?", "What is Facebook Live?", "How do I report fake news on Facebook?"]
+  },
+  "google assistant": {
+    "results": [
+      { "title": "Google Assistant: Everything You Need to Know - Android Central", "url": "www.androidcentral.com/google-assistant-everything-you-need-to-know", "snippet": "Google Assistant launched with the Pixel phones in October 2016. It's smarter than Google Now and can have actual conversations." },
+      { "title": "Google Assistant vs. Siri vs. Cortana vs. Alexa - Tom's Guide", "url": "www.tomsguide.com/google-assistant-vs-siri-vs-cortana-vs-alexa", "snippet": "We tested four AI assistants head-to-head. Google Assistant answers factual questions best. Alexa controls smart home devices better. Siri tells better jokes." },
+      { "title": "Google Pixel Review: The First True Google Phone", "url": "www.engadget.com/google-pixel-review-2016", "snippet": "The Pixel is Google's first fully self-made phone. It features Google Assistant, unlimited photo storage, and a great camera. Is it worth $649?" }
+    ],
+    "peopleAlsoAsk": ["Is Google Assistant better than Siri?", "What can Google Assistant do?", "How do I use Google Assistant?", "Is Google Assistant on iPhone?"]
   }
 }
