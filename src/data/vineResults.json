@@ -1,0 +1,1070 @@
+{
+  "_trending": {
+    "vines": [
+      {
+        "id": "v1",
+        "username": "KingBach",
+        "displayName": "King Bach",
+        "verified": true,
+        "caption": "When your friend says they only took ONE fry 😂💀",
+        "loops": 45200000,
+        "likes": 892000,
+        "revines": 234000,
+        "comments": [
+          { "user": "vinefan2016", "text": "IM SCREAMING 😂😂" },
+          { "user": "lolking", "text": "the ACCURACY tho" }
+        ],
+        "videoDescription": "Bach pulls out comically large spoon from behind back while friend eats from his plate",
+        "videoColor": "#ff6b6b",
+        "videoId": "MbGjk3s5puQ",
+        "avatarUrl": "https://unavatar.io/x/KingBach"
+      },
+      {
+        "id": "v2",
+        "username": "ZachKing",
+        "displayName": "Zach King",
+        "verified": true,
+        "caption": "Magic ✨ #magic #illusion",
+        "loops": 78400000,
+        "likes": 1240000,
+        "revines": 567000,
+        "comments": [
+          { "user": "mindblown99", "text": "HOW DO YOU DO THIS" },
+          { "user": "editgod", "text": "teach me your ways 🙏" }
+        ],
+        "videoDescription": "Zach throws a blanket over a chair and it transforms into a motorcycle through seamless editing",
+        "videoColor": "#9b59b6",
+        "videoId": "fWsJnM2PKgk",
+        "avatarUrl": "https://unavatar.io/x/ZachKing"
+      },
+      {
+        "id": "v3",
+        "username": "ThomasSanders",
+        "displayName": "Thomas Sanders",
+        "verified": true,
+        "caption": "POV: You're a Disney character who just realized they're in the wrong movie 😂🏰",
+        "loops": 34100000,
+        "likes": 780000,
+        "revines": 198000,
+        "comments": [
+          { "user": "disneylover", "text": "THOMAS YOU ARE A TREASURE" },
+          { "user": "broadway_kid", "text": "the singing tho 😭❤️" }
+        ],
+        "videoDescription": "Thomas acts out confused Buzz Lightyear walking into a Lion King scene, doing both voices",
+        "videoColor": "#3498db",
+        "videoId": "J4WRFIR7wVE",
+        "avatarUrl": "https://unavatar.io/x/ThomasSanders"
+      },
+      {
+        "id": "v4",
+        "username": "LelePons",
+        "displayName": "Lele Pons",
+        "verified": true,
+        "caption": "When you try to be sexy but you're actually a disaster 😂😂😂",
+        "loops": 52300000,
+        "likes": 934000,
+        "revines": 312000,
+        "comments": [
+          { "user": "relatableaf", "text": "this is literally me at the club" },
+          { "user": "haha2016", "text": "DEAD 💀💀💀" }
+        ],
+        "videoDescription": "Lele attempts a hair flip but trips over a chair and falls into a pool",
+        "videoColor": "#e74c3c",
+        "videoId": "PST6zCzTLPE",
+        "avatarUrl": "https://unavatar.io/x/leaborhani"
+      },
+      {
+        "id": "v5",
+        "username": "damnDaniel",
+        "displayName": "Josh Holz",
+        "verified": false,
+        "caption": "Damn Daniel! Back at it again with the white Vans! 👟🔥",
+        "loops": 67800000,
+        "likes": 1100000,
+        "revines": 890000,
+        "comments": [
+          { "user": "shoegame", "text": "DAMN DANIEL" },
+          { "user": "vansgirl", "text": "I will never not laugh at this" }
+        ],
+        "videoDescription": "Camera follows Daniel around school hallways while narrator repeatedly says 'Damn Daniel'",
+        "videoColor": "#2ecc71",
+        "videoId": "kfFcyTuopbI"
+      },
+      {
+        "id": "v6",
+        "username": "loganpaul",
+        "displayName": "Logan Paul",
+        "verified": true,
+        "caption": "WHEN YOUR MOM SAYS DINNER IS READY BUT IT'S NOT READY YET 🍽️😤",
+        "loops": 41500000,
+        "likes": 723000,
+        "revines": 267000,
+        "comments": [
+          { "user": "pauler4life", "text": "LOGANG RISE 🔥" },
+          { "user": "comedyking", "text": "why is this so accurate tho" }
+        ],
+        "videoDescription": "Logan sprints through the house at full speed then stands in empty kitchen looking confused",
+        "videoColor": "#f39c12",
+        "videoId": "bVRmyzT2fek",
+        "avatarUrl": "https://unavatar.io/x/LoganPaul"
+      },
+      {
+        "id": "v7",
+        "username": "amandacerny",
+        "displayName": "Amanda Cerny",
+        "verified": true,
+        "caption": "Me trying to adult 😅 #relatable #adulting",
+        "loops": 29700000,
+        "likes": 645000,
+        "revines": 178000,
+        "comments": [
+          { "user": "adultingishard", "text": "why is this so real 😭" },
+          { "user": "funnyqueen", "text": "Amanda never misses 😂" }
+        ],
+        "videoDescription": "Amanda stares at a pile of bills, throws them in the air, and starts doing the worm on the floor",
+        "videoColor": "#e91e63",
+        "videoId": "O_lO8OoATI8",
+        "avatarUrl": "https://unavatar.io/x/AmandaCerny"
+      },
+      {
+        "id": "v8",
+        "username": "destorm",
+        "displayName": "DeStorm Power",
+        "verified": true,
+        "caption": "♫ When you hear your jam come on at the store ♫ 🎵🛒",
+        "loops": 25400000,
+        "likes": 534000,
+        "revines": 145000,
+        "comments": [
+          { "user": "musichead", "text": "the harmonies are INSANE" },
+          { "user": "destormfan", "text": "talent. pure talent." }
+        ],
+        "videoDescription": "DeStorm starts beatboxing in a grocery store aisle, strangers join in one by one",
+        "videoColor": "#1abc9c",
+        "avatarUrl": "https://unavatar.io/x/DeStorm"
+      },
+      {
+        "id": "v9",
+        "username": "bottleflipguy",
+        "displayName": "Mike Senatore",
+        "verified": false,
+        "caption": "THE BOTTLE FLIP HEARD AROUND THE WORLD 🍼🌍",
+        "loops": 89000000,
+        "likes": 2100000,
+        "revines": 1500000,
+        "comments": [
+          { "user": "flipmaster", "text": "this started a MOVEMENT" },
+          { "user": "2016vibes", "text": "the crowd reaction is everything" }
+        ],
+        "videoDescription": "Kid flips a water bottle at a talent show, it lands perfectly, entire auditorium erupts",
+        "videoColor": "#00bcd4",
+        "videoId": "GdUVtEeg9I4"
+      },
+      {
+        "id": "v10",
+        "username": "jayversace",
+        "displayName": "Jay Versace",
+        "verified": true,
+        "caption": "When the teacher calls on you and you definitely did NOT do the reading 📚😰",
+        "loops": 31200000,
+        "likes": 678000,
+        "revines": 201000,
+        "comments": [
+          { "user": "schoolmemes", "text": "me every single day in english class" },
+          { "user": "jaystan", "text": "his FACE im done 😂😂" }
+        ],
+        "videoDescription": "Jay's eyes go wide as camera slowly zooms in on his panicked expression with dramatic music",
+        "videoColor": "#ff9800",
+        "videoId": "14n7PxkpTxU",
+        "avatarUrl": "https://unavatar.io/x/JAYVERSACE"
+      },
+      {
+        "id": "v11",
+        "username": "brittanyfurlan",
+        "displayName": "Brittany Furlan",
+        "verified": true,
+        "caption": "Types of people at Starbucks ☕ #starbucks #comedy",
+        "loops": 27600000,
+        "likes": 589000,
+        "revines": 167000,
+        "comments": [
+          { "user": "coffeeaddict", "text": "I'm the one who can't pronounce anything 😂" },
+          { "user": "vinejunkie", "text": "Brittany is the queen of vine don't @ me" }
+        ],
+        "videoDescription": "Brittany plays 4 different Starbucks customers including one who orders for 3 minutes straight",
+        "videoColor": "#795548",
+        "videoId": "NHP7K_RRbek",
+        "avatarUrl": "https://unavatar.io/x/BrittanyFurlan"
+      },
+      {
+        "id": "v12",
+        "username": "nashgrier",
+        "displayName": "Nash Grier",
+        "verified": true,
+        "caption": "That face you make when your crush walks by 😏❤️ #crush",
+        "loops": 38900000,
+        "likes": 812000,
+        "revines": 234000,
+        "comments": [
+          { "user": "nashfan", "text": "Nash is my crush tho 😍" },
+          { "user": "relatable101", "text": "I just look away and panic internally" }
+        ],
+        "videoDescription": "Nash does an exaggerated cool-guy lean against lockers and completely misses, falling over",
+        "videoColor": "#4caf50",
+        "avatarUrl": "https://unavatar.io/x/Nashgrier"
+      },
+      {
+        "id": "v13",
+        "username": "whatarethose",
+        "displayName": "Young Busco",
+        "verified": false,
+        "caption": "WHAT ARE THOSE?!?! 👟😂",
+        "loops": 72000000,
+        "likes": 1800000,
+        "revines": 1200000,
+        "comments": [
+          { "user": "shoecop", "text": "WHAT ARE THOSE" },
+          { "user": "memequeen", "text": "I say this to everyone now lmaooo" }
+        ],
+        "videoDescription": "Camera pans down to someone's terrible sandals while narrator screams WHAT ARE THOSE",
+        "videoColor": "#673ab7",
+        "videoId": "HNtz05bhI1k"
+      },
+      {
+        "id": "v14",
+        "username": "whyualwayslying",
+        "displayName": "Nicholas Fraser",
+        "verified": false,
+        "caption": "Why you always lying 🎵 mmm oh my god 🎵 stop lying 🎵",
+        "loops": 58000000,
+        "likes": 1400000,
+        "revines": 980000,
+        "comments": [
+          { "user": "songoftheyear", "text": "this is stuck in my head PERMANENTLY" },
+          { "user": "truthseeker", "text": "me when my friend says they're 5 min away" }
+        ],
+        "videoDescription": "Guy lying on floor singing 'why you always lying' into camera with dramatic hand gestures",
+        "videoColor": "#ff5722",
+        "videoId": "WcWM_1hBu_c"
+      },
+      {
+        "id": "v15",
+        "username": "camerondallas",
+        "displayName": "Cameron Dallas",
+        "verified": true,
+        "caption": "How guys act when their girl says she's fine 😬💀 #relationship",
+        "loops": 35600000,
+        "likes": 756000,
+        "revines": 213000,
+        "comments": [
+          { "user": "girlproblems", "text": "fine = NOT FINE boys learn this" },
+          { "user": "camfam", "text": "Cameron gets it 😂" }
+        ],
+        "videoDescription": "Cameron slowly backs away from girlfriend who says she's fine while ominous music plays",
+        "videoColor": "#607d8b",
+        "avatarUrl": "https://unavatar.io/x/CameronDallas"
+      },
+      {
+        "id": "v16",
+        "username": "shawnmendes",
+        "displayName": "Shawn Mendes",
+        "verified": true,
+        "caption": "just a little something 🎸🎶 #music #cover",
+        "loops": 42000000,
+        "likes": 950000,
+        "revines": 345000,
+        "comments": [
+          { "user": "musiclover", "text": "this kid is gonna be HUGE someday" },
+          { "user": "shawnsfan", "text": "his voice is unreal 😍🎶" }
+        ],
+        "videoDescription": "Young Shawn Mendes plays acoustic guitar cover of Stitches in his bedroom, 6 seconds of perfection",
+        "videoColor": "#c62828",
+        "videoId": "qKi6MSHYy94",
+        "avatarUrl": "https://unavatar.io/x/ShawnMendes"
+      },
+      {
+        "id": "v17",
+        "username": "dopeisland",
+        "displayName": "Dope Island",
+        "verified": true,
+        "caption": "When you accidentally open the front camera 📱😱",
+        "loops": 22300000,
+        "likes": 487000,
+        "revines": 134000,
+        "comments": [
+          { "user": "frontalcamera", "text": "the most terrifying experience known to man" },
+          { "user": "laughing2016", "text": "his reaction is PRICELESS 😂" }
+        ],
+        "videoDescription": "Dope Island recoils in horror seeing his own face in front camera, drops phone dramatically",
+        "videoColor": "#00897b",
+        "avatarUrl": "https://unavatar.io/x/doikiofficial"
+      },
+      {
+        "id": "v18",
+        "username": "doitforthevine",
+        "displayName": "VineComp",
+        "verified": false,
+        "caption": "DO IT FOR THE VINE 🍇 I AIN'T GON DO IT 🙅 DO IT FOR THE VINE",
+        "loops": 55000000,
+        "likes": 1300000,
+        "revines": 870000,
+        "comments": [
+          { "user": "vineforever", "text": "the anthem of a generation" },
+          { "user": "pressured", "text": "peer pressure but make it iconic" }
+        ],
+        "videoDescription": "Friends peer pressure each other into increasingly ridiculous stunts, each saying 'do it for the vine'",
+        "videoColor": "#00b488",
+        "videoId": "_LEBMCi_z7I"
+      }
+    ]
+  },
+  "tiktok": {
+    "vines": []
+  },
+  "chatgpt": {
+    "vines": [
+      {
+        "id": "cg1",
+        "username": "saborida",
+        "displayName": "Siri Fails",
+        "verified": false,
+        "caption": "Me: 'Hey Siri call mom' Siri: 'Calling Tom' ME: NO 😂😤",
+        "loops": 12400000,
+        "likes": 345000,
+        "revines": 89000,
+        "comments": [
+          { "user": "sirifail", "text": "Siri is so dumb I love her" },
+          { "user": "techfunny", "text": "every. single. time." }
+        ],
+        "videoDescription": "Person yells at Siri on iPhone while it keeps calling the wrong person",
+        "videoColor": "#5c6bc0"
+      },
+      {
+        "id": "cg2",
+        "username": "askjeeves2016",
+        "displayName": "AI Comedy",
+        "verified": false,
+        "caption": "When Siri roasts you harder than your friends 💀🤖",
+        "loops": 8900000,
+        "likes": 234000,
+        "revines": 67000,
+        "comments": [
+          { "user": "roasted", "text": "SIRI SAID 'I'D RATHER NOT' LMAOOO" },
+          { "user": "robotfunny", "text": "artificial intelligence? more like artificial sass" }
+        ],
+        "videoDescription": "Person asks Siri existential questions and Siri gives savage responses",
+        "videoColor": "#78909c"
+      }
+    ]
+  },
+  "cryptocurrency": {
+    "vines": [
+      {
+        "id": "cr1",
+        "username": "moneytalks",
+        "displayName": "Money Memes",
+        "verified": false,
+        "caption": "My dad explaining Bitcoin to me at thanksgiving dinner 🍗💰 #confused",
+        "loops": 5600000,
+        "likes": 123000,
+        "revines": 34000,
+        "comments": [
+          { "user": "nerdmoney", "text": "nobody knows what it is but it's PROVOCATIVE" },
+          { "user": "btcwho", "text": "is this like Neopets money??" }
+        ],
+        "videoDescription": "Dad draws increasingly crazy diagrams on napkin while kid stares blankly",
+        "videoColor": "#ffc107"
+      }
+    ]
+  },
+  "bitcoin": {
+    "vines": [
+      {
+        "id": "bt1",
+        "username": "moneytalks",
+        "displayName": "Money Memes",
+        "verified": false,
+        "caption": "When someone says they invested in 'digital money' 💸🤔",
+        "loops": 4300000,
+        "likes": 98000,
+        "revines": 23000,
+        "comments": [
+          { "user": "skeptic2016", "text": "sounds like a scam tbh" },
+          { "user": "futuremoney", "text": "y'all gonna regret not buying at $400 😤" }
+        ],
+        "videoDescription": "Group of friends look confused as one tries to explain Bitcoin using hand gestures",
+        "videoColor": "#ff9800"
+      }
+    ]
+  },
+  "election 2016": {
+    "vines": [
+      {
+        "id": "el1",
+        "username": "politicallol",
+        "displayName": "Election Memes",
+        "verified": false,
+        "caption": "Watching the debate like 🍿😬 #debate #election2016",
+        "loops": 18900000,
+        "likes": 456000,
+        "revines": 234000,
+        "comments": [
+          { "user": "popcorntime", "text": "this whole election is a vine" },
+          { "user": "2016mood", "text": "we're all gonna need therapy after this" }
+        ],
+        "videoDescription": "Person's face transitions through every stage of grief while watching TV debate",
+        "videoColor": "#1565c0"
+      },
+      {
+        "id": "el2",
+        "username": "snlvibes",
+        "displayName": "Debate Highlights",
+        "verified": false,
+        "caption": "WRONG. *sniff* WRONG. *sniff* 😂",
+        "loops": 34500000,
+        "likes": 780000,
+        "revines": 456000,
+        "comments": [
+          { "user": "debatenight", "text": "I can't stop watching this on loop" },
+          { "user": "politicalmemes", "text": "this is peak 2016" }
+        ],
+        "videoDescription": "Split screen of person imitating debate responses with increasingly dramatic reactions",
+        "videoColor": "#c62828"
+      }
+    ]
+  },
+  "harambe": {
+    "vines": [
+      {
+        "id": "h1",
+        "username": "rip_harambe",
+        "displayName": "Harambe Tribute",
+        "verified": false,
+        "caption": "Rest in peace Harambe 🦍😭 dicks out forever #harambe #ripharambe",
+        "loops": 56000000,
+        "likes": 1500000,
+        "revines": 890000,
+        "comments": [
+          { "user": "neverforget", "text": "Harambe didn't die for this 😭" },
+          { "user": "gorillafan", "text": "the world changed on May 28th 2016" }
+        ],
+        "videoDescription": "Montage of Harambe photos set to 'See You Again' by Wiz Khalifa, candles everywhere",
+        "videoColor": "#4e342e"
+      },
+      {
+        "id": "h2",
+        "username": "memeking2016",
+        "displayName": "2016 Memes",
+        "verified": false,
+        "caption": "Harambe would have wanted us to keep making vines 😤🦍",
+        "loops": 23000000,
+        "likes": 567000,
+        "revines": 345000,
+        "comments": [
+          { "user": "harambelegacy", "text": "he was too pure for this world" },
+          { "user": "vinelife", "text": "doing it for Harambe AND the vine" }
+        ],
+        "videoDescription": "Person salutes a framed picture of Harambe before scrolling through their Vine feed",
+        "videoColor": "#795548"
+      }
+    ]
+  },
+  "pokemon go": {
+    "vines": [
+      {
+        "id": "pg1",
+        "username": "pokemongoIRL",
+        "displayName": "Pokemon Go Fails",
+        "verified": false,
+        "caption": "ME TRYING TO CATCH A PIKACHU AT 3AM IN MY NEIGHBOR'S YARD 😂⚡",
+        "loops": 28900000,
+        "likes": 678000,
+        "revines": 234000,
+        "comments": [
+          { "user": "gottacatchem", "text": "worth the trespassing charge tbh" },
+          { "user": "team_valor", "text": "TEAM VALOR OR NOTHING 🔥" }
+        ],
+        "videoDescription": "Person in pajamas army-crawling across a lawn with phone in hand, sprinklers turn on",
+        "videoColor": "#ffeb3b"
+      },
+      {
+        "id": "pg2",
+        "username": "pokewalk",
+        "displayName": "PokeWalker",
+        "verified": false,
+        "caption": "The servers are down AGAIN 😤😤 #pokemongo #serverdown",
+        "loops": 19200000,
+        "likes": 423000,
+        "revines": 156000,
+        "comments": [
+          { "user": "loadingforever", "text": "me staring at the loading screen for 20 min" },
+          { "user": "niantic_pls", "text": "Niantic fix your game challenge" }
+        ],
+        "videoDescription": "Person dramatically drops to their knees in a park screaming NO as phone shows server error",
+        "videoColor": "#4caf50"
+      }
+    ]
+  },
+  "damn daniel": {
+    "vines": [
+      {
+        "id": "dd1",
+        "username": "damnDaniel",
+        "displayName": "Josh Holz",
+        "verified": false,
+        "caption": "DAMN DANIEL! Back at it again!! 👟🔥 #damndaniel #whitevans",
+        "loops": 67800000,
+        "likes": 1100000,
+        "revines": 890000,
+        "comments": [
+          { "user": "vansgirl", "text": "the phrase that defined 2016" },
+          { "user": "danielfan", "text": "Daniel got free Vans for life, legend" }
+        ],
+        "videoDescription": "Camera follows Daniel around school while narrator says 'Damn Daniel' in multiple locations",
+        "videoColor": "#2ecc71",
+        "videoId": "kfFcyTuopbI"
+      }
+    ]
+  },
+  "bottle flip": {
+    "vines": [
+      {
+        "id": "bf1",
+        "username": "bottleflipguy",
+        "displayName": "Mike Senatore",
+        "verified": false,
+        "caption": "THE BOTTLE FLIP HEARD AROUND THE WORLD 🍼🌍 #bottleflip",
+        "loops": 89000000,
+        "likes": 2100000,
+        "revines": 1500000,
+        "comments": [
+          { "user": "flipmaster", "text": "started a worldwide movement from a talent show" },
+          { "user": "legendary", "text": "the crowd reaction tho 😂" }
+        ],
+        "videoDescription": "Kid at talent show flips water bottle, it lands perfectly upright, entire auditorium loses it",
+        "videoColor": "#00bcd4",
+        "videoId": "GdUVtEeg9I4"
+      },
+      {
+        "id": "bf2",
+        "username": "flipfail",
+        "displayName": "Bottle Flip Fails",
+        "verified": false,
+        "caption": "When you try to bottle flip but knock over everything on the table 💀🍼",
+        "loops": 15600000,
+        "likes": 345000,
+        "revines": 123000,
+        "comments": [
+          { "user": "ripkitchen", "text": "my mom would END me" },
+          { "user": "bottleflop", "text": "bottle FLOP more like 😂" }
+        ],
+        "videoDescription": "Kid attempts bottle flip at dinner table, bottle knocks over glasses, plates, everything crashes",
+        "videoColor": "#e91e63"
+      }
+    ]
+  },
+  "comedy": {
+    "vines": [
+      {
+        "id": "co1",
+        "username": "KingBach",
+        "displayName": "King Bach",
+        "verified": true,
+        "caption": "When you lie on your resume and get the job 😂💼",
+        "loops": 38000000,
+        "likes": 789000,
+        "revines": 234000,
+        "comments": [
+          { "user": "resumelies", "text": "proficient in Microsoft Excel = I can open it" },
+          { "user": "worklife", "text": "LITERALLY ME AT MY FIRST JOB" }
+        ],
+        "videoDescription": "Bach in a suit pretending to type while looking around nervously, everyone else is productive",
+        "videoColor": "#ff6b6b",
+        "avatarUrl": "https://unavatar.io/x/KingBach"
+      },
+      {
+        "id": "co2",
+        "username": "brittanyfurlan",
+        "displayName": "Brittany Furlan",
+        "verified": true,
+        "caption": "Every group project in school EVER 📚😤",
+        "loops": 25000000,
+        "likes": 567000,
+        "revines": 178000,
+        "comments": [
+          { "user": "groupwork", "text": "I always do all the work 😤" },
+          { "user": "schoolmemes", "text": "Brittany for president of vine" }
+        ],
+        "videoDescription": "Brittany plays all 4 members of a group project - one sleeping, one texting, one eating, one panicking",
+        "videoColor": "#9c27b0",
+        "avatarUrl": "https://unavatar.io/x/BrittanyFurlan"
+      }
+    ]
+  },
+  "music": {
+    "vines": [
+      {
+        "id": "mu1",
+        "username": "shawnmendes",
+        "displayName": "Shawn Mendes",
+        "verified": true,
+        "caption": "🎸🎶 new song snippet!! what do you guys think? #music #acoustic",
+        "loops": 42000000,
+        "likes": 950000,
+        "revines": 345000,
+        "comments": [
+          { "user": "musiclover", "text": "this kid is gonna be HUGE" },
+          { "user": "shawnsfan", "text": "chills. literal chills. 😍" }
+        ],
+        "videoDescription": "Shawn Mendes plays guitar and sings in his bedroom with perfect lighting",
+        "videoColor": "#c62828",
+        "avatarUrl": "https://unavatar.io/x/ShawnMendes"
+      },
+      {
+        "id": "mu2",
+        "username": "destorm",
+        "displayName": "DeStorm Power",
+        "verified": true,
+        "caption": "Made a beat using only sounds from my kitchen 🎵🍳 #beatbox",
+        "loops": 19800000,
+        "likes": 432000,
+        "revines": 156000,
+        "comments": [
+          { "user": "beatmaker", "text": "the talent JUMPED out" },
+          { "user": "kitchenbeats", "text": "Grammy nomination when??" }
+        ],
+        "videoDescription": "DeStorm creates a full beat by tapping pots, pans, opening the fridge rhythmically",
+        "videoColor": "#1abc9c",
+        "avatarUrl": "https://unavatar.io/x/DeStorm"
+      }
+    ]
+  },
+  "animals": {
+    "vines": [
+      {
+        "id": "an1",
+        "username": "cuteoverload",
+        "displayName": "Cute Animals",
+        "verified": false,
+        "caption": "this puppy HOWLING for the first time I CANNOT 😭🐶",
+        "loops": 34000000,
+        "likes": 890000,
+        "revines": 456000,
+        "comments": [
+          { "user": "puppylove", "text": "protect this angel at all costs 😭❤️" },
+          { "user": "doggo", "text": "smol pupper does a AWOO" }
+        ],
+        "videoDescription": "Tiny golden retriever puppy tilts head back and lets out the tiniest howl",
+        "videoColor": "#ffcc02"
+      },
+      {
+        "id": "an2",
+        "username": "catfails",
+        "displayName": "Cat Fails",
+        "verified": false,
+        "caption": "Cat vs cucumber: THE REMATCH 🥒🐱 #catscared #cucumber",
+        "loops": 27000000,
+        "likes": 678000,
+        "revines": 345000,
+        "comments": [
+          { "user": "catperson", "text": "why are cats scared of cucumbers tho 😂" },
+          { "user": "veggiecats", "text": "the JUMP lmaooo" }
+        ],
+        "videoDescription": "Cat eating, owner places cucumber behind it, cat turns around and launches 3 feet in the air",
+        "videoColor": "#4caf50"
+      }
+    ]
+  },
+  "sports": {
+    "vines": [
+      {
+        "id": "sp1",
+        "username": "dunkcity",
+        "displayName": "Dunk Fails",
+        "verified": false,
+        "caption": "When you tell the boys you can dunk and then... 🏀💀",
+        "loops": 18000000,
+        "likes": 345000,
+        "revines": 123000,
+        "comments": [
+          { "user": "baller", "text": "the confidence followed by the failure 😂" },
+          { "user": "hoopfail", "text": "mans said 'I got this' and very much did NOT got this" }
+        ],
+        "videoDescription": "Guy runs full speed at basketball hoop, jumps, barely touches the net, crashes into pole",
+        "videoColor": "#e65100"
+      }
+    ]
+  },
+  "art": {
+    "vines": [
+      {
+        "id": "ar1",
+        "username": "ZachKing",
+        "displayName": "Zach King",
+        "verified": true,
+        "caption": "Drawing in real life ✏️✨ #magic #art #illusion",
+        "loops": 56000000,
+        "likes": 1100000,
+        "revines": 478000,
+        "comments": [
+          { "user": "artlover", "text": "my brain cannot process this" },
+          { "user": "howwww", "text": "WHAT. HOW. EXPLAIN." }
+        ],
+        "videoDescription": "Zach draws a door on a wall with marker, then opens it and walks through via seamless edit",
+        "videoColor": "#e040fb",
+        "avatarUrl": "https://unavatar.io/x/ZachKing"
+      }
+    ]
+  },
+  "cringe": {
+    "vines": [
+      {
+        "id": "cr2",
+        "username": "cringecomp",
+        "displayName": "Cringe Compilation",
+        "verified": false,
+        "caption": "When he tries to slide in her DMs with a 'hey beautiful' 💀😬",
+        "loops": 14000000,
+        "likes": 312000,
+        "revines": 89000,
+        "comments": [
+          { "user": "cringe101", "text": "I physically recoiled" },
+          { "user": "dmfails", "text": "this is why I have trust issues" }
+        ],
+        "videoDescription": "Split screen: guy typing 'hey beautiful' confidently, girl showing phone to friends and laughing",
+        "videoColor": "#ff7043"
+      }
+    ]
+  },
+  "do it for the vine": {
+    "vines": [
+      {
+        "id": "dv1",
+        "username": "doitforthevine",
+        "displayName": "VineComp",
+        "verified": false,
+        "caption": "DO IT FOR THE VINE 🍇 I AIN'T GON DO IT 🙅 DO IT FOR THE VINE",
+        "loops": 55000000,
+        "likes": 1300000,
+        "revines": 870000,
+        "comments": [
+          { "user": "vineforever", "text": "the anthem of a generation" },
+          { "user": "pressured", "text": "peer pressure but make it iconic" }
+        ],
+        "videoDescription": "Friends chant 'do it for the vine' as one reluctantly attempts a backflip off a table",
+        "videoColor": "#00b488",
+        "videoId": "_LEBMCi_z7I"
+      },
+      {
+        "id": "dv2",
+        "username": "yolo2016",
+        "displayName": "YOLO Vines",
+        "verified": false,
+        "caption": "He really did it for the vine 😂💀 #doitforthevine",
+        "loops": 23000000,
+        "likes": 567000,
+        "revines": 234000,
+        "comments": [
+          { "user": "madlad", "text": "the commitment to the bit 😂" },
+          { "user": "vinemoments", "text": "vine is the only reason to live tbh" }
+        ],
+        "videoDescription": "Guy cannonballs into a kiddie pool and it completely explodes, water everywhere",
+        "videoColor": "#26c6da"
+      }
+    ]
+  },
+  "vine": {
+    "vines": [
+      {
+        "id": "vi1",
+        "username": "vinenostalgia",
+        "displayName": "Save Vine",
+        "verified": false,
+        "caption": "vine can't shut down... this is our HOME 😭🍇 #savevine #vineforever",
+        "loops": 34000000,
+        "likes": 890000,
+        "revines": 678000,
+        "comments": [
+          { "user": "savevine", "text": "I will never download another app. VINE FOREVER." },
+          { "user": "crying2016", "text": "where are we supposed to go now?? 😭" }
+        ],
+        "videoDescription": "Person hugging their phone with the Vine app open, tears streaming down face",
+        "videoColor": "#00b488"
+      },
+      {
+        "id": "vi2",
+        "username": "ThomasSanders",
+        "displayName": "Thomas Sanders",
+        "verified": true,
+        "caption": "Vine gave us everything 😭❤️ Thank you for 6 magical seconds at a time #vinefarewell",
+        "loops": 28000000,
+        "likes": 780000,
+        "revines": 456000,
+        "comments": [
+          { "user": "thomasfan", "text": "Thomas I will follow you anywhere 😭" },
+          { "user": "vinelegend", "text": "end of an era. a beautiful, 6-second era." }
+        ],
+        "videoDescription": "Thomas does one final character montage, all his vine personas wave goodbye",
+        "videoColor": "#3f51b5",
+        "avatarUrl": "https://unavatar.io/x/ThomasSanders"
+      }
+    ]
+  },
+  "iphone": {
+    "vines": [
+      {
+        "id": "ip1",
+        "username": "applefanboy",
+        "displayName": "iPhone Life",
+        "verified": false,
+        "caption": "iPhone users vs Android users 📱😂 #iphone #android #war",
+        "loops": 21000000,
+        "likes": 456000,
+        "revines": 234000,
+        "comments": [
+          { "user": "greentext", "text": "green bubbles are a crime against humanity" },
+          { "user": "android4life", "text": "we've had that feature for 3 years sweetie 💅" }
+        ],
+        "videoDescription": "Two friends argue about phones, iPhone user shows iMessage, Android user shows customizable everything",
+        "videoColor": "#90a4ae"
+      }
+    ]
+  },
+  "trump": {
+    "vines": [
+      {
+        "id": "tr1",
+        "username": "politicallol",
+        "displayName": "Election Memes",
+        "verified": false,
+        "caption": "When you realize the election is real and not a Vine prank 😳🇺🇸",
+        "loops": 31000000,
+        "likes": 678000,
+        "revines": 345000,
+        "comments": [
+          { "user": "2016isweird", "text": "what timeline are we in" },
+          { "user": "electionmood", "text": "this is the longest vine of all time and it's not funny" }
+        ],
+        "videoDescription": "Person stares at TV news in disbelief, slowly turns to camera with wide eyes",
+        "videoColor": "#d32f2f"
+      }
+    ]
+  },
+  "ai": {
+    "vines": [
+      {
+        "id": "ai1",
+        "username": "saborida",
+        "displayName": "Siri Fails",
+        "verified": false,
+        "caption": "Siri really said 'I don't understand' for the 47th time today 🤖😤",
+        "loops": 9800000,
+        "likes": 213000,
+        "revines": 67000,
+        "comments": [
+          { "user": "siripls", "text": "artificial intelligence more like artificial stupidity" },
+          { "user": "2016tech", "text": "robots will never replace us at this rate lol" }
+        ],
+        "videoDescription": "Person having full argument with Siri who keeps misunderstanding every command",
+        "videoColor": "#546e7a"
+      }
+    ]
+  },
+  "covid": {
+    "vines": [
+      {
+        "id": "cv1",
+        "username": "birdwatch",
+        "displayName": "Bird Vines",
+        "verified": false,
+        "caption": "This CORVID just stole my entire sandwich 😤🐦 #crow #bird #theft",
+        "loops": 7600000,
+        "likes": 178000,
+        "revines": 56000,
+        "comments": [
+          { "user": "birdlover", "text": "crows are literally geniuses" },
+          { "user": "sandwichthief", "text": "he looked you dead in the eye while doing it too 😂" }
+        ],
+        "videoDescription": "Crow swoops down and grabs entire subway sandwich off park bench while person watches helplessly",
+        "videoColor": "#37474f"
+      }
+    ]
+  },
+  "elon musk": {
+    "vines": [
+      {
+        "id": "em1",
+        "username": "spacefans",
+        "displayName": "Space Vines",
+        "verified": false,
+        "caption": "That rocket guy says he's gonna put people on Mars 😂🚀 ok buddy sure",
+        "loops": 5400000,
+        "likes": 123000,
+        "revines": 45000,
+        "comments": [
+          { "user": "skeptic2016", "text": "what's next, electric cars?? oh wait" },
+          { "user": "spacedreams", "text": "honestly I believe him tho 🚀" }
+        ],
+        "videoDescription": "Person watches SpaceX rocket landing video with increasingly shocked expressions",
+        "videoColor": "#1a237e"
+      }
+    ]
+  },
+  "self driving cars": {
+    "vines": [
+      {
+        "id": "sd1",
+        "username": "futuretech",
+        "displayName": "Future Tech",
+        "verified": false,
+        "caption": "Self driving cars?? I don't even trust AUTOCORRECT to drive my texts 😂🚗",
+        "loops": 6700000,
+        "likes": 156000,
+        "revines": 45000,
+        "comments": [
+          { "user": "nope2016", "text": "I will NEVER let a robot drive me anywhere" },
+          { "user": "jetsons", "text": "we're living in the future and I don't like it" }
+        ],
+        "videoDescription": "Person sits in car with hands dramatically gripping steering wheel, refusing to let go",
+        "videoColor": "#455a64"
+      }
+    ]
+  },
+  "social media": {
+    "vines": [
+      {
+        "id": "sm1",
+        "username": "sociallife",
+        "displayName": "Social Media Be Like",
+        "verified": false,
+        "caption": "Instagram vs Reality 😂📸 #fake #reallife",
+        "loops": 18000000,
+        "likes": 456000,
+        "revines": 234000,
+        "comments": [
+          { "user": "filterqueen", "text": "I feel personally attacked" },
+          { "user": "keepitreal", "text": "we're all living a lie on social media lol" }
+        ],
+        "videoDescription": "Side by side: person posing perfectly for Instagram vs the 47 failed attempts before it",
+        "videoColor": "#ad1457"
+      }
+    ]
+  },
+  "streaming": {
+    "vines": [
+      {
+        "id": "st1",
+        "username": "netflixnerd",
+        "displayName": "Netflix & Chill",
+        "verified": false,
+        "caption": "When someone asks if you wanna 'Netflix and chill' 😏📺 but you actually just wanna watch Netflix",
+        "loops": 22000000,
+        "likes": 567000,
+        "revines": 234000,
+        "comments": [
+          { "user": "actuallynetflix", "text": "I genuinely just want to watch Stranger Things pls" },
+          { "user": "chilling", "text": "the disappointment when they actually meant Netflix 😂" }
+        ],
+        "videoDescription": "Person excitedly sets up Netflix with snacks and blankets while other person looks confused",
+        "videoColor": "#b71c1c"
+      }
+    ]
+  },
+  "work from home": {
+    "vines": [
+      {
+        "id": "wf1",
+        "username": "officelife",
+        "displayName": "Office Vines",
+        "verified": false,
+        "caption": "When your boss says 'we're like a family here' 😬👨‍👩‍👧‍👦 #work #office",
+        "loops": 15000000,
+        "likes": 345000,
+        "revines": 123000,
+        "comments": [
+          { "user": "corporate", "text": "a dysfunctional family maybe 😂" },
+          { "user": "9to5", "text": "that's when you KNOW the pay is bad" }
+        ],
+        "videoDescription": "Employee's smile slowly fades as boss gives the 'we're a family' speech during meeting",
+        "videoColor": "#5d4037"
+      }
+    ]
+  },
+  "best memes": {
+    "vines": [
+      {
+        "id": "bm1",
+        "username": "whatarethose",
+        "displayName": "Young Busco",
+        "verified": false,
+        "caption": "WHAT ARE THOSE?!?! 👟😂 #whatarethose",
+        "loops": 72000000,
+        "likes": 1800000,
+        "revines": 1200000,
+        "comments": [
+          { "user": "shoecop", "text": "the vine that launched a thousand memes" },
+          { "user": "legendary", "text": "top 10 vines of all time no debate" }
+        ],
+        "videoDescription": "Camera dramatically pans down to terrible sandals while narrator screams",
+        "videoColor": "#673ab7",
+        "videoId": "HNtz05bhI1k"
+      },
+      {
+        "id": "bm2",
+        "username": "whyualwayslying",
+        "displayName": "Nicholas Fraser",
+        "verified": false,
+        "caption": "🎵 Why you always lying 🎵 mmm oh my god 🎵",
+        "loops": 58000000,
+        "likes": 1400000,
+        "revines": 980000,
+        "comments": [
+          { "user": "earworm", "text": "it's been 6 months and this is STILL in my head" },
+          { "user": "honest", "text": "I sing this to my friends daily" }
+        ],
+        "videoDescription": "Man rolling on floor singing into camera with full commitment and hand gestures",
+        "videoColor": "#ff5722",
+        "videoId": "WcWM_1hBu_c"
+      }
+    ]
+  },
+  "2017": {
+    "vines": [
+      {
+        "id": "2017v1",
+        "username": "vinebot",
+        "displayName": "VineBot",
+        "verified": false,
+        "caption": "⚠️ Error: Year not found. The timeline ends at 2016.",
+        "loops": 0,
+        "likes": 0,
+        "revines": 0,
+        "comments": [
+          { "user": "system", "text": "Vine will not exist in 2017. This is not a drill." }
+        ],
+        "videoDescription": "Static screen with error message: '2017 NOT FOUND - Vine servers shutting down January 17, 2017'",
+        "videoColor": "#424242"
+      }
+    ]
+  },
+  "nft": {
+    "vines": [
+      {
+        "id": "nf1",
+        "username": "artclass",
+        "displayName": "Art Class Fails",
+        "verified": false,
+        "caption": "My 'non-fungible' art project for class 🎨😂 teacher said it's 'unique' at least",
+        "loops": 4500000,
+        "likes": 98000,
+        "revines": 23000,
+        "comments": [
+          { "user": "artteacher", "text": "it's... creative" },
+          { "user": "picasso", "text": "modern art be like 😂" }
+        ],
+        "videoDescription": "Student proudly presents a painting that's clearly just a stick figure, teacher forces a smile",
+        "videoColor": "#7b1fa2"
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent, type ReactNode } from 'react';
-import type { NavigationActions, NavigationState, BrowserTab } from '../types';
+import type { NavigationActions, NavigationState, BrowserTab, SiteName } from '../types';
 
 interface TabBarProps {
   tabs: BrowserTab[];
@@ -124,14 +124,25 @@ function AddressBar({ displayUrl, canGoBack, canGoForward, onGoBack, onGoForward
 }
 
 interface BookmarksBarProps {
-  onNavigate: (site: 'google' | 'youtube' | 'twitter') => void;
+  activeSite: SiteName;
+  onNavigate: (site: SiteName) => void;
 }
 
-function BookmarksBar({ onNavigate }: BookmarksBarProps) {
+function BookmarksBar({ activeSite, onNavigate }: BookmarksBarProps) {
   const bookmarks = [
-    { label: 'Google', site: 'google' as const, icon: '🔍' },
-    { label: 'YouTube', site: 'youtube' as const, icon: '▶️' },
-    { label: 'Twitter', site: 'twitter' as const, icon: '🐦' },
+    { label: 'Google', site: 'google' as const, icon: <span>🔍</span> },
+    { label: 'YouTube', site: 'youtube' as const, icon: <span>▶️</span> },
+    { label: 'Twitter', site: 'twitter' as const, icon: <span>🐦</span> },
+    { label: 'Vine', site: 'vine' as const, icon: <span>🌿</span> },
+    {
+      label: 'Tumblr',
+      site: 'tumblr' as const,
+      icon: (
+        <span className="inline-flex h-4 w-4 items-center justify-center rounded-sm bg-[#36465d] text-[11px] font-bold text-white">
+          t
+        </span>
+      ),
+    },
   ];
 
   return (
@@ -140,7 +151,9 @@ function BookmarksBar({ onNavigate }: BookmarksBarProps) {
         <button
           key={b.site}
           onClick={() => onNavigate(b.site)}
-          className="flex items-center gap-1 px-2 py-0.5 rounded hover:bg-gray-100 text-gray-600 cursor-pointer"
+          className={`flex items-center gap-1 px-2 py-0.5 rounded cursor-pointer ${
+            activeSite === b.site ? 'bg-gray-200 text-gray-800' : 'text-gray-600 hover:bg-gray-100'
+          }`}
         >
           <span>{b.icon}</span>
           <span>{b.label}</span>
@@ -163,7 +176,7 @@ interface BrowserShellProps {
   onCloseTab: (id: string) => void;
 }
 
-export function BrowserShell({ actions, children, tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: BrowserShellProps) {
+export function BrowserShell({ navState, actions, children, tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: BrowserShellProps) {
   return (
     <div className="flex flex-col h-full w-full bg-white">
       <TabBar
@@ -181,8 +194,8 @@ export function BrowserShell({ actions, children, tabs, activeTabId, onAddTab, o
         onGoForward={actions.goForward}
         onNavigate={actions.navigateFromUrl}
       />
-      <BookmarksBar onNavigate={(site) => actions.navigate(site)} />
-      <div className="flex-1 overflow-auto bg-white">
+      <BookmarksBar activeSite={navState.site} onNavigate={(site) => actions.navigate(site)} />
+      <div id="browser-content-scroll" data-browser-scroll-container className="flex-1 overflow-auto bg-white">
         {children}
       </div>
     </div>

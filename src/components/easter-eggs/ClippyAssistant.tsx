@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 interface ClippyAssistantProps {
   onDismiss: () => void;
@@ -18,7 +18,7 @@ const CLIPPY_MESSAGES = [
 
 export function ClippyAssistant({ onDismiss }: ClippyAssistantProps) {
   const [visible, setVisible] = useState(false);
-  const message = useMemo(() => CLIPPY_MESSAGES[Math.floor(Math.random() * CLIPPY_MESSAGES.length)], []);
+  const [message] = useState(() => CLIPPY_MESSAGES[Math.floor(Math.random() * CLIPPY_MESSAGES.length)]);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 300);

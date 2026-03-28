@@ -1,10 +1,12 @@
 import OpenAI from 'openai';
 import type { GoogleQueryData } from '../types';
 
-const client = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true,
-});
+const client = import.meta.env.VITE_OPENAI_API_KEY
+  ? new OpenAI({
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      dangerouslyAllowBrowser: true,
+    })
+  : null;
 
 const cache = new Map<string, GoogleQueryData>();
 

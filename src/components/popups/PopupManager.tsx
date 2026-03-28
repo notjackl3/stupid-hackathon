@@ -50,9 +50,13 @@ export function PopupManager({ triggerCount }: PopupManagerProps) {
 
     if (triggerCount < 2) return; // Skip first 2 navigations
 
-    if (Math.random() < 0.3 && popups.length < 3) {
-      setPopups((prev) => [...prev, randomPopup()]);
-    }
+    const timer = window.setTimeout(() => {
+      if (Math.random() < 0.3 && popups.length < 3) {
+        setPopups((prev) => [...prev, randomPopup()]);
+      }
+    }, 0);
+
+    return () => window.clearTimeout(timer);
   }, [triggerCount, popups.length]);
 
   const closePopup = useCallback((id: number) => {

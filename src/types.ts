@@ -1,5 +1,5 @@
-export type SiteName = 'google' | 'youtube' | 'twitter';
-export type PageName = 'home' | 'search' | 'video';
+export type SiteName = 'google' | 'youtube' | 'twitter' | 'vine' | 'tumblr';
+export type PageName = 'home' | 'search' | 'video' | 'explore' | 'tagged';
 
 export interface NavigationState {
   site: SiteName;
@@ -59,6 +59,76 @@ export interface YouTubeVideoData {
   likeCount: string;
   dislikeCount: string;
   duration?: string;
+}
+
+export interface VineComment {
+  user: string;
+  text: string;
+}
+
+export interface VinePost {
+  id: string;
+  username: string;
+  displayName: string;
+  verified: boolean;
+  caption: string;
+  loops: number;
+  likes: number;
+  revines: number;
+  comments: VineComment[];
+  videoDescription: string;
+  videoColor: string;
+  videoId?: string;
+  avatarUrl?: string;
+}
+
+export interface VineQueryData {
+  vines: VinePost[];
+}
+
+export type TumblrPostType = 'reblog_chain' | 'text' | 'photo' | 'quote' | 'link' | 'chat' | 'sponsored';
+
+export interface TumblrReblogEntry {
+  username: string;
+  blogTitle?: string;
+  blogColor?: string;
+  content: string;
+}
+
+export interface TumblrChatLine {
+  speaker: string;
+  text: string;
+}
+
+export interface TumblrPost {
+  id: string;
+  type: TumblrPostType;
+  username?: string;
+  blogTitle?: string;
+  blogColor?: string;
+  title?: string;
+  content?: string;
+  caption?: string;
+  notes: string;
+  tags: string[];
+  source?: string;
+  timestamp?: string;
+  chain?: TumblrReblogEntry[];
+  imageDescription?: string;
+  imageColor?: string;
+  quote?: string;
+  quoteSource?: string;
+  linkTitle?: string;
+  linkUrl?: string;
+  linkDescription?: string;
+  chatLines?: TumblrChatLine[];
+  sponsorLabel?: string;
+  ctaLabel?: string;
+}
+
+export interface TumblrData {
+  dashboard: TumblrPost[];
+  search: Record<string, TumblrPost[]>;
 }
 
 export type PopupType = 'ad' | 'flash' | 'virus' | 'ram';

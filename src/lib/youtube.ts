@@ -49,6 +49,39 @@ function parseDuration(iso: string): string {
   return `${m}:${String(s).padStart(2, '0')}`;
 }
 
+const HOMEPAGE_QUERIES: Record<string, string> = {
+  trending: 'most popular viral 2016',
+  music: 'official music video 2016',
+  gaming: 'gameplay walkthrough 2016',
+  recommended: 'best videos 2016',
+};
+
+export async function fetchHomepageVideos(): Promise<Record<string, YouTubeVideoData[]> | null> {
+  if (!API_KEY) return null;
+
+  try {
+    const entries = await Promise.all(
+      Object.entries(HOMEPAGE_QUERIES).map(async ([category, query]) => {
+        const videos = await searchYouTube(query);
+        return [category, videos.slice(0, 8)] as const;
+      }),
+    );
+
+    const result: Record<string, YouTubeVideoData[]> = {};
+    let hasAny = false;
+    for (const [category, videos] of entries) {
+      if (videos.length > 0) {
+        result[category] = videos;
+        hasAny = true;
+      }
+    }
+
+    return hasAny ? result : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function searchYouTube(query: string): Promise<YouTubeVideoData[]> {
   if (!API_KEY) return [];
 

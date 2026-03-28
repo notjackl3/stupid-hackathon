@@ -2,6 +2,7 @@ import { useState, useEffect, type KeyboardEvent } from 'react';
 import type { YouTubeVideoData } from '../../types';
 import { searchYouTube } from '../../lib/youtube';
 import homepageData from '../../data/youtubeHomepage.json';
+import { YouTubeLogo } from './YouTubeLogo';
 
 interface YouTubeResultsProps {
   query: string;
@@ -41,9 +42,6 @@ export function YouTubeResults({ query, onSearch, onVideoClick }: YouTubeResults
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setSearchInput(query);
-    setLoading(true);
-
     let cancelled = false;
 
     searchYouTube(query).then((videos) => {
@@ -79,10 +77,7 @@ export function YouTubeResults({ query, onSearch, onVideoClick }: YouTubeResults
         <div className="flex items-center gap-3">
           <span className="text-white text-xl cursor-pointer">&#9776;</span>
           <div className="flex items-center cursor-pointer" onClick={() => onSearch('')}>
-            <div className="bg-[#ff0000] rounded px-1.5 py-0.5 mr-0.5">
-              <span className="text-white font-bold text-sm">&#9654;</span>
-            </div>
-            <span className="text-white font-bold text-lg tracking-tight">YouTube</span>
+            <YouTubeLogo variant="white" />
           </div>
         </div>
 
