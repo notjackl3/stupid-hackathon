@@ -37,10 +37,12 @@ export function SpotifyPlayer({ currentTrack, hasQueue, onPrevious, onNext, onSh
       <div className="grid gap-3 lg:grid-cols-[minmax(0,240px)_minmax(0,1fr)_180px] lg:items-center">
         <div className="flex min-w-0 items-center gap-3">
           <div
-            className="flex h-14 w-14 shrink-0 items-end rounded-[2px] p-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white shadow-[0_10px_20px_rgba(0,0,0,0.35)]"
+            className="relative flex h-14 w-14 shrink-0 items-end overflow-hidden rounded-[2px] p-2 text-[10px] font-bold uppercase tracking-[0.16em] text-white shadow-[0_10px_20px_rgba(0,0,0,0.35)]"
             style={{ background: currentTrack?.cover.gradient ?? 'linear-gradient(135deg,#2f3134 0%,#181818 100%)' }}
           >
-            {currentTrack?.cover.label ?? '2016'}
+            {currentTrack?.cover.imageUrl ? (
+              <img src={currentTrack.cover.imageUrl} alt={currentTrack.title} className="absolute inset-0 h-full w-full object-cover" />
+            ) : (currentTrack?.cover.label ?? '2016')}
           </div>
           <div className="min-w-0">
             <div className="truncate text-[13px] font-semibold text-white">

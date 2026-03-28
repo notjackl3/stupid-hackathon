@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { getGameBySlug, GAMES } from '../../data/coolmathGames';
 
 interface CoolmathGameProps {
@@ -7,13 +8,58 @@ interface CoolmathGameProps {
   onSearch: (query: string) => void;
 }
 
+function FlashRequired({ title }: { title: string }) {
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center bg-[#1a1a2e] p-8 text-center">
+      {/* Flash Player puzzle piece icon */}
+      <div className="mb-4 flex h-[80px] w-[80px] items-center justify-center rounded-[8px] bg-gradient-to-br from-[#cc0000] to-[#990000] shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <path d="M8 12h20l-8 12h12L16 42l4-14H8l0-16z" fill="white" />
+        </svg>
+      </div>
+      <div className="mb-2 text-[18px] font-bold text-white">
+        Adobe Flash Player is required
+      </div>
+      <div className="mb-4 text-[13px] leading-[1.5] text-[#aaa]">
+        {title} requires Adobe Flash Player to run.<br />
+        Click the button below to enable Flash.
+      </div>
+      <button
+        type="button"
+        className="mb-3 rounded-[4px] bg-[#cc0000] px-6 py-2 text-[13px] font-bold text-white shadow-[0_2px_4px_rgba(0,0,0,0.3)] hover:bg-[#dd2222]"
+        onClick={() => {
+          // Do nothing — it's 2016, Flash just doesn't work sometimes
+        }}
+      >
+        Enable Adobe Flash Player
+      </button>
+      <div className="text-[11px] text-[#666]">
+        Adobe Flash Player version 24.0 or later is required.
+      </div>
+      <div className="mt-6 rounded-[4px] border border-[#333] bg-[#111] px-4 py-3">
+        <div className="text-[11px] text-[#888]">
+          Having trouble? Try these steps:
+        </div>
+        <ol className="mt-2 space-y-1 text-left text-[10px] text-[#777]">
+          <li>1. Right-click and select "Run this plugin"</li>
+          <li>2. Check that Flash is enabled in chrome://plugins</li>
+          <li>3. Update Flash Player at get.adobe.com/flashplayer</li>
+          <li>4. Try using Internet Explorer instead</li>
+        </ol>
+      </div>
+    </div>
+  );
+}
+
 export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGameProps) {
   const game = getGameBySlug(slug);
 
-  const relatedGames = GAMES.filter((g) => g.slug !== slug && g.category === game?.category).slice(0, 4);
-  const otherGames = relatedGames.length < 4
-    ? [...relatedGames, ...GAMES.filter((g) => g.slug !== slug && !relatedGames.includes(g)).slice(0, 4 - relatedGames.length)]
-    : relatedGames;
+  const otherGames = useMemo(() => {
+    if (!game) return [];
+    const related = GAMES.filter((g) => g.slug !== slug && g.category === game.category).slice(0, 4);
+    if (related.length >= 4) return related;
+    return [...related, ...GAMES.filter((g) => g.slug !== slug && !related.includes(g)).slice(0, 4 - related.length)];
+  }, [slug, game]);
 
   if (!game) {
     return (
@@ -27,6 +73,8 @@ export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGa
       </div>
     );
   }
+
+  const isFlash = !game.embedUrl;
 
   return (
     <div className="min-h-full overflow-y-auto bg-black" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}>
@@ -93,7 +141,7 @@ export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGa
       <div className="mx-auto max-w-[960px] px-4 py-4">
         <div className="flex gap-4">
           {/* Main game area */}
-          <div className="flex-1">
+          <div className="min-w-0 flex-1">
             {/* Game title */}
             <div className="mb-3 flex items-center gap-3">
               <div
@@ -110,15 +158,23 @@ export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGa
               </div>
             </div>
 
-            {/* Game iframe */}
-            <div className="overflow-hidden rounded-[3px] border-2 border-[#00cccc] bg-[#111]">
-              <iframe
-                src={game.embedUrl}
-                title={game.title}
-                className="h-[500px] w-full"
-                allow="autoplay; fullscreen"
-                sandbox="allow-scripts allow-same-origin allow-popups"
-              />
+            {/* Game embed area */}
+            <div
+              className="relative overflow-hidden rounded-[3px] border-2 border-[#00cccc] bg-[#111]"
+              style={{ aspectRatio: '4 / 3', maxHeight: '600px' }}
+            >
+              {isFlash ? (
+                <FlashRequired title={game.title} />
+              ) : (
+                <iframe
+                  src={game.embedUrl}
+                  title={game.title}
+                  className="absolute inset-0 h-full w-full border-none"
+                  allow="autoplay; fullscreen"
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                  referrerPolicy="no-referrer"
+                />
+              )}
             </div>
 
             {/* Game info */}
@@ -128,7 +184,7 @@ export function CoolmathGame({ slug, onBack, onGameClick, onSearch }: CoolmathGa
               <div className="mt-3 flex items-center gap-4 border-t border-[#222] pt-3 text-[11px] text-[#666]">
                 <span>Category: <span className="capitalize text-[#00cccc]">{game.category}</span></span>
                 <span>Added: 2016</span>
-                <span>Plays: {(Math.floor(Math.random() * 900) + 100).toLocaleString()}K</span>
+                {isFlash && <span className="text-[#cc0000]">Requires Flash Player</span>}
               </div>
             </div>
 

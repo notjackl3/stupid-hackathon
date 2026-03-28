@@ -88,7 +88,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '1zi7xx7UVEFkmKfv06H8x0',
     duration: '2:54',
     plays: '983,441,210',
-    cover: cover('linear-gradient(135deg,#f6d27a 0%,#c96f46 100%)', '#f8f0a6', 'VIEWS'),
+    cover: cover('linear-gradient(135deg,#f6d27a 0%,#c96f46 100%)', '#f8f0a6', 'VIEWS', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/95/f5/87/95f587f7-21c3-d5f9-d81a-4350f9caa020/16UMGIM27643.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'closer',
@@ -99,7 +99,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '7BKLCZ1jbUBVqRi2FVlTVw',
     duration: '4:04',
     plays: '812,004,551',
-    cover: cover('linear-gradient(135deg,#6d6c79 0%,#24252a 100%)', '#ffffff', 'CLOSER'),
+    cover: cover('linear-gradient(135deg,#6d6c79 0%,#24252a 100%)', '#ffffff', 'CLOSER', 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/41/f8/38/41f8380b-9b56-d5d4-31f7-a6411c0c9aaa/886446102054.jpg/600x600bb.jpg'),
   },
   {
     slug: 'panda',
@@ -110,7 +110,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '5YEOzOojehCqxGQCcQiyR4',
     duration: '4:06',
     plays: '344,120,944',
-    cover: cover('linear-gradient(135deg,#0e0f12 0%,#6f7277 100%)', '#d9dde2', 'PANDA'),
+    cover: cover('linear-gradient(135deg,#0e0f12 0%,#6f7277 100%)', '#d9dde2', 'PANDA', 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/a1/f1/f9/a1f1f914-6e61-21eb-d787-2d4020654aab/16UMGIM11380.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'dont-let-me-down',
@@ -121,7 +121,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '2Foc5Q5nqNiosCNqttzHof',
     duration: '3:28',
     plays: '571,120,882',
-    cover: cover('linear-gradient(135deg,#311f44 0%,#d66a6f 100%)', '#ffe9ef', 'DLMD'),
+    cover: cover('linear-gradient(135deg,#311f44 0%,#d66a6f 100%)', '#ffe9ef', 'DLMD', 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/41/f8/38/41f8380b-9b56-d5d4-31f7-a6411c0c9aaa/886446102054.jpg/600x600bb.jpg'),
   },
   {
     slug: 'work',
@@ -132,7 +132,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '4OafepVMKq7MqHWMJSVMKP',
     duration: '3:39',
     plays: '646,221,540',
-    cover: cover('linear-gradient(135deg,#a62b3d 0%,#f3d55d 100%)', '#fbeec6', 'ANTI'),
+    cover: cover('linear-gradient(135deg,#a62b3d 0%,#f3d55d 100%)', '#fbeec6', 'ANTI', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9c/da/90/9cda90c9-df1a-078b-319c-bdf2801e8d1f/16UMGIM03373.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'cheap-thrills',
@@ -143,7 +143,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '27SdQb1oBTsVGqNHnjSerA',
     duration: '3:31',
     plays: '523,402,100',
-    cover: cover('linear-gradient(135deg,#ee9c53 0%,#171717 100%)', '#fff4df', 'CHEAP'),
+    cover: cover('linear-gradient(135deg,#ee9c53 0%,#171717 100%)', '#fff4df', 'CHEAP', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8b/81/ba/8b81ba55-0a7f-a0e5-6593-d44f1565cdd1/886446097428.jpg/600x600bb.jpg'),
   },
   {
     slug: 'ibiza',
@@ -154,7 +154,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '0GbSFJlfWVpYPiFbgnLNoT',
     duration: '3:18',
     plays: '411,276,004',
-    cover: cover('linear-gradient(135deg,#f58c5b 0%,#475f6c 100%)', '#fff7ea', 'IBIZA'),
+    cover: cover('linear-gradient(135deg,#f58c5b 0%,#475f6c 100%)', '#fff7ea', 'IBIZA', 'https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/b1/ee/2f/b1ee2fbc-01e6-9f40-ab58-c9f9605f6333/16UMGIM13738.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'stressed-out',
@@ -165,7 +165,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '3CRDbSIZ4r5MsZ0YwxuEkn',
     duration: '3:22',
     plays: '622,810,090',
-    cover: cover('linear-gradient(135deg,#161616 0%,#d73a31 100%)', '#ffe7df', 'BLUR'),
+    cover: cover('linear-gradient(135deg,#161616 0%,#d73a31 100%)', '#ffe7df', 'BLUR', 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/e2/89/8ee28904-0821-610d-5011-a61845f62756/075679926951.jpg/600x600bb.jpg'),
   },
   {
     slug: 'cant-stop-the-feeling',
@@ -176,7 +176,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6JV2JOEocMbcalolHMadFH',
     duration: '3:56',
     plays: '487,005,812',
-    cover: cover('linear-gradient(135deg,#44b8ff 0%,#ffd64a 100%)', '#fbfcff', 'FEEL'),
+    cover: cover('linear-gradient(135deg,#44b8ff 0%,#ffd64a 100%)', '#fbfcff', 'FEEL', 'https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/4c/44/30/4c4430dd-150b-d393-ec70-4894975f4b16/888880422095.jpg/600x600bb.jpg'),
   },
   {
     slug: '7-years',
@@ -187,7 +187,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '7oOOI85YLJmrkiBiAByNsf',
     duration: '3:57',
     plays: '551,884,342',
-    cover: cover('linear-gradient(135deg,#496c8a 0%,#d4bea3 100%)', '#fff3ea', '7'),
+    cover: cover('linear-gradient(135deg,#496c8a 0%,#d4bea3 100%)', '#fff3ea', '7', 'https://is1-ssl.mzstatic.com/image/thumb/Music69/v4/1f/57/08/1f57082e-ee7e-dcb7-a73e-ba1f3468211d/093624920496.jpg/600x600bb.jpg'),
   },
   {
     slug: 'heathens',
@@ -198,7 +198,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6i0V12jOa3mr6g4qoez4aV',
     duration: '3:15',
     plays: '503,991,013',
-    cover: cover('linear-gradient(135deg,#2b3039 0%,#7d1317 100%)', '#ffd7cb', 'HEATH'),
+    cover: cover('linear-gradient(135deg,#2b3039 0%,#7d1317 100%)', '#ffd7cb', 'HEATH', 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/5c/c3/80/5cc380f1-9a13-0381-05d4-d37d221b89be/075679908285.jpg/600x600bb.jpg'),
   },
   {
     slug: 'love-yourself',
@@ -209,7 +209,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '50kpGBMov4EB1OY7aN9VYJ',
     duration: '3:53',
     plays: '632,410,777',
-    cover: cover('linear-gradient(135deg,#d0b086 0%,#3f372f 100%)', '#fff1d5', 'PURP'),
+    cover: cover('linear-gradient(135deg,#d0b086 0%,#3f372f 100%)', '#fff1d5', 'PURP', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/81/a4/dc/81a4dc50-8d7e-6ae5-71d3-f83393348248/15UMGIM59807.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'needed-me',
@@ -220,7 +220,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '1Wroj2mQFsyfdVIKSfEn16',
     duration: '3:11',
     plays: '401,907,100',
-    cover: cover('linear-gradient(135deg,#79111b 0%,#f3cf3f 100%)', '#fff1c8', 'ANTI'),
+    cover: cover('linear-gradient(135deg,#79111b 0%,#f3cf3f 100%)', '#fff1c8', 'ANTI', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9c/da/90/9cda90c9-df1a-078b-319c-bdf2801e8d1f/16UMGIM03373.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'no',
@@ -231,7 +231,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '5Y5ECJILaUVJSECOHjrGba',
     duration: '3:33',
     plays: '201,550,200',
-    cover: cover('linear-gradient(135deg,#6fc7f1 0%,#ef6f73 100%)', '#fff7f7', 'NO'),
+    cover: cover('linear-gradient(135deg,#6fc7f1 0%,#ef6f73 100%)', '#fff7f7', 'NO', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/47/70/ed/4770ed84-b666-05d0-86a7-93a65ead24cb/886446484792.jpg/600x600bb.jpg'),
   },
   {
     slug: 'broccoli',
@@ -242,7 +242,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '7yyRTcZmCiyzzJlNzGC9Ol',
     duration: '3:45',
     plays: '212,771,009',
-    cover: cover('linear-gradient(135deg,#86c934 0%,#255f27 100%)', '#f0ffd8', 'BROC'),
+    cover: cover('linear-gradient(135deg,#86c934 0%,#255f27 100%)', '#f0ffd8', 'BROC', 'https://is1-ssl.mzstatic.com/image/thumb/Music62/v4/49/f1/10/49f1101c-6d80-a881-e873-d604d6467111/888915280041_cover.jpg/600x600bb.jpg'),
   },
   {
     slug: 'formation',
@@ -253,7 +253,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6g0Orsxv7GIbZdW1LaBi4j',
     duration: '3:26',
     plays: '298,883,291',
-    cover: cover('linear-gradient(135deg,#1c2130 0%,#bca18e 100%)', '#fff1e8', 'LEM'),
+    cover: cover('linear-gradient(135deg,#1c2130 0%,#bca18e 100%)', '#fff1e8', 'LEM', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/d2/53/65/d2536587-c7f3-9153-4677-f5a2f3e9e5ad/886447691120.jpg/600x600bb.jpg'),
   },
   {
     slug: 'starboy',
@@ -264,7 +264,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '7MXVkk9YMctZqd1Srtv4MB',
     duration: '3:50',
     plays: '269,332,188',
-    cover: cover('linear-gradient(135deg,#c62828 0%,#161616 100%)', '#ffe6e0', 'STAR'),
+    cover: cover('linear-gradient(135deg,#c62828 0%,#161616 100%)', '#ffe6e0', 'STAR', 'https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b5/92/bb/b592bb72-52e3-e756-9b26-9f56d08f47ab/16UMGIM67864.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'black-beatles',
@@ -275,7 +275,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6fujklziTHa8uoM5OQSfIo',
     duration: '4:51',
     plays: '245,119,876',
-    cover: cover('linear-gradient(135deg,#20242d 0%,#d8ab45 100%)', '#fff0bf', 'FREEZE'),
+    cover: cover('linear-gradient(135deg,#20242d 0%,#d8ab45 100%)', '#fff0bf', 'FREEZE', 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/22/fa/68/22fa68f2-4269-4f9d-5cda-9eca2071f0db/16UMGIM21219.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'fade',
@@ -286,7 +286,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '13VvyJpwFhsbjwSNx5CXIF',
     duration: '3:13',
     plays: '123,880,555',
-    cover: cover('linear-gradient(135deg,#f1924f 0%,#f4d954 100%)', '#fff4cb', 'PABLO'),
+    cover: cover('linear-gradient(135deg,#f1924f 0%,#f4d954 100%)', '#fff4cb', 'PABLO', 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ec/fd/e0/ecfde04e-6db2-e55e-41fe-83c87a52b16e/00602547908339.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'ultralight-beam',
@@ -297,7 +297,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '1eQBEelI2NCy7AUTerX0KS',
     duration: '5:20',
     plays: '111,402,831',
-    cover: cover('linear-gradient(135deg,#f3a23d 0%,#f3e08b 100%)', '#fff8dc', 'PABLO'),
+    cover: cover('linear-gradient(135deg,#f3a23d 0%,#f3e08b 100%)', '#fff8dc', 'PABLO', 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/ec/fd/e0/ecfde04e-6db2-e55e-41fe-83c87a52b16e/00602547908339.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'tik-tok',
@@ -308,7 +308,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6zQlRd6tvEVJm59P8PMj7o',
     duration: '3:20',
     plays: '301,005,772',
-    cover: cover('linear-gradient(135deg,#eb5ea0 0%,#762f8d 100%)', '#ffe4f7', 'TiK'),
+    cover: cover('linear-gradient(135deg,#eb5ea0 0%,#762f8d 100%)', '#ffe4f7', 'TiK', 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/92/d2/a7/92d2a780-3aa9-8b58-b753-62e4175dd2ec/884977451856.jpg/600x600bb.jpg'),
   },
   {
     slug: 'white-iverson',
@@ -319,7 +319,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '6jsPjymn3neHzJQq95sh9z',
     duration: '4:16',
     plays: '88,220,410',
-    cover: cover('linear-gradient(135deg,#3d464d 0%,#d0b48c 100%)', '#fff0dc', 'POST'),
+    cover: cover('linear-gradient(135deg,#3d464d 0%,#d0b48c 100%)', '#fff0dc', 'POST', 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/d8/a2/e6/d8a2e6ad-e7e3-b28c-38b4-e699bb2921ae/23UM1IM57610.rgb.jpg/600x600bb.jpg'),
   },
   {
     slug: 'new-love',
@@ -330,7 +330,7 @@ export const spotifyTracks: SpotifyTrack[] = [
     trackId: '3QNcGTHxCCLoHWKIake7x4',
     duration: '3:31',
     plays: '52,014',
-    cover: cover('linear-gradient(135deg,#133f6b 0%,#7fa4d3 100%)', '#eef6ff', 'DUA'),
+    cover: cover('linear-gradient(135deg,#133f6b 0%,#7fa4d3 100%)', '#eef6ff', 'DUA', 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/31/33/cf/3133cffc-4b77-f3c6-3ee3-5c9b6cfb6bd4/190295806675.jpg/600x600bb.jpg'),
   },
 ];
 
@@ -384,7 +384,7 @@ export const spotifyAlbums: SpotifyAlbum[] = [
     albumId: '0P3oVJBFOv3TDXlYRhGL7s',
     year: '2015',
     subtitle: 'Still hanging around every party playlist.',
-    cover: cover('linear-gradient(135deg,#18171a 0%,#a0392e 100%)', '#ffe4e1', 'WEEKND'),
+    cover: cover('linear-gradient(135deg,#18171a 0%,#a0392e 100%)', '#ffe4e1', 'WEEKND', 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/30/05/1e/30051e57-a63a-3acc-4b30-42568293f5f7/15UMGIM36514.rgb.jpg/600x600bb.jpg'),
     trackSlugs: ['starboy'],
   },
   {
@@ -434,7 +434,7 @@ export const spotifyAlbums: SpotifyAlbum[] = [
     albumId: '3OZgEACvHNlKkB7LHMGMjO',
     year: '2016',
     subtitle: 'Velvet gloves, dangerous vocals.',
-    cover: cover('linear-gradient(135deg,#241414 0%,#e8c1bc 100%)', '#fff2ef', 'ARI'),
+    cover: cover('linear-gradient(135deg,#241414 0%,#e8c1bc 100%)', '#fff2ef', 'ARI', 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/12/5d/63/125d6389-2205-c77c-702c-8128e9020bd6/16UMGIM12432.rgb.jpg/600x600bb.jpg'),
     trackSlugs: ['cant-stop-the-feeling'],
   },
 ];
