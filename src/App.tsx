@@ -500,7 +500,7 @@ function App() {
         <ChatGPTSike onDismiss={() => { setShowChatGPTSike(false); actions.navigate('google', 'home'); }} />
       )}
 
-      {showLogan && <LoganPaul onDismiss={() => setShowLogan(false)} />}
+      {showLogan && <LoganPaul onDismiss={() => { setShowLogan(false); actions.navigate('google', 'home'); }} />}
 
       {/* Harambe confirmation dialog */}
       {harambeConfirmAction && (
