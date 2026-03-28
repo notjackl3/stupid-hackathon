@@ -15,6 +15,7 @@ import { GooglePlusNotif } from './components/easter-eggs/GooglePlusNotif';
 import { ElectionPoll } from './components/easter-eggs/ElectionPoll';
 import { PokemonGoOverlay } from './components/easter-eggs/PokemonGoOverlay';
 import { HarambeWatermark } from './components/easter-eggs/HarambeWatermark';
+import { HarambeConfirm } from './components/easter-eggs/HarambeConfirm';
 import { BottleFlip } from './components/easter-eggs/BottleFlip';
 import { MannequinChallenge } from './components/easter-eggs/MannequinChallenge';
 import { DamnDaniel } from './components/easter-eggs/DamnDaniel';
@@ -39,6 +40,13 @@ function App() {
   const [showMannequin, setShowMannequin] = useState(false);
   const [damnDanielMsg, setDamnDanielMsg] = useState<string | null>(null);
   const [showPPAP, setShowPPAP] = useState(false);
+
+  // Harambe confirmation dialog
+  const [harambeConfirmAction, setHarambeConfirmAction] = useState<(() => void) | null>(null);
+
+  const confirmWithHarambe = useCallback((action: () => void) => {
+    setHarambeConfirmAction(() => action);
+  }, []);
 
   // Track navigations for timed events
   const mannequinCheckRef = useRef(0);
@@ -225,18 +233,18 @@ function App() {
 
       {/* Election poll banner */}
       {showElectionPoll && (
-        <ElectionPoll onDismiss={() => setShowElectionPoll(false)} />
+        <ElectionPoll onDismiss={() => confirmWithHarambe(() => setShowElectionPoll(false))} />
       )}
 
-      <BrowserShell navState={navState} actions={actions}>
+      <BrowserShell navState={navState} actions={actions} onCloseAttempt={() => confirmWithHarambe(() => {})}>
         {renderContent()}
       </BrowserShell>
 
       <PopupManager triggerCount={navTrigger} />
 
       {/* Existing easter eggs */}
-      {showHarambe && <HarambeMemorial onDismiss={() => setShowHarambe(false)} />}
-      {showClippy && <ClippyAssistant onDismiss={() => setShowClippy(false)} />}
+      {showHarambe && <HarambeMemorial onDismiss={() => confirmWithHarambe(() => setShowHarambe(false))} />}
+      {showClippy && <ClippyAssistant onDismiss={() => confirmWithHarambe(() => setShowClippy(false))} />}
       {showGooglePlus && navState.site === 'google' && <GooglePlusNotif />}
 
       {/* New easter eggs */}
@@ -244,38 +252,49 @@ function App() {
         <PokemonGoOverlay
           featureName={pokemonGoFeature}
           requiredClicks={50}
-          onDismiss={() => setShowPokemonGo(false)}
+          onDismiss={() => confirmWithHarambe(() => setShowPokemonGo(false))}
         />
       )}
 
       {showBottleFlip && (
         <BottleFlip
-          onConfirm={() => {
+          onConfirm={() => confirmWithHarambe(() => {
             setShowBottleFlip(false);
             bottleFlipAction?.();
-          }}
-          onCancel={() => setShowBottleFlip(false)}
+          })}
+          onCancel={() => confirmWithHarambe(() => setShowBottleFlip(false))}
         />
       )}
 
       {showMannequin && (
-        <MannequinChallenge onDismiss={() => setShowMannequin(false)} />
+        <MannequinChallenge onDismiss={() => confirmWithHarambe(() => setShowMannequin(false))} />
       )}
 
       {damnDanielMsg && (
         <DamnDaniel
           message={damnDanielMsg}
-          onDismiss={() => setDamnDanielMsg(null)}
+          onDismiss={() => confirmWithHarambe(() => setDamnDanielMsg(null))}
         />
       )}
 
       {showPPAP && (
         <PPAPCombiner
-          onCombine={(combined) => {
+          onCombine={(combined) => confirmWithHarambe(() => {
             setShowPPAP(false);
             triggerDamnDaniel(`combined ${combined}`);
+          })}
+          onCancel={() => confirmWithHarambe(() => setShowPPAP(false))}
+        />
+      )}
+
+      {/* Harambe confirmation dialog */}
+      {harambeConfirmAction && (
+        <HarambeConfirm
+          onConfirm={() => {
+            harambeConfirmAction();
+            setHarambeConfirmAction(null);
           }}
-          onCancel={() => setShowPPAP(false)}
+          onCancel={() => setHarambeConfirmAction(null)}
         />
       )}
 

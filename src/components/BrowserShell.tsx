@@ -5,23 +5,24 @@ interface BrowserShellProps {
   navState: NavigationState;
   actions: NavigationActions;
   children: ReactNode;
+  onCloseAttempt?: () => void;
 }
 
-function TabBar() {
+function TabBar({ onCloseAttempt }: { onCloseAttempt?: () => void }) {
   return (
     <div className="flex items-end bg-[#dee1e6] pt-1 pl-2 h-[38px]">
       <div className="flex items-center bg-white rounded-t-lg px-4 py-1.5 max-w-[240px] min-w-[160px] h-[30px] shadow-sm border border-b-0 border-[#ccc]">
         <span className="text-xs text-gray-700 truncate flex-1">2016 Internet Time Machine</span>
-        <button className="ml-2 text-gray-400 hover:text-gray-600 text-xs leading-none">&#10005;</button>
+        <button onClick={onCloseAttempt} className="ml-2 text-gray-400 hover:text-gray-600 text-xs leading-none cursor-pointer">&#10005;</button>
       </div>
       <div className="flex items-center px-3 py-1.5 h-[30px] text-gray-400 hover:bg-gray-200 rounded-t cursor-pointer">
         <span className="text-sm">+</span>
       </div>
       <div className="flex-1" />
       <div className="flex items-center gap-1 pr-2 pb-1">
-        <span className="text-gray-400 text-xs">&#9866;</span>
-        <span className="text-gray-400 text-xs">&#9723;</span>
-        <span className="text-gray-400 text-xs hover:text-red-500">&#10005;</span>
+        <span className="text-gray-400 text-xs cursor-pointer">&#9866;</span>
+        <span className="text-gray-400 text-xs cursor-pointer">&#9723;</span>
+        <span onClick={onCloseAttempt} className="text-gray-400 text-xs hover:text-red-500 cursor-pointer">&#10005;</span>
       </div>
     </div>
   );
@@ -126,10 +127,10 @@ function BookmarksBar({ onNavigate }: BookmarksBarProps) {
   );
 }
 
-export function BrowserShell({ navState: _navState, actions, children }: BrowserShellProps) {
+export function BrowserShell({ navState: _navState, actions, children, onCloseAttempt }: BrowserShellProps) {
   return (
     <div className="flex flex-col h-full w-full bg-white">
-      <TabBar />
+      <TabBar onCloseAttempt={onCloseAttempt} />
       <AddressBar
         displayUrl={actions.displayUrl}
         canGoBack={actions.canGoBack}

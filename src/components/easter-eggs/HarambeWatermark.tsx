@@ -13,12 +13,12 @@ export function HarambeWatermark() {
       }}
     >
       <img
-        src="/harambe.jpg"
+        src="/harambe.png"
         alt=""
         style={{
-          width: '500px',
+          width: '800px',
           height: 'auto',
-          opacity: 0.03,
+          opacity: 0.04,
           userSelect: 'none',
           transform: 'rotate(-15deg)',
           filter: 'grayscale(100%)',
@@ -26,13 +26,13 @@ export function HarambeWatermark() {
       />
       <div style={{
         position: 'absolute',
-        bottom: '40%',
-        fontSize: '24px',
-        opacity: 0.03,
+        bottom: '35%',
+        fontSize: '32px',
+        opacity: 0.04,
         userSelect: 'none',
         fontFamily: 'Georgia, serif',
         fontStyle: 'italic',
-        letterSpacing: '4px',
+        letterSpacing: '6px',
         textTransform: 'uppercase',
       }}>
         Never Forget

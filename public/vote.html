@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🗳️ VOTE NOW</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #002868 50%, #BF0A30 50%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 { font-size: 18px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+  .question { font-size: 22px; font-weight: bold; margin-bottom: 32px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4); }
+  .buttons { display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 300px; }
+  .vote-btn {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Georgia, serif;
+    text-transform: uppercase;
+    border: 3px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.1s;
+    letter-spacing: 1px;
+  }
+  .vote-btn:active { transform: scale(0.95); }
+  .btn-a { background: #002868; }
+  .btn-b { background: #BF0A30; }
+  .voted {
+    font-size: 24px;
+    animation: popIn 0.3s ease-out;
+  }
+  .vs { font-size: 16px; font-weight: bold; opacity: 0.8; }
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
+</head>
+<body>
+  <div id="app">
+    <h1>🗳️ ELECTION 2016</h1>
+    <div class="question" id="question"></div>
+    <div class="buttons" id="buttons">
+      <button class="vote-btn btn-a" id="btnA"></button>
+      <div class="vs">VS</div>
+      <button class="vote-btn btn-b" id="btnB"></button>
+    </div>
+    <div id="result" style="display:none" class="voted"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const topic = params.get('t');
+    const question = decodeURIComponent(params.get('q') || 'Who wins?');
+    const optA = decodeURIComponent(params.get('a') || 'Option A');
+    const optB = decodeURIComponent(params.get('b') || 'Option B');
+
+    document.getElementById('question').textContent = question;
+    document.getElementById('btnA').textContent = optA;
+    document.getElementById('btnB').textContent = optB;
+
+    function vote(choice) {
+      document.getElementById('buttons').style.display = 'none';
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.textContent = '🎉 Vote cast for ' + choice + '!';
+
+      fetch('https://ntfy.sh/' + topic, {
+        method: 'POST',
+        body: JSON.stringify({ vote: choice }),
+        headers: { 'Content-Type': 'application/json' }
+      }).catch(() => {
+        result.textContent = '🎉 Vote recorded locally!';
+      });
+    }
+
+    document.getElementById('btnA').addEventListener('click', () => vote(optA));
+    document.getElementById('btnB').addEventListener('click', () => vote(optB));
+  </script>
+</body>
+</html>
