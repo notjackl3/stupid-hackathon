@@ -70,17 +70,9 @@ function TabBar({ tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab, onCloseA
                   : 'border-transparent bg-[#c7ced8] text-[#55606d] hover:bg-[#d0d6de]'
             }`}
           >
-            <span
-              className={`mr-2 h-3 w-3 rounded-full ${
-                isTumblr
-                  ? isActive
-                    ? 'bg-[#7ec8ff]'
-                    : 'bg-white/25'
-                  : isActive
-                    ? 'bg-[#5f89d8]'
-                    : 'bg-[#91a0b4]'
-              }`}
-            />
+            <span className="mr-2 flex h-4 w-4 shrink-0 items-center justify-center">
+              <BookmarkFavicon site={tab.savedState.site} />
+            </span>
             <span className="flex-1 truncate text-[12px]">{tab.label}</span>
             {tabs.length > 1 && (
               <button

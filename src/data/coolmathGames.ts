@@ -79,7 +79,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'classic',
     description: 'The classic snake game. Eat the apples, grow longer, and try not to run into yourself!',
     color: '#2e7d32',
-    embedUrl: 'https://patorjk.com/games/snake/',
+    embedUrl: 'https://lorecioni.github.io/snake/',
     icon: '🐍',
   },
   {
@@ -160,7 +160,7 @@ export const GAMES: CoolmathGame[] = [
     category: 'numbers',
     description: 'Slide numbered tiles on a grid to combine them and create a tile with the number 2048.',
     color: '#f9a825',
-    embedUrl: 'https://gabrielecirulli.github.io/2048/',
+    embedUrl: 'https://hczhcz.github.io/2048/20ez/',
     icon: '🔢',
   },
   {
