@@ -1,8 +1,9 @@
 import { useState, useMemo, type KeyboardEvent } from 'react';
 import YouTube from 'react-youtube';
-import { getRandomComments, getRandomRecommendedTitle } from '../../data/fakeComments';
+import { getRandomComments } from '../../data/fakeComments';
 import type { YouTubeVideoData } from '../../types';
 import homepageData from '../../data/youtubeHomepage.json';
+import { YouTubeLogo } from './YouTubeLogo';
 
 interface YouTubeVideoProps {
   videoId: string;
@@ -10,25 +11,43 @@ interface YouTubeVideoProps {
   onVideoClick: (videoId: string) => void;
 }
 
+function hashValue(seed: string, salt: number) {
+  return Array.from(`${seed}-${salt}`).reduce((sum, char, index) => sum + char.charCodeAt(0) * (index + 1 + salt), 0);
+}
+
 export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoProps) {
   const [searchInput, setSearchInput] = useState('');
-  const comments = useMemo(() => getRandomComments(10), [videoId]);
+  const comments = useMemo(() => getRandomComments(10), []);
 
-  // Get recommended videos from homepage data
-  const allVideos = useMemo(() => {
+  // Get all videos from homepage data
+  const allVideosFlat = useMemo(() => {
     const data = homepageData as Record<string, YouTubeVideoData[]>;
-    return Object.values(data).flat().filter((v) => v.videoId !== videoId);
-  }, [videoId]);
+    return Object.values(data).flat();
+  }, []);
+
+  // Find the current video's data
+  const currentVideo = useMemo(
+    () => allVideosFlat.find((v) => v.videoId === videoId),
+    [allVideosFlat, videoId],
+  );
 
   const recommended = useMemo(() => {
-    const shuffled = [...allVideos].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 10);
-  }, [allVideos]);
+    const others = allVideosFlat.filter((v) => v.videoId !== videoId);
+    const startIndex = others.length === 0 ? 0 : hashValue(videoId, 1) % others.length;
+    return Array.from({ length: Math.min(10, others.length) }, (_, index) => others[(startIndex + index) % others.length]);
+  }, [allVideosFlat, videoId]);
 
-  // Generate fake video stats
-  const likeCount = useMemo(() => Math.floor(Math.random() * 50000) + 5000, [videoId]);
-  const dislikeCount = useMemo(() => Math.floor(Math.random() * 5000) + 200, [videoId]);
-  const viewCount = useMemo(() => Math.floor(Math.random() * 5000000) + 100000, [videoId]);
+  const fallbackViewCount = 100000 + (hashValue(videoId, 2) % 5000000);
+  const fallbackLikeCount = 5000 + (hashValue(videoId, 3) % 50000);
+  const fallbackDislikeCount = 200 + (hashValue(videoId, 4) % 5000);
+  const subscriberCount = 100000 + (hashValue(videoId, 5) % 10000000);
+  const subscriberMillions = 1 + (hashValue(videoId, 6) % 10);
+  const commentCount = 1000 + (hashValue(videoId, 7) % 50000);
+
+  // Use real stats from data, fall back to generated if video not found
+  const viewCount = currentVideo ? parseInt(currentVideo.viewCount.replace(/,/g, ''), 10) : fallbackViewCount;
+  const likeCount = currentVideo ? parseInt(currentVideo.likeCount.replace(/,/g, ''), 10) : fallbackLikeCount;
+  const dislikeCount = currentVideo ? parseInt(currentVideo.dislikeCount.replace(/,/g, ''), 10) : fallbackDislikeCount;
   const likePercent = Math.round((likeCount / (likeCount + dislikeCount)) * 100);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -44,10 +63,7 @@ export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoPr
         <div className="flex items-center gap-3">
           <span className="text-white text-xl cursor-pointer">&#9776;</span>
           <div className="flex items-center cursor-pointer" onClick={() => onSearch('')}>
-            <div className="bg-[#ff0000] rounded px-1.5 py-0.5 mr-0.5">
-              <span className="text-white font-bold text-sm">&#9654;</span>
-            </div>
-            <span className="text-white font-bold text-lg tracking-tight">YouTube</span>
+            <YouTubeLogo variant="white" />
           </div>
         </div>
         <div className="flex-1 flex justify-center">
@@ -94,7 +110,7 @@ export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoPr
           {/* Video Info */}
           <div className="bg-white mt-0 p-4 border border-[#e6e6e6]">
             <h1 className="text-xl text-[#333] font-normal">
-              {allVideos.find((v) => v.videoId === videoId)?.title ?? 'Amazing Video (2016)'}
+              {currentVideo?.title ?? 'Amazing Video (2016)'}
             </h1>
 
             <div className="flex items-center justify-between mt-2">
@@ -124,22 +140,22 @@ export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoPr
           {/* Channel info */}
           <div className="bg-white p-4 border border-t-0 border-[#e6e6e6] flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-[#ef4444] flex items-center justify-center text-white font-bold">
-              {(allVideos.find((v) => v.videoId === videoId)?.channelName ?? 'C')[0]}
+              {(currentVideo?.channelName ?? 'C')[0]}
             </div>
             <div className="flex-1">
               <div className="font-medium text-[#333]">
-                {allVideos.find((v) => v.videoId === videoId)?.channelName ?? 'Cool Channel'}
+                {currentVideo?.channelName ?? 'Cool Channel'}
               </div>
-              <div className="text-xs text-[#767676]">{(Math.floor(Math.random() * 10) + 1).toLocaleString()}M subscribers</div>
+              <div className="text-xs text-[#767676]">{subscriberMillions.toLocaleString()}M subscribers</div>
             </div>
             <button className="bg-[#cc181e] text-white px-4 py-2 rounded text-sm font-medium hover:bg-[#b31217] cursor-pointer">
-              SUBSCRIBE {(Math.floor(Math.random() * 10000000) + 100000).toLocaleString()}
+              SUBSCRIBE {subscriberCount.toLocaleString()}
             </button>
           </div>
 
           {/* Autoplay toggle */}
           <div className="flex items-center justify-between mt-4 mb-2 px-1">
-            <span className="text-sm font-medium text-[#333]">Comments &middot; {(Math.floor(Math.random() * 50000) + 1000).toLocaleString()}</span>
+            <span className="text-sm font-medium text-[#333]">Comments &middot; {commentCount.toLocaleString()}</span>
             <div className="flex items-center gap-2 text-sm text-[#767676]">
               <span>Autoplay</span>
               <div className="w-10 h-5 bg-[#167ac6] rounded-full relative cursor-pointer">
@@ -169,7 +185,7 @@ export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoPr
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-[#333]">{comment.user}</span>
                     <span className="text-xs text-[#767676]">
-                      {Math.floor(Math.random() * 11) + 1} months ago
+                      {1 + (hashValue(`${videoId}-${comment.user}`, i + 8) % 11)} months ago
                     </span>
                   </div>
                   <p className="text-sm text-[#333] mt-1">{comment.text}</p>
@@ -211,7 +227,7 @@ export function YouTubeVideo({ videoId, onSearch, onVideoClick }: YouTubeVideoPr
                 </div>
                 <div className="flex-1 min-w-0">
                   <h4 className="text-xs font-medium text-[#333] group-hover:text-[#167ac6] line-clamp-2 leading-tight">
-                    {i % 3 === 0 ? getRandomRecommendedTitle() : video.title}
+                    {video.title}
                   </h4>
                   <p className="text-[11px] text-[#767676] mt-1">{video.channelName}</p>
                   <p className="text-[11px] text-[#767676]">{video.viewCount} views</p>

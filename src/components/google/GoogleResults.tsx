@@ -10,6 +10,11 @@ interface GoogleResultsProps {
   onNavigate: (site: 'google' | 'youtube' | 'twitter') => void;
 }
 
+function deterministicValue(seed: string, offset: number, min: number, spread: number) {
+  const total = Array.from(`${seed}-${offset}`).reduce((sum, char) => sum + char.charCodeAt(0) * (offset + 1), 0);
+  return min + (total % spread);
+}
+
 export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProps) {
   const [searchInput, setSearchInput] = useState(query);
   const [results, setResults] = useState<GoogleQueryData | null>(null);
@@ -73,6 +78,10 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
       onSearch(searchInput.trim());
     }
   };
+
+  const resultLead = deterministicValue(query || 'google', 1, 100, 900);
+  const resultTail = deterministicValue(query || 'google', 2, 100, 900);
+  const resultSpeed = deterministicValue(query || 'google', 3, 10, 90);
 
   return (
     <div className="bg-white min-h-full">
@@ -145,8 +154,8 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
         ) : (
           <>
             {/* Result count */}
-            <div className="text-[#70757a] text-sm mb-5">
-              About {(Math.floor(Math.random() * 900) + 100).toLocaleString()},{(Math.floor(Math.random() * 900) + 100).toLocaleString()},000 results (0.{Math.floor(Math.random() * 90) + 10} seconds)
+            <div className="text-[#70757a] text-sm mb-4">
+              About {resultLead.toLocaleString()},{resultTail.toLocaleString()},000 results (0.{resultSpeed} seconds)
             </div>
 
             {/* Did you mean */}
