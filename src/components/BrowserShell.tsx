@@ -1,22 +1,48 @@
 import { useState, type KeyboardEvent, type ReactNode } from 'react';
-import type { NavigationActions, NavigationState } from '../types';
+import type { NavigationActions, NavigationState, BrowserTab } from '../types';
 
-interface BrowserShellProps {
-  navState: NavigationState;
-  actions: NavigationActions;
-  children: ReactNode;
+interface TabBarProps {
+  tabs: BrowserTab[];
+  activeTabId: string;
+  onAddTab: () => void;
+  onSwitchTab: (id: string) => void;
+  onCloseTab: (id: string) => void;
 }
 
-function TabBar() {
+function TabBar({ tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: TabBarProps) {
   return (
-    <div className="flex items-end bg-[#dee1e6] pt-1 pl-2 h-[38px]">
-      <div className="flex items-center bg-white rounded-t-lg px-4 py-1.5 max-w-[240px] min-w-[160px] h-[30px] shadow-sm border border-b-0 border-[#ccc]">
-        <span className="text-xs text-gray-700 truncate flex-1">2016 Internet Time Machine</span>
-        <button className="ml-2 text-gray-400 hover:text-gray-600 text-xs leading-none">&#10005;</button>
-      </div>
-      <div className="flex items-center px-3 py-1.5 h-[30px] text-gray-400 hover:bg-gray-200 rounded-t cursor-pointer">
-        <span className="text-sm">+</span>
-      </div>
+    <div className="flex items-end bg-[#dee1e6] pt-1 pl-8 h-[38px]">
+      {tabs.map((tab) => {
+        const isActive = tab.id === activeTabId;
+        return (
+          <div
+            key={tab.id}
+            onClick={() => onSwitchTab(tab.id)}
+            className={`flex items-center rounded-t-lg px-3 py-1.5 max-w-[220px] min-w-[120px] h-[30px] cursor-pointer select-none border border-b-0 mr-0.5 ${
+              isActive
+                ? 'bg-white border-[#ccc] shadow-sm'
+                : 'bg-[#ccd0d5] border-transparent hover:bg-[#d5d8dc]'
+            }`}
+          >
+            <span className="text-xs text-gray-700 truncate flex-1">{tab.label}</span>
+            {tabs.length > 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onCloseTab(tab.id); }}
+                className="ml-1.5 text-gray-400 hover:text-gray-600 text-xs leading-none shrink-0"
+              >
+                &#10005;
+              </button>
+            )}
+          </div>
+        );
+      })}
+      <button
+        onClick={onAddTab}
+        className="flex items-center px-3 py-1.5 h-[30px] text-gray-500 hover:bg-gray-200 rounded-t cursor-pointer text-sm"
+        title="New tab"
+      >
+        +
+      </button>
       <div className="flex-1" />
       <div className="flex items-center gap-1 pr-2 pb-1">
         <span className="text-gray-400 text-xs">&#9866;</span>
@@ -126,10 +152,27 @@ function BookmarksBar({ onNavigate }: BookmarksBarProps) {
   );
 }
 
-export function BrowserShell({ navState: _navState, actions, children }: BrowserShellProps) {
+interface BrowserShellProps {
+  navState: NavigationState;
+  actions: NavigationActions;
+  children: ReactNode;
+  tabs: BrowserTab[];
+  activeTabId: string;
+  onAddTab: () => void;
+  onSwitchTab: (id: string) => void;
+  onCloseTab: (id: string) => void;
+}
+
+export function BrowserShell({ actions, children, tabs, activeTabId, onAddTab, onSwitchTab, onCloseTab }: BrowserShellProps) {
   return (
     <div className="flex flex-col h-full w-full bg-white">
-      <TabBar />
+      <TabBar
+        tabs={tabs}
+        activeTabId={activeTabId}
+        onAddTab={onAddTab}
+        onSwitchTab={onSwitchTab}
+        onCloseTab={onCloseTab}
+      />
       <AddressBar
         displayUrl={actions.displayUrl}
         canGoBack={actions.canGoBack}

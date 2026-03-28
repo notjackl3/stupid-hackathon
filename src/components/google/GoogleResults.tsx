@@ -1,6 +1,7 @@
 import { useState, useEffect, type KeyboardEvent } from 'react';
 import type { GoogleQueryData } from '../../types';
 import { searchGoogle } from '../../lib/fuzzySearch';
+import { generateGoogleResults } from '../../lib/llmFallback';
 import googleData from '../../data/googleResults.json';
 
 interface GoogleResultsProps {
@@ -15,15 +16,15 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
   const [matchedQuery, setMatchedQuery] = useState('');
   const [isExact, setIsExact] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [loadingLlm, setLoadingLlm] = useState(false);
 
   useEffect(() => {
     setSearchInput(query);
     setLoading(true);
+    setLoadingLlm(false);
 
-    // Fake delay to simulate 2016 internet
     const delay = 500 + Math.random() * 300;
-    const timer = setTimeout(() => {
-      // Check for easter egg queries first
+    const timer = setTimeout(async () => {
       const lowerQuery = query.toLowerCase().trim();
 
       // Future year easter egg
@@ -45,12 +46,23 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
         setResults(match.results);
         setMatchedQuery(match.matchedQuery);
         setIsExact(match.exact);
+        setLoading(false);
       } else {
-        setResults(null);
-        setMatchedQuery('');
-        setIsExact(false);
+        // No static match — try LLM fallback
+        setLoading(false);
+        setLoadingLlm(true);
+        const llmResult = await generateGoogleResults(query);
+        setLoadingLlm(false);
+        if (llmResult) {
+          setResults(llmResult);
+          setMatchedQuery(query);
+          setIsExact(true);
+        } else {
+          setResults(null);
+          setMatchedQuery('');
+          setIsExact(false);
+        }
       }
-      setLoading(false);
     }, delay);
 
     return () => clearTimeout(timer);
@@ -65,7 +77,7 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
   return (
     <div className="bg-white min-h-full">
       {/* Google header */}
-      <div className="border-b border-[#ebebeb] bg-[#f1f1f1] px-6 py-3">
+      <div className="border-b border-[#ebebeb] bg-[#f1f1f1] px-8 py-4">
         <div className="flex items-center gap-6">
           {/* Logo */}
           <span className="text-[30px] cursor-pointer select-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
@@ -112,9 +124,11 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
       </div>
 
       {/* Results area */}
-      <div className="px-[170px] py-4 max-w-[900px]">
+      <div className="pl-[160px] pr-8 py-6 max-w-[900px]">
         {loading ? (
           <div className="text-gray-400 text-sm py-8">Loading...</div>
+        ) : loadingLlm ? (
+          <div className="text-gray-400 text-sm py-8">Consulting the time machine...</div>
         ) : results === null ? (
           /* No results - IE error style */
           <div className="mt-8 p-6 bg-[#ffffcc] border border-[#e0d060]">
@@ -131,13 +145,13 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
         ) : (
           <>
             {/* Result count */}
-            <div className="text-[#70757a] text-sm mb-4">
+            <div className="text-[#70757a] text-sm mb-5">
               About {(Math.floor(Math.random() * 900) + 100).toLocaleString()},{(Math.floor(Math.random() * 900) + 100).toLocaleString()},000 results (0.{Math.floor(Math.random() * 90) + 10} seconds)
             </div>
 
             {/* Did you mean */}
             {!isExact && (
-              <div className="text-sm mb-4">
+              <div className="text-sm mb-5">
                 <span className="text-[#70757a]">Showing results for </span>
                 <a
                   className="text-[#4285F4] italic cursor-pointer hover:underline"
@@ -148,7 +162,7 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
               </div>
             )}
             {results.didYouMean && (
-              <div className="text-sm mb-4">
+              <div className="text-sm mb-5">
                 <span className="text-[#70757a]">Did you mean: </span>
                 <a
                   className="text-[#4285F4] italic cursor-pointer hover:underline"
@@ -160,16 +174,21 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
               </div>
             )}
 
-            {/* Ads - barely distinguishable from real results (2016 was bad for this) */}
+            {/* Ads */}
             {results.ads && results.ads.length > 0 && (
-              <div className="mb-4">
+              <div className="mb-5">
                 {results.ads.map((ad, i) => (
-                  <div key={`ad-${i}`} className="mb-4">
+                  <div key={`ad-${i}`} className="mb-6">
                     <div className="flex items-center gap-1">
                       <span className="text-[#006621] bg-[#fff3c8] text-[11px] px-1 border border-[#e0d060] rounded mr-1">Ad</span>
                       <span className="text-[#006621] text-sm">{ad.url}</span>
                     </div>
-                    <a className="text-[#1a0dab] text-lg hover:underline cursor-pointer leading-tight block">
+                    <a
+                      href={ad.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#1a0dab] text-lg hover:underline cursor-pointer leading-tight block"
+                    >
                       {ad.title}
                     </a>
                     <p className="text-[#545454] text-sm mt-0.5">{ad.snippet}</p>
@@ -180,9 +199,14 @@ export function GoogleResults({ query, onSearch, onNavigate }: GoogleResultsProp
 
             {/* Organic results */}
             {results.results.map((result, i) => (
-              <div key={i} className="mb-5">
+              <div key={i} className="mb-6">
                 <div className="text-[#006621] text-sm">{result.url}</div>
-                <a className="text-[#1a0dab] text-lg hover:underline cursor-pointer leading-tight block">
+                <a
+                  href={result.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1a0dab] text-lg hover:underline cursor-pointer leading-tight block"
+                >
                   {result.title}
                 </a>
                 <p className="text-[#545454] text-sm mt-0.5">{result.snippet}</p>

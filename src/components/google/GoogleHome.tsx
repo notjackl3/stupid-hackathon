@@ -14,57 +14,76 @@ export function GoogleHome({ onSearch }: GoogleHomeProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-white">
-      {/* Google Logo - 2016 style */}
-      <div className="mb-6">
-        <span className="text-[92px] font-normal select-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
-          <span className="text-[#4285F4]">G</span>
-          <span className="text-[#EA4335]">o</span>
-          <span className="text-[#FBBC05]">o</span>
-          <span className="text-[#4285F4]">g</span>
-          <span className="text-[#34A853]">l</span>
-          <span className="text-[#EA4335]">e</span>
-        </span>
-      </div>
-
-      {/* Search bar */}
-      <div className="w-full max-w-[584px] mb-4">
-        <div className="flex items-center border border-[#dfe1e5] rounded-full px-4 py-2.5 hover:shadow-md transition-shadow bg-white">
-          <svg className="w-5 h-5 text-[#9aa0a6] mr-3" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+    <div className="relative flex flex-col min-h-[calc(100vh-120px)] bg-white">
+      {/* Top-right nav */}
+      <div className="flex items-center justify-end gap-4 px-6 pt-3 pb-1">
+        <a className="text-[13px] text-[#5f6368] hover:underline cursor-pointer">Gmail</a>
+        <a className="text-[13px] text-[#5f6368] hover:underline cursor-pointer">Images</a>
+        {/* Apps grid icon */}
+        <button className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 cursor-pointer" title="Google apps">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#5f6368">
+            <path d="M6 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
           </svg>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="flex-1 outline-none text-base text-gray-700"
-            autoFocus
-          />
+        </button>
+        <button className="text-[13px] text-white bg-[#4285F4] hover:bg-[#3367d6] px-5 py-1.5 rounded cursor-pointer font-medium">
+          Sign in
+        </button>
+      </div>
+
+      {/* Center content */}
+      <div className="flex flex-col items-center justify-center flex-1 pb-24">
+        {/* Google Logo */}
+        <div className="mb-7">
+          <span className="text-[92px] font-normal select-none leading-none" style={{ fontFamily: "'Product Sans', Arial, sans-serif" }}>
+            <span className="text-[#4285F4]">G</span>
+            <span className="text-[#EA4335]">o</span>
+            <span className="text-[#FBBC05]">o</span>
+            <span className="text-[#4285F4]">g</span>
+            <span className="text-[#34A853]">l</span>
+            <span className="text-[#EA4335]">e</span>
+          </span>
         </div>
-      </div>
 
-      {/* Buttons */}
-      <div className="flex gap-3 mt-2">
-        <button
-          onClick={() => query.trim() && onSearch(query.trim())}
-          className="bg-[#f2f2f2] text-[#5f6368] text-sm px-4 py-2 rounded hover:border hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
-        >
-          Google Search
-        </button>
-        <button
-          onClick={() => onSearch('harambe')}
-          className="bg-[#f2f2f2] text-[#5f6368] text-sm px-4 py-2 rounded hover:border hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
-        >
-          I'm Feeling Lucky
-        </button>
-      </div>
+        {/* Search bar — 2016 rectangular style */}
+        <div className="w-full max-w-[526px] mb-6">
+          <div className="flex items-center border border-[#d2d2d2] rounded px-3 py-2 bg-white shadow-sm hover:shadow transition-shadow">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="flex-1 outline-none text-base text-gray-700 px-1"
+              autoFocus
+            />
+            {/* Mic icon */}
+            <svg className="w-5 h-5 text-[#4285F4] ml-2 cursor-pointer shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+            </svg>
+          </div>
+        </div>
 
-      {/* Google+ promo - subtle 2016 touch */}
-      <div className="mt-16 text-sm text-[#5f6368]">
-        <span>Try </span>
-        <a className="text-[#4285F4] hover:underline cursor-pointer">Google+</a>
-        <span> — share what matters most with the people who matter most.</span>
+        {/* Buttons */}
+        <div className="flex gap-3">
+          <button
+            onClick={() => query.trim() && onSearch(query.trim())}
+            className="bg-[#f2f2f2] text-[#5f6368] text-sm px-5 py-2 rounded border border-transparent hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
+          >
+            Google Search
+          </button>
+          <button
+            onClick={() => onSearch('harambe')}
+            className="bg-[#f2f2f2] text-[#5f6368] text-sm px-5 py-2 rounded border border-transparent hover:border-[#c6c6c6] hover:shadow-sm cursor-pointer"
+          >
+            I'm Feeling Lucky
+          </button>
+        </div>
+
+        {/* Google+ promo */}
+        <div className="mt-8 text-sm text-[#5f6368]">
+          <span>Try </span>
+          <a className="text-[#4285F4] hover:underline cursor-pointer">Google+</a>
+          <span> — share what matters most with the people who matter most.</span>
+        </div>
       </div>
 
       {/* Footer */}

@@ -62,3 +62,9 @@ export interface YouTubeVideoData {
 }
 
 export type PopupType = 'ad' | 'flash' | 'virus' | 'ram';
+
+export interface BrowserTab {
+  id: string;
+  label: string;
+  savedState: NavigationState;
+}

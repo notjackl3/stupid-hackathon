@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useNavigation } from './hooks/useNavigation';
 import { BrowserShell } from './components/BrowserShell';
 import { DialupOverlay } from './components/DialupOverlay';
@@ -12,6 +12,20 @@ import { PopupManager } from './components/popups/PopupManager';
 import { HarambeMemorial } from './components/easter-eggs/HarambeMemorial';
 import { ClippyAssistant } from './components/easter-eggs/ClippyAssistant';
 import { GooglePlusNotif } from './components/easter-eggs/GooglePlusNotif';
+import type { BrowserTab, NavigationState } from './types';
+
+const DEFAULT_NAV_STATE: NavigationState = { site: 'google', page: 'home', query: '', videoId: '' };
+
+function deriveTabLabel(state: NavigationState): string {
+  if (state.site === 'google') {
+    return state.page === 'search' && state.query ? `${state.query} - Google Search` : 'Google';
+  }
+  if (state.site === 'youtube') {
+    return state.page === 'search' && state.query ? `${state.query} - YouTube` : 'YouTube';
+  }
+  if (state.site === 'twitter') return 'Twitter';
+  return 'New Tab';
+}
 
 function App() {
   const [showDialup, setShowDialup] = useState(true);
@@ -25,52 +39,110 @@ function App() {
     navCountRef.current += 1;
     setNavTrigger(navCountRef.current);
 
-    // 5% chance of Clippy
-    if (Math.random() < 0.05) {
-      setShowClippy(true);
-    }
-
-    // Show Google+ notification occasionally
-    if (Math.random() < 0.1) {
-      setShowGooglePlus(true);
-    }
+    if (Math.random() < 0.05) setShowClippy(true);
+    if (Math.random() < 0.1) setShowGooglePlus(true);
   }, []);
 
   const [navState, actions] = useNavigation(onNavigate);
 
-  const handleSearch = useCallback((query: string, site?: 'google' | 'youtube' | 'twitter') => {
-    const lower = query.toLowerCase().trim();
+  // Tab state
+  const [tabs, setTabs] = useState<BrowserTab[]>([
+    { id: crypto.randomUUID(), label: 'Google', savedState: DEFAULT_NAV_STATE },
+  ]);
+  const [activeTabId, setActiveTabId] = useState(tabs[0].id);
 
-    // Harambe easter egg
-    if (lower.includes('harambe')) {
-      setShowHarambe(true);
-    }
+  // Sync current navState into the active tab
+  useEffect(() => {
+    setTabs((prev) =>
+      prev.map((t) =>
+        t.id === activeTabId
+          ? { ...t, label: deriveTabLabel(navState), savedState: { ...navState } }
+          : t
+      )
+    );
+  }, [navState, activeTabId]);
 
-    const currentSite = site ?? navState.site;
-    actions.navigate(currentSite, 'search', { query });
-  }, [actions, navState.site]);
-
-  const handleYouTubeVideoClick = useCallback((videoId: string) => {
-    actions.navigate('youtube', 'video', { videoId });
+  const addTab = useCallback(() => {
+    const newTab: BrowserTab = {
+      id: crypto.randomUUID(),
+      label: 'Google',
+      savedState: DEFAULT_NAV_STATE,
+    };
+    setTabs((prev) => [...prev, newTab]);
+    setActiveTabId(newTab.id);
+    actions.navigate('google', 'home');
   }, [actions]);
 
-  const handleYouTubeSearch = useCallback((query: string) => {
-    if (!query) {
-      actions.navigate('youtube', 'home');
-      return;
-    }
-    if (query.toLowerCase().includes('harambe')) {
-      setShowHarambe(true);
-    }
-    actions.navigate('youtube', 'search', { query });
-  }, [actions]);
+  const switchTab = useCallback(
+    (tabId: string) => {
+      if (tabId === activeTabId) return;
+      // Save current state into the current tab before switching
+      setTabs((prev) =>
+        prev.map((t) =>
+          t.id === activeTabId ? { ...t, savedState: { ...navState }, label: deriveTabLabel(navState) } : t
+        )
+      );
+      setActiveTabId(tabId);
+      const tab = tabs.find((t) => t.id === tabId);
+      if (tab) {
+        const s = tab.savedState;
+        actions.navigate(s.site, s.page, { query: s.query, videoId: s.videoId });
+      }
+    },
+    [activeTabId, navState, tabs, actions]
+  );
 
-  const handleTwitterSearch = useCallback((query: string) => {
-    if (query.toLowerCase().includes('harambe')) {
-      setShowHarambe(true);
-    }
-    actions.navigate('twitter', 'search', { query });
-  }, [actions]);
+  const closeTab = useCallback(
+    (tabId: string) => {
+      if (tabs.length === 1) return;
+      const newTabs = tabs.filter((t) => t.id !== tabId);
+      setTabs(newTabs);
+      if (activeTabId === tabId) {
+        const newActive = newTabs[newTabs.length - 1];
+        setActiveTabId(newActive.id);
+        const s = newActive.savedState;
+        actions.navigate(s.site, s.page, { query: s.query, videoId: s.videoId });
+      }
+    },
+    [tabs, activeTabId, actions]
+  );
+
+  const handleSearch = useCallback(
+    (query: string, site?: 'google' | 'youtube' | 'twitter') => {
+      const lower = query.toLowerCase().trim();
+      if (lower.includes('harambe')) setShowHarambe(true);
+      const currentSite = site ?? navState.site;
+      actions.navigate(currentSite, 'search', { query });
+    },
+    [actions, navState.site]
+  );
+
+  const handleYouTubeVideoClick = useCallback(
+    (videoId: string) => {
+      actions.navigate('youtube', 'video', { videoId });
+    },
+    [actions]
+  );
+
+  const handleYouTubeSearch = useCallback(
+    (query: string) => {
+      if (!query) {
+        actions.navigate('youtube', 'home');
+        return;
+      }
+      if (query.toLowerCase().includes('harambe')) setShowHarambe(true);
+      actions.navigate('youtube', 'search', { query });
+    },
+    [actions]
+  );
+
+  const handleTwitterSearch = useCallback(
+    (query: string) => {
+      if (query.toLowerCase().includes('harambe')) setShowHarambe(true);
+      actions.navigate('twitter', 'search', { query });
+    },
+    [actions]
+  );
 
   const renderContent = () => {
     const { site, page, query, videoId } = navState;
@@ -108,19 +180,11 @@ function App() {
           );
         }
         return (
-          <YouTubeHome
-            onSearch={handleYouTubeSearch}
-            onVideoClick={handleYouTubeVideoClick}
-          />
+          <YouTubeHome onSearch={handleYouTubeSearch} onVideoClick={handleYouTubeVideoClick} />
         );
 
       case 'twitter':
-        return (
-          <TwitterFeed
-            query={query}
-            onSearch={handleTwitterSearch}
-          />
-        );
+        return <TwitterFeed query={query} onSearch={handleTwitterSearch} />;
 
       default:
         return <GoogleHome onSearch={(q) => handleSearch(q, 'google')} />;
@@ -131,7 +195,15 @@ function App() {
     <>
       {showDialup && <DialupOverlay onDismiss={() => setShowDialup(false)} />}
 
-      <BrowserShell navState={navState} actions={actions}>
+      <BrowserShell
+        navState={navState}
+        actions={actions}
+        tabs={tabs}
+        activeTabId={activeTabId}
+        onAddTab={addTab}
+        onSwitchTab={switchTab}
+        onCloseTab={closeTab}
+      >
         {renderContent()}
       </BrowserShell>
 
