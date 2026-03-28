@@ -26,6 +26,10 @@ function BookmarkFavicon({ site }: { site: SiteName }) {
       return <img src="/bookmarks/tumblr-icon.svg" alt="" className="h-3.5 w-3.5 object-contain" />;
     case 'myinstants':
       return <img src="/bookmarks/myinstants.ico" alt="" className="h-4 w-4 rounded-[3px] object-contain" />;
+    case 'musically':
+      return <img src="/bookmarks/musically-logo.svg" alt="" className="h-4 w-4 object-contain" />;
+    case 'spotify':
+      return <img src="/bookmarks/spotify-logo.svg" alt="" className="h-4 w-4 object-contain" />;
   }
 }
 
@@ -271,6 +275,8 @@ function BookmarksBar({ activeSite, onNavigate, isTumblr }: BookmarksBarProps) {
     { label: 'YouTube', site: 'youtube' as const },
     { label: 'Twitter', site: 'twitter' as const },
     { label: 'Vine', site: 'vine' as const },
+    { label: 'Spotify', site: 'spotify' as const },
+    { label: 'musical.ly', site: 'musically' as const },
     { label: 'Tumblr', site: 'tumblr' as const },
     { label: 'MyInstants', site: 'myinstants' as const },
   ];

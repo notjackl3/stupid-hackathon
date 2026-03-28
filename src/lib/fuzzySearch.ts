@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import type { GoogleQueryData, TwitterQueryData, VineQueryData, TumblrPost } from '../types';
+import type { GoogleQueryData, TwitterQueryData, VineQueryData, TumblrPost, MusicallyQueryData } from '../types';
 
 type SearchableData<T> = Record<string, T>;
 
@@ -57,6 +57,15 @@ export function searchVine(
   data: SearchableData<VineQueryData>,
   query: string
 ): { results: VineQueryData; matchedQuery: string; exact: boolean } | null {
+  const match = fuzzyMatch(data, query);
+  if (!match) return null;
+  return { results: match.value, matchedQuery: match.key, exact: match.exact };
+}
+
+export function searchMusically(
+  data: SearchableData<MusicallyQueryData>,
+  query: string
+): { results: MusicallyQueryData; matchedQuery: string; exact: boolean } | null {
   const match = fuzzyMatch(data, query);
   if (!match) return null;
   return { results: match.value, matchedQuery: match.key, exact: match.exact };

@@ -9,9 +9,15 @@ import { YouTubeVideo } from './components/youtube/YouTubeVideo';
 import { TwitterFeed } from './components/twitter/TwitterFeed';
 import { VineHome } from './components/vine/VineHome';
 import { VineExplore } from './components/vine/VineExplore';
+import { MusicallyHome } from './components/musically/MusicallyHome';
+import { MusicallyDiscover } from './components/musically/MusicallyDiscover';
 import { TumblrDashboard } from './components/tumblr/TumblrDashboard';
 import { TumblrSearch } from './components/tumblr/TumblrSearch';
 import { MyInstantsHome } from './components/myinstants/MyInstantsHome';
+import { SpotifyShell } from './components/spotify/SpotifyShell';
+import { SpotifyHome } from './components/spotify/SpotifyHome';
+import { SpotifySearch } from './components/spotify/SpotifySearch';
+import { SpotifyPlaylist } from './components/spotify/SpotifyPlaylist';
 import { PopupManager } from './components/popups/PopupManager';
 import { HarambeMemorial } from './components/easter-eggs/HarambeMemorial';
 import { ClippyAssistant } from './components/easter-eggs/ClippyAssistant';
@@ -31,8 +37,21 @@ import { PPAPCombiner } from './components/easter-eggs/PPAPCombiner';
 import { ChatGPTSike } from './components/easter-eggs/ChatGPTSike';
 import { LoganPaul } from './components/easter-eggs/LoganPaul';
 import type { BrowserTab, NavigationState } from './types';
+import {
+  getSpotifyAlbum,
+  getSpotifyCollectionTracks,
+  getSpotifyPlaylist,
+  type SpotifyTrack,
+} from './data/spotify';
 
-const DEFAULT_NAV_STATE: NavigationState = { site: 'google', page: 'home', query: '', videoId: '' };
+const DEFAULT_NAV_STATE: NavigationState = {
+  site: 'google',
+  page: 'home',
+  query: '',
+  videoId: '',
+  resourceType: '',
+  resourceId: '',
+};
 
 function deriveTabLabel(state: NavigationState): string {
   if (state.site === 'google') {
@@ -44,6 +63,16 @@ function deriveTabLabel(state: NavigationState): string {
   if (state.site === 'twitter') return 'Twitter';
   if (state.site === 'myinstants') {
     return state.page === 'search' && state.query ? `${state.query} - Myinstants` : 'Myinstants';
+  }
+  if (state.site === 'musically') {
+    return state.page === 'search' && state.query ? `${state.query} - musical.ly` : 'musical.ly';
+  }
+  if (state.site === 'spotify') {
+    if (state.page === 'playlist' && state.resourceType && state.resourceId) {
+      const resource = state.resourceType === 'playlist' ? getSpotifyPlaylist(state.resourceId) : getSpotifyAlbum(state.resourceId);
+      return resource?.title ?? 'Spotify';
+    }
+    return state.page === 'search' && state.query ? `${state.query} - Spotify` : 'Spotify';
   }
   return 'New Tab';
 }
@@ -64,6 +93,8 @@ function App() {
   const [showBottleFlip, setShowBottleFlip] = useState(false);
   const [bottleFlipAction, setBottleFlipAction] = useState<(() => void) | null>(null);
   const [showMannequin, setShowMannequin] = useState(false);
+  const [mannequinDurationSeconds, setMannequinDurationSeconds] = useState(15);
+  const [mannequinTrackLabel, setMannequinTrackLabel] = useState('Black Beatles');
   const [damnDanielMsg, setDamnDanielMsg] = useState<string | null>(null);
   const [showPPAP, setShowPPAP] = useState(false);
   const [showLogan, setShowLogan] = useState(false);
@@ -106,6 +137,8 @@ function App() {
 
     // 3% chance of Mannequin Challenge after 5 navigations
     if (mannequinCheckRef.current > 5 && Math.random() < 0.03) {
+      setMannequinDurationSeconds(15);
+      setMannequinTrackLabel('Black Beatles');
       setShowMannequin(true);
       mannequinCheckRef.current = 0;
     }
@@ -129,6 +162,8 @@ function App() {
   }, [triggerDamnDaniel]);
 
   const [navState, actions] = useNavigation(onNavigate);
+  const [spotifyQueue, setSpotifyQueue] = useState<SpotifyTrack[]>([]);
+  const [spotifyCurrentTrack, setSpotifyCurrentTrack] = useState<SpotifyTrack | null>(null);
 
   // Tab state
   const [tabs, setTabs] = useState<BrowserTab[]>([
@@ -174,7 +209,12 @@ function App() {
       const tab = tabs.find((t) => t.id === tabId);
       if (tab) {
         const s = tab.savedState;
-        actions.navigate(s.site, s.page, { query: s.query, videoId: s.videoId });
+        actions.navigate(s.site, s.page, {
+          query: s.query,
+          videoId: s.videoId,
+          resourceType: s.resourceType,
+          resourceId: s.resourceId,
+        });
       }
     },
     [activeTabId, navState, tabs, actions]
@@ -189,7 +229,12 @@ function App() {
         const newActive = newTabs[newTabs.length - 1];
         setActiveTabId(newActive.id);
         const s = newActive.savedState;
-        actions.navigate(s.site, s.page, { query: s.query, videoId: s.videoId });
+        actions.navigate(s.site, s.page, {
+          query: s.query,
+          videoId: s.videoId,
+          resourceType: s.resourceType,
+          resourceId: s.resourceId,
+        });
       }
     },
     [tabs, activeTabId, actions]
@@ -234,6 +279,8 @@ function App() {
 
       // Mannequin challenge search
       if (lower.includes('mannequin challenge')) {
+        setMannequinDurationSeconds(15);
+        setMannequinTrackLabel('Black Beatles');
         setShowMannequin(true);
       }
 
@@ -303,6 +350,17 @@ function App() {
     actions.navigate('myinstants', 'search', { query });
   }, [actions]);
 
+  const handleMusicallySearch = useCallback((query: string) => {
+    if (query.toLowerCase().includes('harambe')) {
+      setShowHarambe(true);
+    }
+    actions.navigate('musically', 'search', { query });
+  }, [actions]);
+
+  const handleMusicallyDiscover = useCallback(() => {
+    actions.navigate('musically', 'explore');
+  }, [actions]);
+
   const handleTumblrSearch = useCallback((query: string) => {
     if (query.toLowerCase().includes('harambe')) {
       setShowHarambe(true);
@@ -317,8 +375,74 @@ function App() {
     actions.navigate('tumblr', 'tagged', { query: tag });
   }, [actions]);
 
+  const handleSpotifySearch = useCallback((query: string) => {
+    actions.navigate('spotify', 'search', { query, resourceId: '', resourceType: '' });
+  }, [actions]);
+
+  const handleSpotifyHome = useCallback(() => {
+    actions.navigate('spotify', 'home', { resourceId: '', resourceType: '' });
+  }, [actions]);
+
+  const handleSpotifyOpenPlaylist = useCallback((playlistSlug: string) => {
+    actions.navigate('spotify', 'playlist', { resourceType: 'playlist', resourceId: playlistSlug });
+  }, [actions]);
+
+  const handleSpotifyOpenAlbum = useCallback((albumSlug: string) => {
+    actions.navigate('spotify', 'playlist', { resourceType: 'album', resourceId: albumSlug });
+  }, [actions]);
+
+  const handleSpotifyPlayTrack = useCallback((track: SpotifyTrack, queue: SpotifyTrack[]) => {
+    setSpotifyCurrentTrack(track);
+    setSpotifyQueue(queue.length ? queue : [track]);
+
+    if (track.slug === 'black-beatles') {
+      setMannequinDurationSeconds(5);
+      setMannequinTrackLabel('Black Beatles');
+      setShowMannequin(true);
+    }
+  }, []);
+
+  const handleSpotifyRadio = useCallback(() => {
+    const queue = getSpotifyCollectionTracks('playlist', 'closer-radio');
+    const firstTrack = queue[0] ?? null;
+    actions.navigate('spotify', 'playlist', { resourceType: 'playlist', resourceId: 'closer-radio' });
+    if (firstTrack) {
+      setSpotifyCurrentTrack(firstTrack);
+      setSpotifyQueue(queue);
+    }
+  }, [actions]);
+
+  const handleSpotifyPrevious = useCallback(() => {
+    if (!spotifyCurrentTrack || spotifyQueue.length === 0) {
+      return;
+    }
+
+    const currentIndex = spotifyQueue.findIndex((track) => track.slug === spotifyCurrentTrack.slug);
+    const nextIndex = currentIndex <= 0 ? spotifyQueue.length - 1 : currentIndex - 1;
+    setSpotifyCurrentTrack(spotifyQueue[nextIndex]);
+  }, [spotifyCurrentTrack, spotifyQueue]);
+
+  const handleSpotifyNext = useCallback(() => {
+    if (!spotifyCurrentTrack || spotifyQueue.length === 0) {
+      return;
+    }
+
+    const currentIndex = spotifyQueue.findIndex((track) => track.slug === spotifyCurrentTrack.slug);
+    const nextIndex = currentIndex === -1 || currentIndex === spotifyQueue.length - 1 ? 0 : currentIndex + 1;
+    setSpotifyCurrentTrack(spotifyQueue[nextIndex]);
+  }, [spotifyCurrentTrack, spotifyQueue]);
+
+  const handleSpotifyShuffle = useCallback(() => {
+    if (spotifyQueue.length === 0) {
+      return;
+    }
+
+    const nextTrack = spotifyQueue[Math.floor(Math.random() * spotifyQueue.length)];
+    setSpotifyCurrentTrack(nextTrack);
+  }, [spotifyQueue]);
+
   const renderContent = () => {
-    const { site, page, query, videoId } = navState;
+    const { site, page, query, videoId, resourceType, resourceId } = navState;
 
     switch (site) {
       case 'google':
@@ -397,6 +521,26 @@ function App() {
           />
         );
 
+      case 'musically':
+        if (page === 'explore') {
+          return (
+            <MusicallyDiscover
+              key={`musically-explore-${query || 'home'}`}
+              query={query}
+              onSearch={handleMusicallySearch}
+              onHome={() => actions.navigate('musically', 'home')}
+            />
+          );
+        }
+        return (
+          <MusicallyHome
+            key={`musically-home-${query || 'home'}`}
+            query={query}
+            onSearch={handleMusicallySearch}
+            onExplore={handleMusicallyDiscover}
+          />
+        );
+
       case 'tumblr':
         if ((page === 'search' || page === 'tagged') && query) {
           return (
@@ -417,6 +561,65 @@ function App() {
             onHome={() => actions.navigate('tumblr', 'home')}
           />
         );
+
+      case 'spotify': {
+        const activeSection =
+          page === 'search'
+            ? 'search'
+            : page === 'playlist' && resourceId === 'closer-radio'
+              ? 'radio'
+              : page === 'playlist' && resourceId === 'discover-weekly'
+                ? 'library'
+                : 'home';
+
+        let spotifyContent;
+        if (page === 'playlist' && resourceType && resourceId) {
+          spotifyContent = (
+            <SpotifyPlaylist
+              key={`${resourceType}-${resourceId}`}
+              resourceType={resourceType}
+              resourceId={resourceId}
+              onSearch={handleSpotifySearch}
+              onPlayTrack={handleSpotifyPlayTrack}
+            />
+          );
+        } else if (page === 'search') {
+          spotifyContent = (
+            <SpotifySearch
+              query={query}
+              onSearch={handleSpotifySearch}
+              onOpenAlbum={handleSpotifyOpenAlbum}
+              onPlayTrack={handleSpotifyPlayTrack}
+            />
+          );
+        } else {
+          spotifyContent = (
+            <SpotifyHome
+              onSearch={handleSpotifySearch}
+              onOpenPlaylist={handleSpotifyOpenPlaylist}
+              onOpenAlbum={handleSpotifyOpenAlbum}
+              onPlayTrack={handleSpotifyPlayTrack}
+            />
+          );
+        }
+
+        return (
+          <SpotifyShell
+            currentTrack={spotifyCurrentTrack}
+            hasQueue={spotifyQueue.length > 0}
+            activeSection={activeSection}
+            onHome={handleSpotifyHome}
+            onSearch={() => handleSpotifySearch(query)}
+            onRadio={handleSpotifyRadio}
+            onPlaylistOpen={handleSpotifyOpenPlaylist}
+            onPreviousTrack={handleSpotifyPrevious}
+            onNextTrack={handleSpotifyNext}
+            onShuffleTrack={handleSpotifyShuffle}
+          >
+            {spotifyContent}
+          </SpotifyShell>
+        );
+      }
 
       default:
         return <GoogleHome onSearch={(q) => handleSearch(q, 'google')} />;
@@ -476,7 +679,11 @@ function App() {
       )}
 
       {showMannequin && (
-        <MannequinChallenge onDismiss={() => confirmWithHarambe(() => setShowMannequin(false))} />
+        <MannequinChallenge
+          durationSeconds={mannequinDurationSeconds}
+          trackLabel={mannequinTrackLabel}
+          onDismiss={() => confirmWithHarambe(() => setShowMannequin(false))}
+        />
       )}
 
       {damnDanielMsg && (
