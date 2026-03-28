@@ -20,6 +20,7 @@ const POINTING_IMAGES = [
   '/pointing13.jpg',
   '/pointing14.webp',
   '/pointing15.gif',
+  '/pointing16.gif',
   '/pointing17.webp',
   '/pointing18.jpeg',
   '/pointing19.jpg',
